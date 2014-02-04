@@ -5,8 +5,11 @@ public class Main {
 
 	public static void main(String[] arr) {
 		StepFileReader sfr = new StepFileReader("c:/1/parallelep.STEP");
-		new ClosedShell(sfr.getClosedShellLineId());
-		System.out.println("done.");
+		ClosedShell cs = new ClosedShell(sfr.getClosedShellLineId());
+		cs.getParallel();
+		System.out.println("done. " );
 	}
-
+	
 }
+
+

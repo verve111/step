@@ -9,6 +9,7 @@ public class RegExp {
 	private static Pattern twoParameters = Pattern.compile("\\w+\\s*\\((.+),(.+)\\)");
 	private static Pattern threeParameters = Pattern.compile("\\w+\\s*\\((.+),(.+),(.+)\\)");
 	private static Pattern fourParameters = Pattern.compile("\\w+\\s*\\((.+),(.+),(.+),(.+)\\)");
+	private static Pattern fiveParameters = Pattern.compile("\\w+\\s*\\((.+),(.+),(.+),(.+),(.+)\\)");
 	
 	public static String getValueBetweenParentheses(String s) {
 		Matcher m = parantheses.matcher(s);
@@ -31,7 +32,7 @@ public class RegExp {
 	// without parantheses inside
 	public static String getParameter(String s, int paramNum, int totalParamsCount) {
 		Matcher m = totalParamsCount == 2 ? twoParameters.matcher(s) : totalParamsCount == 3 ? threeParameters.matcher(s)
-				: totalParamsCount == 4 ? fourParameters.matcher(s) : null;
+				: totalParamsCount == 4 ? fourParameters.matcher(s) : totalParamsCount == 5 ? fiveParameters.matcher(s) : null;
 		while (m.find()) {
 			return m.group(paramNum).trim();
 		}
