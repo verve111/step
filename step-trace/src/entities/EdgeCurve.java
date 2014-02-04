@@ -3,10 +3,12 @@ package entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import keepers.CartesianPointKeeper;
+
 import utils.RegExp;
 import utils.StringUtils;
 
-public class EdgeCurve extends AbstractEntity {
+public class EdgeCurve extends AbstractEntity implements Cloneable {
 
 	public static final String _EDGE_CURVE = "EDGE_CURVE";
 	private List<String> outerRefs = new ArrayList<String>();
@@ -19,8 +21,10 @@ public class EdgeCurve extends AbstractEntity {
 		super(lineId);
 		String edgeCurveVal = linesMap.get(lineId);
 		// VERTEX_POINT ( 'NONE', #191 ) 
-		cp1 = new CartesianPoint(StringUtils.getCartesianPointIdFromVertexPointId(RegExp.getParameter(edgeCurveVal, 2, 5), linesMap));
-		cp2 = new CartesianPoint(StringUtils.getCartesianPointIdFromVertexPointId(RegExp.getParameter(edgeCurveVal, 3, 5), linesMap));
+		cp1 = CartesianPointKeeper.getCartesianPoint(StringUtils.getCartesianPointIdFromVertexPointId(
+				RegExp.getParameter(edgeCurveVal, 2, 5), linesMap));
+		cp2 = CartesianPointKeeper.getCartesianPoint(StringUtils.getCartesianPointIdFromVertexPointId(
+				RegExp.getParameter(edgeCurveVal, 3, 5), linesMap));
 		String edgeGeomId = RegExp.getParameter(edgeCurveVal, 4, 5);
 		String edgeGeomVal = linesMap.get(edgeGeomId);
 		if (edgeGeomVal.startsWith(Line._LINE)) {
@@ -55,5 +59,17 @@ public class EdgeCurve extends AbstractEntity {
 
 	public CartesianPoint getEndPoint() {
 		return cp2;
+	}
+	
+	public EdgeCurve getClonedRotatedEdge() {
+		EdgeCurve ec = null;
+		try {
+			ec = (EdgeCurve)this.clone();
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+		ec.cp1 = this.cp2;
+		ec.cp2 = this.cp1;
+		return ec;
 	}
 }

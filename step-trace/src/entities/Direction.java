@@ -21,6 +21,8 @@ public class Direction extends AbstractEntity implements Cloneable {
 
 	private String n = "0.0000000000000000000";
 	private String m = "-0.0000000000000000000";
+	private String o = "1.000000000000000000";
+	private String om = "-1.000000000000000000";
 	
 	// DIRECTION ( 'NONE',  ( 0.0000000000000000000, 1.000000000000000000, 0.0000000000000000000 
 	public Direction(String lineId) {
@@ -76,5 +78,12 @@ public class Direction extends AbstractEntity implements Cloneable {
 	public int hashCode() {
 		return 1;
 	}
+	
+	public boolean isYOriented() {
+		return (getX().equals(n) || getX().equals(m)) && (getY().equals(o) || getY().equals(om)) && (getZ().equals(n) || getZ().equals(m)); 
+	}
 
+	public boolean isZXOriented() {
+		return (getY().equals(n) || getY().equals(m)); 
+	}
 }

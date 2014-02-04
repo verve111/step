@@ -43,5 +43,15 @@ public class ClosedShell extends AbstractEntity {
 			}
 		}
 	}
+	
+	public AdvancedFace getBottom() {
+		for (AdvancedFace af : list) {
+			Axis2Placement3D a2p3D = af.getSurfGeometry().getAxis2Placement3D();
+			if (a2p3D.getCartesianPoint().isNull(2) && a2p3D.getAxis().isYOriented()) {
+				return af;
+			}
+		}
+		return null;
+	}
 
 }

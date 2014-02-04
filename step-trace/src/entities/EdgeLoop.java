@@ -13,6 +13,7 @@ public class EdgeLoop extends AbstractEntity {
 	private List<EdgeCurve> edgeCurves;
 	
 	// EDGE_LOOP ( 'NONE', ( #111, #113, #112, #114 ) )
+	// name, (set)
 	public EdgeLoop(String lineId) {
 		super(lineId);
 		edgeCurves = new ArrayList<EdgeCurve>();

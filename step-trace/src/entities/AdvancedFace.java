@@ -2,7 +2,6 @@ package entities;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 import utils.RegExp;
@@ -50,8 +49,8 @@ public class AdvancedFace extends AbstractEntity {
 		return surfGeometry;
 	}
 	
-	public LinkedList<EdgeCurve> getSortedEdgeCurves() {
-		LinkedList<EdgeCurve> sorted = new LinkedList<EdgeCurve>();
+	public List<EdgeCurve> getSortedEdgeCurves() {
+		List<EdgeCurve> sorted = new ArrayList<EdgeCurve>();
 		if (list.size() > 1) {
 			throw new RuntimeException("getSortedEdgeCurves :: more than one");
 		}
@@ -66,19 +65,16 @@ public class AdvancedFace extends AbstractEntity {
 			curr = getNextEdge(curr, unsorted);
 			sorted.add(curr);
 		}
-		for (EdgeCurve ec : sorted) {
-			System.out.println(ec.getStartPoint() + " " + ec.getEndPoint());
-		}
-		System.out.println("____");
-		return null;
+		return sorted;
 	}
 	
 	private EdgeCurve getNextEdge(EdgeCurve curr, List<EdgeCurve> unsorted) {
 		for (EdgeCurve ec : unsorted) {
 			if (!ec.getLineId().equals(curr.getLineId())) {
-				if (curr.getEndPoint().getLineId().equals(ec.getStartPoint().getLineId())
-						|| curr.getEndPoint().getLineId().equals(ec.getEndPoint().getLineId())) {
+				if (curr.getEndPoint().getLineId().equals(ec.getStartPoint().getLineId())) {
 					return ec;
+				} else if (curr.getEndPoint().getLineId().equals(ec.getEndPoint().getLineId())) {
+					return ec.getClonedRotatedEdge();
 				}
 			}
 		}
@@ -87,12 +83,21 @@ public class AdvancedFace extends AbstractEntity {
 	
 	
 	public boolean isRectangle() {
-		if (list.size() == 4) {
-			for (FaceBound fb : list) {
-				// fb.getEdgeLoop().getEdgeCurve().getEdgeGeometry()
+		boolean res = true;
+		List<EdgeCurve> li = getSortedEdgeCurves();
+		if (li.size() == 4) {
+			for (int i = 0; i < 3; i++) {
+				res = res && isPerpendicular(li.get(i).getEdgeGeometry().getDirection(), li.get(i + 1).getEdgeGeometry().getDirection());
 			}
 		}
-		return false;
+		return res;
+	}
+	
+	private boolean isPerpendicular(Direction d1, Direction d2) {
+		double res = Double.valueOf(d1.getX()) * Double.valueOf(d2.getX()) + Double.valueOf(d1.getY()) * Double.valueOf(d2.getY())
+				+ Double.valueOf(d1.getZ()) * Double.valueOf(d2.getZ());
+		System.out.println("res: " + res);
+		return res == 0d;
 	}
 
 }
