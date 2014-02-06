@@ -39,6 +39,10 @@ public class EdgeCurve extends AbstractEntity implements Cloneable {
 		outerRefs.add(entityId);
 	}
 	
+	public List<String> getOuterRefs() {
+		return outerRefs;
+	}
+
 	@Override
 	public String getEntityName() {
 		return _EDGE_CURVE;

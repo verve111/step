@@ -9,10 +9,10 @@ public class FaceOuterBound extends AbstractEntity implements FaceBound {
 	private EdgeLoop el;
 	
 	// FACE_OUTER_BOUND ( 'NONE', #101, .T. ) 
-	public FaceOuterBound(String lineId) {
+	public FaceOuterBound(String lineId, String advFaceLineId) {
 		super(lineId);
 		String fobVal = linesMap.get(lineId);
-		el = new EdgeLoop(RegExp.getParameter(fobVal, 2, 3));
+		el = new EdgeLoop(RegExp.getParameter(fobVal, 2, 3), advFaceLineId);
 	}
 	
 	@Override

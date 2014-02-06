@@ -14,7 +14,7 @@ public class EdgeLoop extends AbstractEntity {
 	
 	// EDGE_LOOP ( 'NONE', ( #111, #113, #112, #114 ) )
 	// name, (set)
-	public EdgeLoop(String lineId) {
+	public EdgeLoop(String lineId, String advFaceLineId) {
 		super(lineId);
 		edgeCurves = new ArrayList<EdgeCurve>();
 		String edgeLoopVal = linesMap.get(lineId);
@@ -23,7 +23,7 @@ public class EdgeLoop extends AbstractEntity {
 			String orientedEdgeLine = linesMap.get(orientedEdgeId.trim());
 			String edgeCurveId = RegExp.getParameter(orientedEdgeLine, 3, 4);
 			EdgeCurve ec = EdgeCurveKeeper.getEdgeCurve(edgeCurveId);
-			ec.addOuterRef(lineId);
+			ec.addOuterRef(advFaceLineId);
 			edgeCurves.add(ec);
 		}
 	}

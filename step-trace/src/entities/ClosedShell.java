@@ -11,7 +11,7 @@ public class ClosedShell extends AbstractEntity {
 	public final static String _CLOSED_SHELL = "CLOSED_SHELL";
 	private List<AdvancedFace> list = new ArrayList<AdvancedFace>();
 	
-	public List<AdvancedFace> getAdvancedFace() {
+	public List<AdvancedFace> getAdvancedFaces() {
 		return list;
 	}
 
@@ -20,7 +20,7 @@ public class ClosedShell extends AbstractEntity {
 		super(lineId);
 		String val = RegExp.getValueBetweenDoubleParentheses(linesMap.get(lineId));
 		for (String advFaceId : Arrays.asList(val.split(","))) {
-			list.add(new AdvancedFace(advFaceId.trim()));
+			list.add(new AdvancedFace(advFaceId.trim(), this));
 		}
 	}
 
@@ -38,7 +38,7 @@ public class ClosedShell extends AbstractEntity {
 				}
 				Axis2Placement3D a2p3DInner = aFinner.getSurfGeometry().getAxis2Placement3D();
 				if (a2p3D.getAxis().equals(a2p3DInner.getAxis()) && a2p3D.getRef_direction().equals(a2p3DInner.getRef_direction())) {
-					//System.out.println("da " + af.getLineId() + ", " + aFinner.getLineId());
+					System.out.println("da " + af.getLineId() + ", " + aFinner.getLineId());
 				}
 			}
 		}
@@ -52,6 +52,26 @@ public class ClosedShell extends AbstractEntity {
 			}
 		}
 		return null;
+	}
+	
+	public AdvancedFace getAdvancedFaceById(String id) {
+		for (AdvancedFace af : list) {
+			if (af.getLineId().equals(id)) {
+				return af;
+			}
+		}
+		return null;
+	}
+	
+	public boolean isAllPlanes() {
+		boolean res = true;
+		for (AdvancedFace af : list) {
+			res &= (af.getSurfGeometry() instanceof Plane);
+		}
+		if (res) {
+			System.out.println("all faces are planes");
+		}
+		return res;
 	}
 
 }
