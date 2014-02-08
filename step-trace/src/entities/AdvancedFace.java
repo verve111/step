@@ -32,6 +32,8 @@ public class AdvancedFace extends AbstractEntity {
 		String surfGeometryLineVal = linesMap.get(surfGeometryLineNum);
 		if (surfGeometryLineVal.startsWith(Plane._PLANE)) {
 			surfGeometry = new Plane(surfGeometryLineNum);
+		} else if (surfGeometryLineVal.startsWith(CylindricalSurface._CYLINDRICAL_SURFACE)) {
+			surfGeometry = new CylindricalSurface(surfGeometryLineNum);
 		} else {
 			System.out.println("___not found surface geometry");
 		}
@@ -112,6 +114,20 @@ public class AdvancedFace extends AbstractEntity {
 		return false;
 	}
 	
+	public boolean isCircularAndOrtogonal() {
+		boolean res = true;
+		List<EdgeCurve> li = getSortedEdgeCurves();
+		if (li.size() > 3) {
+			for (int i = 0; i < li.size(); i++) {
+				//if (li.get(i))
+				res = res && li.get(i).getEdgeGeometry().getDirection().isPerpendicular(li.get(i + 1).getEdgeGeometry().getDirection());
+			}
+		} else {
+			res = false;
+		}
+		return res;
+	}
+	
 	public boolean areAdjacentsXZOriented() {
 		boolean res = true;
 		List<EdgeCurve> li = getEdgeCurves();
@@ -124,6 +140,10 @@ public class AdvancedFace extends AbstractEntity {
 			}
 		}
 		return res;
+	}
+
+	public ClosedShell getClosedShell() {
+		return cs;
 	}
 
 }

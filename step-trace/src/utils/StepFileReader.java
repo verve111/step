@@ -7,8 +7,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import keepers.EdgeCurveKeeper;
-
 import entities.AbstractEntity;
 import entities.ClosedShell;
 

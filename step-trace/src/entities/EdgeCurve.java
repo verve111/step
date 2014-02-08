@@ -6,7 +6,7 @@ import java.util.List;
 import keepers.CartesianPointKeeper;
 
 import utils.RegExp;
-import utils.StringUtils;
+import utils.CommonUtils;
 
 public class EdgeCurve extends AbstractEntity implements Cloneable {
 
@@ -21,14 +21,16 @@ public class EdgeCurve extends AbstractEntity implements Cloneable {
 		super(lineId);
 		String edgeCurveVal = linesMap.get(lineId);
 		// VERTEX_POINT ( 'NONE', #191 ) 
-		cp1 = CartesianPointKeeper.getCartesianPoint(StringUtils.getCartesianPointIdFromVertexPointId(
+		cp1 = CartesianPointKeeper.getCartesianPoint(CommonUtils.getCartesianPointIdFromVertexPointId(
 				RegExp.getParameter(edgeCurveVal, 2, 5), linesMap));
-		cp2 = CartesianPointKeeper.getCartesianPoint(StringUtils.getCartesianPointIdFromVertexPointId(
+		cp2 = CartesianPointKeeper.getCartesianPoint(CommonUtils.getCartesianPointIdFromVertexPointId(
 				RegExp.getParameter(edgeCurveVal, 3, 5), linesMap));
 		String edgeGeomId = RegExp.getParameter(edgeCurveVal, 4, 5);
 		String edgeGeomVal = linesMap.get(edgeGeomId);
 		if (edgeGeomVal.startsWith(Line._LINE)) {
 			eg = new Line(edgeGeomId);
+		} else if (edgeGeomVal.startsWith(Circle._CIRCLE)) {
+			eg = new Circle(edgeGeomId);
 		} else {
 			System.out.println("___not found edge geometry");
 		}
@@ -50,7 +52,7 @@ public class EdgeCurve extends AbstractEntity implements Cloneable {
 	
 	@Override
 	public String toString() {
-		return getLineId() + ", refs: " + StringUtils.join(outerRefs, ", ");
+		return getLineId() + ", refs: " + CommonUtils.join(outerRefs, ", ");
 	}
 	
 	public EdgeGeometry getEdgeGeometry() {

@@ -1,17 +1,16 @@
 import keepers.CartesianPointKeeper;
 import keepers.MaxMeasures;
+import utils.CommonUtils;
 import utils.StepFileReader;
 import entities.AdvancedFace;
 import entities.ClosedShell;
 
 public class Main {
 	
-	private static ClosedShell cs;
-
 	public static void main(String[] arr) {
 		System.out.println("-----start ");
-		StepFileReader sfr = new StepFileReader("c:/1/triangle.STEP");
-		cs = new ClosedShell(sfr.getClosedShellLineId());
+		StepFileReader sfr = new StepFileReader(CommonUtils._PATH + "circular_and_ortogonal.STEP");
+		ClosedShell cs = new ClosedShell(sfr.getClosedShellLineId());
 		AdvancedFace bottom = cs.getBottom();
 		if (bottom != null) {
 			// non rotational
@@ -21,15 +20,15 @@ public class Main {
 				// flat
 				System.out.println("flat");
 				if (bottom.isRectangle()) {
-					System.out.println("bottom rectangle");
+					System.out.println("bottom: rectangle");
 					if (cs.getAdvancedFaces().size() == 6) {
-						if (isOrtoParallelep()) {
+						if (CommonUtils.isOrtoParallelep(cs)) {
 							System.out.println("final: " + "60x0x");
 							return;
 						}
 					}
 				} else if (bottom.isRightAngledTriangle()) {
-					System.out.println("bottom irightAngledTriangle");
+					System.out.println("bottom: rightAngledTriangle");
 					if (bottom.areAdjacentsXZOriented()) {
 						System.out.println("final: " + "61x0x");
 						return;
@@ -46,14 +45,6 @@ public class Main {
 		System.out.println("-----done. ");
 	}
 	
-	private static boolean isOrtoParallelep() {
-		boolean res = true;
-		for (AdvancedFace af : cs.getAdvancedFaces()) {
-			res &= af.isRectangle();
-		}
-		return res;
-	}
-
 }
 
 

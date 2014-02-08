@@ -17,5 +17,13 @@ public class EdgeCurveKeeper {
 		}
 		return res;
 	}
-
+	
+	public static int size() {
+		return map.size();
+	}
+	
+	public static void clearAll() {
+		map.clear();
+	}
+	
 }

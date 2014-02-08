@@ -45,6 +45,10 @@ public class CartesianPointKeeper {
 		}
 		return new MaxMeasures(maxX - minX, maxY - minY, maxZ - minZ);
 	}
+	
+	public static void clearAll() {
+		map.clear();
+	}
 
 }
 

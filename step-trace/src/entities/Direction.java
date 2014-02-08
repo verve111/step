@@ -1,8 +1,7 @@
 package entities;
 
-import java.math.BigDecimal;
-
 import utils.RegExp;
+import utils.CommonUtils;
 
 public class Direction extends AbstractEntity implements Cloneable {
 
@@ -18,13 +17,9 @@ public class Direction extends AbstractEntity implements Cloneable {
 		String x = dir[0].trim();
 		String y = dir[1].trim();
 		String z = dir[2].trim();
-		this.x = toFloat(x);
-		this.y = toFloat(y);
-		this.z = toFloat(z);
-	}
-
-	private float toFloat(String s) {
-		return new BigDecimal(s).setScale(7, BigDecimal.ROUND_HALF_UP).floatValue();
+		this.x = CommonUtils.toFloat(x);
+		this.y = CommonUtils.toFloat(y);
+		this.z = CommonUtils.toFloat(z);
 	}
 
 	@Override
