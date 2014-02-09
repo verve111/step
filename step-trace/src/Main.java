@@ -9,7 +9,7 @@ public class Main {
 	
 	public static void main(String[] arr) {
 		System.out.println("-----start ");
-		StepFileReader sfr = new StepFileReader(CommonUtils._PATH + "circular_and_ortogonal.STEP");
+		StepFileReader sfr = new StepFileReader(CommonUtils._PATH + "hexahedron.STEP");
 		ClosedShell cs = new ClosedShell(sfr.getClosedShellLineId());
 		AdvancedFace bottom = cs.getBottom();
 		if (bottom != null) {
@@ -31,6 +31,18 @@ public class Main {
 					System.out.println("bottom: rightAngledTriangle");
 					if (bottom.areAdjacentsXZOriented()) {
 						System.out.println("final: " + "61x0x");
+						return;
+					}
+				} else if (bottom.isCircularAndOrtogonal()) {
+					System.out.println("bottom: CircularAndOrtogonal");
+					if (bottom.areAdjacentsXZOriented()) {
+						System.out.println("final: " + "63x0x");
+						return;
+					}
+				} else if (bottom.isAllAnglesTheSame()) {
+					System.out.println("bottom: same angled");
+					if (bottom.areAdjacentsXZOriented()) {
+						System.out.println("final: " + "64x0x");
 						return;
 					}
 				}

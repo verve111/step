@@ -69,4 +69,14 @@ public class Direction extends AbstractEntity implements Cloneable {
 	public boolean isZXOriented() {
 		return y == 0;
 	}
+	
+	public boolean isZXOrientedForCylindricalSurface() {
+		return x == 0 && Math.abs(y) == 1 && z == 0;
+	}
+	
+	public float getDotProduct(Direction d) {
+		
+		return CommonUtils.toFloat(this.x * d.x + this.y * d.y + this.z * d.z);
+	}
+	
 }

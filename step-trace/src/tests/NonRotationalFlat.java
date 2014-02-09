@@ -41,8 +41,23 @@ public class NonRotationalFlat {
 	}
 	
 	@Test	
-	public void RightAngledTriangle() {
+	public void rightAngledTriangle() {
 		assertTrue("Not a rightangled triangle", getBottom("right_triangle.STEP").isRightAngledTriangle());
+	}
+	
+	@Test	
+	public void circularAndOrtogonal() {
+		assertTrue("Not a CircularAndOrtogonal", getBottom("circular_and_ortogonal.STEP").isCircularAndOrtogonal());
+	}
+	
+	@Test	
+	public void circularAndOrtogonalRotatedBottom() {
+		assertTrue("Not a CircularAndOrtogonal", getBottom("circular_and_ortogonal_rotated_bottom.STEP").isCircularAndOrtogonal());
+	}
+	
+	@Test	/* shestiugolnik*/
+	public void hexahedron() {
+		assertTrue("Not a hexahedron", getBottom("hexahedron.STEP").isAllAnglesTheSame());
 	}
 	
 	@After

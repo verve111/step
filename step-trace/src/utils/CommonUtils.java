@@ -36,6 +36,10 @@ public class CommonUtils {
 		return new BigDecimal(s).setScale(7, BigDecimal.ROUND_HALF_UP).floatValue();
 	}
 	
+	public static float toFloat(float s) {
+		return new BigDecimal(s).setScale(6, BigDecimal.ROUND_HALF_UP).floatValue();
+	}
+	
 	public static boolean isOrtoParallelep(ClosedShell cs) {
 		boolean res = true;
 		for (AdvancedFace af : cs.getAdvancedFaces()) {

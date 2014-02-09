@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import keepers.CircularList;
+
 import utils.RegExp;
 
 public class AdvancedFace extends AbstractEntity {
@@ -53,6 +55,27 @@ public class AdvancedFace extends AbstractEntity {
 		return surfGeometry;
 	}
 	
+	public boolean areAdjacentsXZOriented() {
+		boolean res = true;
+		List<EdgeCurve> li = getEdgeCurves();
+		for (EdgeCurve ec : li) {
+			for (String ref : ec.getOuterRefs()) {
+				if (!ref.equals(this.getLineId())) {
+					SurfaceGeometry sg = cs.getAdvancedFaceById(ref).getSurfGeometry();
+					if (sg instanceof CylindricalSurface) {
+						if (sg.getAxis2Placement3D().getAxis().isZXOrientedForCylindricalSurface()) {
+							continue;
+						} else {
+							System.out.println("WARN: areAdjacentsXZOriented for cylindrical surface");
+						}
+					}
+					res &= sg.getAxis2Placement3D().getAxis().isZXOriented();
+				}
+			}
+		}
+		return res;
+	}
+	
 	public List<EdgeCurve> getEdgeCurves() {
 		if (list.size() > 1) {
 			throw new RuntimeException("getSortedEdgeCurves :: more than one");
@@ -60,9 +83,9 @@ public class AdvancedFace extends AbstractEntity {
 		return list.get(0).getEdgeLoop().getEdgeCurves();
 	}
 	
-	public List<EdgeCurve> getSortedEdgeCurves() {
+	public CircularList<EdgeCurve> getSortedEdgeCurves() {
 		List<EdgeCurve> unsorted = getEdgeCurves();
-		List<EdgeCurve> sorted = new ArrayList<EdgeCurve>();
+		CircularList<EdgeCurve> sorted = new CircularList<EdgeCurve>();
 		if (unsorted.size() < 1) {
 			System.out.println("Warning: getSortedEdgeCurves");
 			return null;
@@ -91,10 +114,10 @@ public class AdvancedFace extends AbstractEntity {
 	
 	public boolean isRectangle() {
 		boolean res = true;
-		List<EdgeCurve> li = getSortedEdgeCurves();
-		if (li.size() == 4) {
-			for (int i = 0; i < 3; i++) {
-				res = res && li.get(i).getEdgeGeometry().getDirection().isPerpendicular(li.get(i + 1).getEdgeGeometry().getDirection());
+		CircularList<EdgeCurve> li = getSortedEdgeCurves();
+		if (li.isAllLines() && li.size() == 4) {
+			for (int i = 0; i < li.size(); i++) {
+				res = res && li.get(i).getEdgeGeometry().getDirection().isPerpendicular(li.getNext(i).getEdgeGeometry().getDirection());
 			}
 		} else {
 			res = false;
@@ -103,10 +126,10 @@ public class AdvancedFace extends AbstractEntity {
 	}
 	
 	public boolean isRightAngledTriangle() {
-		List<EdgeCurve> li = getSortedEdgeCurves();
-		if (li.size() == 3) {
-			for (int i = 0; i < 3; i++) {
-				if (li.get(i).getEdgeGeometry().getDirection().isPerpendicular(li.get(i == 2 ? 0 : i + 1).getEdgeGeometry().getDirection())) {
+		CircularList<EdgeCurve> li = getSortedEdgeCurves();
+		if (li.isAllLines() && li.size() == 3) {
+			for (int i = 0; i < li.size(); i++) {
+				if (li.get(i).getEdgeGeometry().getDirection().isPerpendicular(li.getNext(i).getEdgeGeometry().getDirection())) {
 					return true;
 				}
 			}
@@ -116,11 +139,13 @@ public class AdvancedFace extends AbstractEntity {
 	
 	public boolean isCircularAndOrtogonal() {
 		boolean res = true;
-		List<EdgeCurve> li = getSortedEdgeCurves();
-		if (li.size() > 3) {
+		CircularList<EdgeCurve> li = getSortedEdgeCurves();
+		if (!li.isAllLines() && li.size() > 3) {
 			for (int i = 0; i < li.size(); i++) {
-				//if (li.get(i))
-				res = res && li.get(i).getEdgeGeometry().getDirection().isPerpendicular(li.get(i + 1).getEdgeGeometry().getDirection());
+				if (li.get(i).getEdgeGeometry() instanceof Circle || li.getNext(i).getEdgeGeometry() instanceof Circle) {
+					continue;
+				}
+				res = res && li.get(i).getEdgeGeometry().getDirection().isPerpendicular(li.getNext(i).getEdgeGeometry().getDirection());
 			}
 		} else {
 			res = false;
@@ -128,20 +153,25 @@ public class AdvancedFace extends AbstractEntity {
 		return res;
 	}
 	
-	public boolean areAdjacentsXZOriented() {
+	public boolean isAllAnglesTheSame() {
 		boolean res = true;
-		List<EdgeCurve> li = getEdgeCurves();
-		for (EdgeCurve ec : li) {
-			for (String ref : ec.getOuterRefs()) {
-				if (!ref.equals(this.getLineId())) {
-					AdvancedFace adjacentAF = cs.getAdvancedFaceById(ref);
-					res &= adjacentAF.getSurfGeometry().getAxis2Placement3D().getAxis().isZXOriented();
+		CircularList<EdgeCurve> li = getSortedEdgeCurves();
+		float angle = 0;
+		if (li.isAllLines() && li.size() > 4 && li.size() < 30) {
+			for (int i = 0; i < li.size(); i++) {
+				float product = li.get(i).getEdgeGeometry().getDirection().getDotProduct(li.getNext(i).getEdgeGeometry().getDirection());
+				if (i == 0) {
+					angle = product;
+				} else {
+					if (angle != product) return false ;
 				}
 			}
+		} else {
+			res = false;
 		}
 		return res;
 	}
-
+	
 	public ClosedShell getClosedShell() {
 		return cs;
 	}
