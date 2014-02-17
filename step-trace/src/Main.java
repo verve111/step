@@ -9,41 +9,59 @@ public class Main {
 	
 	public static void main(String[] arr) {
 		System.out.println("-----start ");
-		StepFileReader sfr = new StepFileReader(CommonUtils._PATH + "hexahedron.STEP");
+		int firstDigit = -1, secondDigit = -1, thirdDigit = -1, fourthDigit = -1;
+		StepFileReader sfr = new StepFileReader(CommonUtils._PATH + "chamfers.STEP");
 		ClosedShell cs = new ClosedShell(sfr.getClosedShellLineId());
-		AdvancedFace bottom = cs.getBottom();
+		AdvancedFace bottom = cs.getBottomPlane();
 		if (bottom != null) {
 			// non rotational
 			System.out.println("non rotational");
 			MaxMeasures m = CartesianPointKeeper.getMaxShapeMeasures();
 			if (m.maxLength / m.maxWidth <= 3 && m.maxLength / m.maxHeight >= 4) {
 				// flat
+				firstDigit = 6;
 				System.out.println("flat");
 				if (bottom.isRectangle()) {
 					System.out.println("bottom: rectangle");
-					if (cs.getAdvancedFaces().size() == 6) {
-						if (CommonUtils.isOrtoParallelep(cs)) {
-							System.out.println("final: " + "60x0x");
-							return;
-						}
+					if (bottom.areAdjacentsXZOriented()) {
+						secondDigit = 0;
 					}
 				} else if (bottom.isRightAngledTriangle()) {
 					System.out.println("bottom: rightAngledTriangle");
 					if (bottom.areAdjacentsXZOriented()) {
-						System.out.println("final: " + "61x0x");
-						return;
-					}
-				} else if (bottom.isCircularAndOrtogonal()) {
-					System.out.println("bottom: CircularAndOrtogonal");
-					if (bottom.areAdjacentsXZOriented()) {
-						System.out.println("final: " + "63x0x");
-						return;
+						secondDigit = 1;
 					}
 				} else if (bottom.isAllAnglesTheSame()) {
 					System.out.println("bottom: same angled");
 					if (bottom.areAdjacentsXZOriented()) {
-						System.out.println("final: " + "64x0x");
-						return;
+						secondDigit = 2;
+					}
+				} else if (bottom.isCircularAndOrtogonal()) {
+					System.out.println("bottom: CircularAndOrtogonal");
+					if (bottom.areAdjacentsXZOriented()) {
+						secondDigit = 3;
+					}
+				} else if (bottom.areAdjacentsXZOriented()) {
+					secondDigit = 4;
+				} else {
+					secondDigit = 9;
+				}
+				if (0 <= secondDigit && secondDigit <= 4) {
+					int k = cs.getYOrientedFacesCount(); 
+					if (k == 2) {
+						if (cs.getTopPlane().hasTopChamfers()) {
+							fourthDigit = 1;
+							System.out.println("machining: has chambers");
+						} else {
+							fourthDigit = 0;
+							System.out.println("machining: no machining");
+						}
+					} else if (k == 3) {
+						fourthDigit = 2;
+						System.out.println("machining: stepped 2");
+					} else if (k > 3) {
+						fourthDigit = 3;
+						System.out.println("machining: stepped > 2");
 					}
 				}
 			} else if (m.maxLength / m.maxWidth > 3) {
@@ -54,7 +72,7 @@ public class Main {
 				System.out.println("cubic");
 			}
 		}
-		System.out.println("-----done. ");
+		System.out.println("-----done: " + firstDigit + secondDigit + thirdDigit + fourthDigit + "x");
 	}
 	
 }

@@ -19,7 +19,7 @@ public class NonRotationalFlat {
 	private AdvancedFace getBottom(String fileName) {
 		StepFileReader sfr = new StepFileReader(CommonUtils._PATH + fileName);
 		ClosedShell cs = new ClosedShell(sfr.getClosedShellLineId());
-		AdvancedFace bottom = cs.getBottom();
+		AdvancedFace bottom = cs.getBottomPlane();
 		assertNotNull("Bottom plane is not found", bottom);
 		MaxMeasures m = CartesianPointKeeper.getMaxShapeMeasures();
 		assertTrue("Not a flat shape", (m.maxLength / m.maxWidth <= 3 && m.maxLength / m.maxHeight >= 4));
@@ -35,14 +35,13 @@ public class NonRotationalFlat {
 
 	@Test	
 	public void ortoParallelepipedRotatedBottom() {
-		AdvancedFace bottom = getBottom("orto_parallelepiped_rotated_bottom.STEP");
-		assertTrue("Amount of faces != 6", bottom.getClosedShell().getAdvancedFaces().size() == 6);
-		assertTrue("Not an ortoParallelepiped", CommonUtils.isOrtoParallelep(bottom.getClosedShell()));
+		assertTrue("Not an ortoParallelepiped", getBottom("orto_parallelepiped_rotated_bottom.STEP").isRectangle());
 	}
 	
 	@Test	
 	public void rightAngledTriangle() {
 		assertTrue("Not a rightangled triangle", getBottom("right_triangle.STEP").isRightAngledTriangle());
+		assertTrue(getBottom("right_triangle.STEP").areAdjacentsXZOriented());
 	}
 	
 	@Test	

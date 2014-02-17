@@ -29,7 +29,7 @@ public class ClosedShell extends AbstractEntity {
 		return _CLOSED_SHELL;
 	}
 	
-	public void getParallel() {
+	/*public void getParallel() {
 		for (AdvancedFace af : list) {
 			Axis2Placement3D a2p3D = af.getSurfGeometry().getAxis2Placement3D();
 			for (AdvancedFace aFinner : list) {
@@ -42,16 +42,39 @@ public class ClosedShell extends AbstractEntity {
 				}
 			}
 		}
-	}
+	}*/
 	
-	public AdvancedFace getBottom() {
+	public AdvancedFace getBottomPlane() {
 		for (AdvancedFace af : list) {
 			Axis2Placement3D a2p3D = af.getSurfGeometry().getAxis2Placement3D();
-			if (a2p3D.getCartesianPoint().isNull(2) && a2p3D.getAxis().isYOriented()) {
+			if (a2p3D.getCartesianPoint().getY() == 0 && a2p3D.getAxis().isYOriented()) {
 				return af;
 			}
 		}
 		return null;
+	}
+	
+	public AdvancedFace getTopPlane() {
+		AdvancedFace toppest = null;
+		for (AdvancedFace af : list) {
+			Axis2Placement3D a2p3D = af.getSurfGeometry().getAxis2Placement3D();
+			if (a2p3D.getAxis().isYOriented()) {
+				if (toppest == null || toppest.getSurfGeometry().getAxis2Placement3D().getCartesianPoint().getY() < a2p3D.getCartesianPoint().getY()) {
+					toppest = af;
+				}
+			}
+		}
+		return toppest;
+	}
+	
+	public int getYOrientedFacesCount() {
+		int res = 0;
+		for (AdvancedFace af : list) {
+			if (af.getSurfGeometry().getAxis2Placement3D().getAxis().isYOriented()) {
+				res++;
+			}
+		}		
+		return res;
 	}
 	
 	public AdvancedFace getAdvancedFaceById(String id) {
@@ -66,7 +89,7 @@ public class ClosedShell extends AbstractEntity {
 	public boolean isAllPlanes() {
 		boolean res = true;
 		for (AdvancedFace af : list) {
-			res &= (af.getSurfGeometry() instanceof Plane);
+			res &= af.isPlane();
 		}
 		if (res) {
 			System.out.println("all faces are planes");

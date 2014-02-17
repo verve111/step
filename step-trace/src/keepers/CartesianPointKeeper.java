@@ -24,23 +24,22 @@ public class CartesianPointKeeper {
 	
 	public static MaxMeasures getMaxShapeMeasures() {
 		CartesianPoint p = map.values().iterator().next();
-		double minX = Double.valueOf(p.getX()), maxX = Double.valueOf(p.getX()), minY = Double.valueOf(p.getY()), maxY = Double.valueOf(p
-				.getY()), minZ = Double.valueOf(p.getZ()), maxZ = Double.valueOf(p.getZ());
+		float minX = p.getX(), maxX = p.getX(), minY = p.getY(), maxY = p.getY(), minZ = p.getZ(), maxZ = p.getZ();
 		for (CartesianPoint cp : map.values()) {
-			if (Double.valueOf(cp.getX()) < minX) {
-				minX = Double.valueOf(cp.getX());
-			} else if (Double.valueOf(cp.getX()) > maxX) {
-				maxX = Double.valueOf(cp.getX());
+			if (cp.getX() < minX) {
+				minX = cp.getX();
+			} else if (cp.getX() > maxX) {
+				maxX = cp.getX();
 			}
-			if (Double.valueOf(cp.getY()) < minY) {
-				minY = Double.valueOf(cp.getY());
-			} else if (Double.valueOf(cp.getY()) > maxY) {
-				maxY = Double.valueOf(cp.getY());
-			}			
-			if (Double.valueOf(cp.getZ()) < minZ) {
-				minZ = Double.valueOf(cp.getZ());
-			} else if (Double.valueOf(cp.getZ()) > maxZ) {
-				maxZ = Double.valueOf(cp.getZ());
+			if (cp.getY() < minY) {
+				minY = cp.getY();
+			} else if (cp.getY() > maxY) {
+				maxY = cp.getY();
+			}
+			if (cp.getZ() < minZ) {
+				minZ = cp.getZ();
+			} else if (cp.getZ() > maxZ) {
+				maxZ = cp.getZ();
 			}
 		}
 		return new MaxMeasures(maxX - minX, maxY - minY, maxZ - minZ);

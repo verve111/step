@@ -75,8 +75,11 @@ public class Direction extends AbstractEntity implements Cloneable {
 	}
 	
 	public float getDotProduct(Direction d) {
-		
 		return CommonUtils.toFloat(this.x * d.x + this.y * d.y + this.z * d.z);
+	}
+	
+	public float getDotProduct(float x, float y, float z) {
+		return CommonUtils.toFloat(this.x * x + this.y * y + this.z * z);
 	}
 	
 }

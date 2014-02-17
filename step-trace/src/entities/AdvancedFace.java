@@ -55,23 +55,30 @@ public class AdvancedFace extends AbstractEntity {
 		return surfGeometry;
 	}
 	
-	public boolean areAdjacentsXZOriented() {
-		boolean res = true;
+	public List<AdvancedFace> getAdjacents() {
+		List<AdvancedFace> res = new ArrayList<AdvancedFace>();
 		List<EdgeCurve> li = getEdgeCurves();
 		for (EdgeCurve ec : li) {
 			for (String ref : ec.getOuterRefs()) {
 				if (!ref.equals(this.getLineId())) {
-					SurfaceGeometry sg = cs.getAdvancedFaceById(ref).getSurfGeometry();
-					if (sg instanceof CylindricalSurface) {
-						if (sg.getAxis2Placement3D().getAxis().isZXOrientedForCylindricalSurface()) {
-							continue;
-						} else {
-							System.out.println("WARN: areAdjacentsXZOriented for cylindrical surface");
-						}
-					}
-					res &= sg.getAxis2Placement3D().getAxis().isZXOriented();
+					res.add(cs.getAdvancedFaceById(ref));
 				}
 			}
+		}
+		return res;
+	}
+	
+	public boolean areAdjacentsXZOriented() {
+		boolean res = true;
+		for (AdvancedFace af : getAdjacents()) {
+			if (af.getSurfGeometry() instanceof CylindricalSurface) {
+				if (af.getSurfGeometry().getAxis2Placement3D().getAxis().isZXOrientedForCylindricalSurface()) {
+					continue;
+				} else {
+					System.out.println("WARN: areAdjacentsXZOriented for cylindrical surface");
+				}
+			}
+			res &= af.getSurfGeometry().getAxis2Placement3D().getAxis().isZXOriented();
 		}
 		return res;
 	}
@@ -175,5 +182,27 @@ public class AdvancedFace extends AbstractEntity {
 	public ClosedShell getClosedShell() {
 		return cs;
 	}
-
+	
+	public boolean hasTopChamfers() {
+		boolean res = true;
+		float angle = 0;
+		int i = 0;
+		for (AdvancedFace af : getAdjacents()) {
+			if (!af.isPlane()) {
+				return false;
+			}
+			// positive dot product for acute (sharp angle), positive for obtuse
+			float currAngle = af.getSurfGeometry().getAxis2Placement3D().getAxis().getDotProduct(0, 1, 0);
+			if (i++ == 0) {
+				angle = currAngle;
+			} else {
+				res &= (angle == currAngle && angle > 0);
+			}
+		}
+		return res;
+	}
+	
+	public boolean isPlane() {
+		return getSurfGeometry() instanceof Plane;
+	}
 }
