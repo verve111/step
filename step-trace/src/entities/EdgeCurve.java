@@ -31,10 +31,11 @@ public class EdgeCurve extends AbstractEntity implements Cloneable {
 			eg = new Line(edgeGeomId);
 		} else if (edgeGeomVal.startsWith(Circle._CIRCLE)) {
 			eg = new Circle(edgeGeomId);
+		} else if (edgeGeomVal.startsWith("B_SPLINE_CURVE_WITH_KNOTS")) {
+			System.out.println("BSpline curve with knots found");
 		} else {
-			System.out.println("___not found edge geometry");
+			System.out.println("___not found edge geometry " + edgeGeomId);
 		}
-
 	}
 	
 	public void addOuterRef(String entityId) {

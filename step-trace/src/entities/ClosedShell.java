@@ -58,7 +58,7 @@ public class ClosedShell extends AbstractEntity {
 		AdvancedFace toppest = null;
 		for (AdvancedFace af : list) {
 			Axis2Placement3D a2p3D = af.getSurfGeometry().getAxis2Placement3D();
-			if (a2p3D.getAxis().isYOriented()) {
+			if (a2p3D.getAxis().isYOriented() && af.getSurfGeometry() instanceof Plane) {
 				if (toppest == null || toppest.getSurfGeometry().getAxis2Placement3D().getCartesianPoint().getY() < a2p3D.getCartesianPoint().getY()) {
 					toppest = af;
 				}
@@ -70,7 +70,7 @@ public class ClosedShell extends AbstractEntity {
 	public int getYOrientedFacesCount() {
 		int res = 0;
 		for (AdvancedFace af : list) {
-			if (af.getSurfGeometry().getAxis2Placement3D().getAxis().isYOriented()) {
+			if (af.getSurfGeometry().getAxis2Placement3D().getAxis().isYOriented() && af.getSurfGeometry() instanceof Plane) {
 				res++;
 			}
 		}		

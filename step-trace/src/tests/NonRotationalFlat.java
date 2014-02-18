@@ -16,9 +16,11 @@ import entities.ClosedShell;
 
 public class NonRotationalFlat {
 	
+	private ClosedShell cs;
+	
 	private AdvancedFace getBottom(String fileName) {
 		StepFileReader sfr = new StepFileReader(CommonUtils._PATH + fileName);
-		ClosedShell cs = new ClosedShell(sfr.getClosedShellLineId());
+		cs = new ClosedShell(sfr.getClosedShellLineId());
 		AdvancedFace bottom = cs.getBottomPlane();
 		assertNotNull("Bottom plane is not found", bottom);
 		MaxMeasures m = CartesianPointKeeper.getMaxShapeMeasures();
@@ -35,28 +37,67 @@ public class NonRotationalFlat {
 
 	@Test	
 	public void ortoParallelepipedRotatedBottom() {
-		assertTrue("Not an ortoParallelepiped", getBottom("orto_parallelepiped_rotated_bottom.STEP").isRectangle());
+		AdvancedFace b = getBottom("orto_parallelepiped_rotated_bottom.STEP");
+		assertTrue("Not an ortoParallelepiped", b.isRectangle());
+		assertTrue("Not XZ oriented", b.areAdjacentsXZOriented());
 	}
 	
 	@Test	
 	public void rightAngledTriangle() {
-		assertTrue("Not a rightangled triangle", getBottom("right_triangle.STEP").isRightAngledTriangle());
-		assertTrue(getBottom("right_triangle.STEP").areAdjacentsXZOriented());
+		AdvancedFace b = getBottom("right_triangle.STEP");
+		assertTrue("Not a rightangled triangle", b.isRightAngledTriangle());
+		assertTrue(b.areAdjacentsXZOriented());
 	}
 	
 	@Test	
 	public void circularAndOrtogonal() {
-		assertTrue("Not a CircularAndOrtogonal", getBottom("circular_and_ortogonal.STEP").isCircularAndOrtogonal());
+		AdvancedFace b = getBottom("circular_and_ortogonal.STEP");
+		assertTrue("Not a CircularAndOrtogonal", b.isCircularAndOrtogonal());
+		assertTrue(b.areAdjacentsXZOriented());
 	}
 	
 	@Test	
 	public void circularAndOrtogonalRotatedBottom() {
-		assertTrue("Not a CircularAndOrtogonal", getBottom("circular_and_ortogonal_rotated_bottom.STEP").isCircularAndOrtogonal());
+		AdvancedFace b = getBottom("circular_and_ortogonal_rotated_bottom.STEP");
+		assertTrue("Not a CircularAndOrtogonal", b.isCircularAndOrtogonal());
+		assertTrue(b.areAdjacentsXZOriented());
 	}
 	
 	@Test	/* shestiugolnik*/
 	public void hexahedron() {
-		assertTrue("Not a hexahedron", getBottom("hexahedron.STEP").isAllAnglesTheSame());
+		AdvancedFace b = getBottom("hexahedron.STEP");
+		assertTrue("Not a hexahedron", b.isAllAnglesTheSame());
+		assertTrue(b.areAdjacentsXZOriented());
+	}
+	
+	@Test
+	public void twoStepped() {
+		AdvancedFace b = getBottom("two-stepped.STEP");
+		assertTrue("Not two-stepped", cs.getYOrientedFacesCount() == 3);
+		assertTrue(b.areAdjacentsXZOriented());
+	}
+	
+	@Test
+	public void threeStepped() {
+		AdvancedFace b = getBottom("three-stepped.STEP");
+		assertTrue("Not three-stepped", cs.getYOrientedFacesCount() == 4);
+		assertTrue(b.areAdjacentsXZOriented());
+	}
+	
+	@Test
+	public void chamfers() {
+		AdvancedFace b = getBottom("chamfers.STEP");
+		assertTrue("Top should not be stepped", cs.getYOrientedFacesCount() == 2);
+		assertTrue(b.areAdjacentsXZOriented());
+		assertTrue(cs.getTopPlane().hasTopChamfers());
+	}
+	
+	@Test
+	public void chamfersCircularAndOrto() {
+		AdvancedFace b = getBottom("chamfers_circular_orto.STEP");
+		assertTrue("Top should not be stepped", cs.getYOrientedFacesCount() == 2);
+		assertTrue(b.areAdjacentsXZOriented());
+		assertTrue(cs.getTopPlane().hasTopChamfers());
 	}
 	
 	@After

@@ -36,8 +36,10 @@ public class AdvancedFace extends AbstractEntity {
 			surfGeometry = new Plane(surfGeometryLineNum);
 		} else if (surfGeometryLineVal.startsWith(CylindricalSurface._CYLINDRICAL_SURFACE)) {
 			surfGeometry = new CylindricalSurface(surfGeometryLineNum);
+		} else if (surfGeometryLineVal.startsWith(ConicalSurface._CONICAL_SURFACE)) {
+			surfGeometry = new ConicalSurface(surfGeometryLineNum);			
 		} else {
-			System.out.println("___not found surface geometry");
+			System.out.println("___not found surface geometry " + surfGeometryLineNum);
 		}
 		getSortedEdgeCurves();
 	}
@@ -170,7 +172,9 @@ public class AdvancedFace extends AbstractEntity {
 				if (i == 0) {
 					angle = product;
 				} else {
-					if (angle != product) return false ;
+					if (angle != product) {
+						return false;
+					}
 				}
 			}
 		} else {
@@ -189,7 +193,7 @@ public class AdvancedFace extends AbstractEntity {
 		int i = 0;
 		for (AdvancedFace af : getAdjacents()) {
 			if (!af.isPlane()) {
-				return false;
+				continue;
 			}
 			// positive dot product for acute (sharp angle), positive for obtuse
 			float currAngle = af.getSurfGeometry().getAxis2Placement3D().getAxis().getDotProduct(0, 1, 0);
