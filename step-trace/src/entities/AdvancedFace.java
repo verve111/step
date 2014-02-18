@@ -11,7 +11,7 @@ import utils.RegExp;
 public class AdvancedFace extends AbstractEntity {
 	
 	public static final String _ADVANCED_FACE = "ADVANCED_FACE";
-	private List<FaceBound> list = new ArrayList<FaceBound>();
+	private List<FaceBoundAbstract> list = new ArrayList<FaceBoundAbstract>();
 	private SurfaceGeometry surfGeometry;
 	private ClosedShell cs;
 	
@@ -23,11 +23,14 @@ public class AdvancedFace extends AbstractEntity {
 		String advFaceVal = linesMap.get(advFaceLineId);
 		String faceBoundLineNums[] = RegExp.getValueBetweenDoubleParentheses(advFaceVal).split(",");
 		for (String faceBoundLineNum : Arrays.asList(faceBoundLineNums)) {
+			faceBoundLineNum = faceBoundLineNum.trim();
 			String faceBoundLineVal = linesMap.get(faceBoundLineNum.trim());
 			if (faceBoundLineVal.startsWith(FaceOuterBound._FACE_OUTER_BOUND)) {
 				list.add(new FaceOuterBound(faceBoundLineNum, advFaceLineId));
+			} else if (faceBoundLineVal.startsWith(FaceBound._FACE_BOUND)) {
+				list.add(new FaceBound(faceBoundLineNum, advFaceLineId));
 			} else {
-				System.out.println("___not found face outer bound");
+				System.out.println("___not found face outer bound " + faceBoundLineNum);
 			}
 		}
 		String surfGeometryLineNum = RegExp.getParameter(advFaceVal, 3, 4);
@@ -44,7 +47,7 @@ public class AdvancedFace extends AbstractEntity {
 		getSortedEdgeCurves();
 	}
 	
-	public List<FaceBound> getFaceBoundList() {
+	public List<FaceBoundAbstract> getFaceBoundList() {
 		return list;
 	}
 		
@@ -86,10 +89,18 @@ public class AdvancedFace extends AbstractEntity {
 	}
 	
 	public List<EdgeCurve> getEdgeCurves() {
-		if (list.size() > 1) {
-			throw new RuntimeException("getSortedEdgeCurves :: more than one");
+		int i = 0;
+		FaceBoundAbstract ecRes = null;
+		for (FaceBoundAbstract ec : list) {
+			if (ec instanceof FaceOuterBound) {
+				ecRes = ec;
+				i++;
+			}
 		}
-		return list.get(0).getEdgeLoop().getEdgeCurves();
+		if (i > 1) {
+			throw new RuntimeException("getSortedEdgeCurves :: more than one outer face bound");
+		}
+		return ecRes.getEdgeLoop().getEdgeCurves();
 	}
 	
 	public CircularList<EdgeCurve> getSortedEdgeCurves() {

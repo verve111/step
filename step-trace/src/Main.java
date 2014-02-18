@@ -10,7 +10,7 @@ public class Main {
 	public static void main(String[] arr) {
 		System.out.println("-----start ");
 		int firstDigit = -1, secondDigit = -1, thirdDigit = -1, fourthDigit = -1;
-		StepFileReader sfr = new StepFileReader(CommonUtils._PATH + "chamfers_circular_orto.STEP");
+		StepFileReader sfr = new StepFileReader(CommonUtils._PATH + "main-hole.STEP");
 		ClosedShell cs = new ClosedShell(sfr.getClosedShellLineId());
 		AdvancedFace bottom = cs.getBottomPlane();
 		if (bottom != null) {
