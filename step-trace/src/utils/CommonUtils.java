@@ -43,7 +43,7 @@ public class CommonUtils {
 	public static boolean isOrtoParallelep(ClosedShell cs) {
 		boolean res = true;
 		for (AdvancedFace af : cs.getAdvancedFaces()) {
-			res &= af.isRectangle();
+			res &= af.getFaceOuterBound().isRectangle();
 		}
 		return res;
 	}

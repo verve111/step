@@ -20,7 +20,7 @@ public class ClosedShell extends AbstractEntity {
 		super(lineId);
 		String val = RegExp.getValueBetweenDoubleParentheses(linesMap.get(lineId));
 		for (String advFaceId : Arrays.asList(val.split(","))) {
-			list.add(new AdvancedFace(advFaceId.trim(), this));
+			list.add(new AdvancedFace(advFaceId.trim()));
 		}
 	}
 
@@ -77,9 +77,9 @@ public class ClosedShell extends AbstractEntity {
 		return res;
 	}
 	
-	public AdvancedFace getAdvancedFaceById(String id) {
+	public AdvancedFace getAdvancedFaceByFaceBoundId(String id) {
 		for (AdvancedFace af : list) {
-			if (af.getLineId().equals(id)) {
+			if (af.getFaceOuterBound().getLineId().equals(id)) {
 				return af;
 			}
 		}
