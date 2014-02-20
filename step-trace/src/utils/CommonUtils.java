@@ -4,6 +4,9 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
+import keepers.CartesianPointKeeper;
+import keepers.EdgeCurveKeeper;
+
 import entities.AdvancedFace;
 import entities.ClosedShell;
 
@@ -46,6 +49,11 @@ public class CommonUtils {
 			res &= af.getFaceOuterBound().isRectangle();
 		}
 		return res;
+	}
+	
+	public static void clearMaps() {
+		EdgeCurveKeeper.clearAll();
+		CartesianPointKeeper.clearAll();
 	}
 
 }

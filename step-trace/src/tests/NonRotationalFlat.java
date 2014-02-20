@@ -4,7 +4,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import keepers.CartesianPointKeeper;
 import keepers.ClosedShellKeeper;
-import keepers.EdgeCurveKeeper;
 import keepers.MaxMeasures;
 
 import org.junit.After;
@@ -142,7 +141,6 @@ public class NonRotationalFlat {
 	
 	@After
 	public void clearStatics() {
-		EdgeCurveKeeper.clearAll();
-		CartesianPointKeeper.clearAll();
+		CommonUtils.clearMaps();
 	}
 }

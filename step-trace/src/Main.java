@@ -178,6 +178,7 @@ public class Main extends JFrame {
 					textArea.append("\n");
 				}
 				trace.clear();
+				CommonUtils.clearMaps();
 			}
 			if (rVal == JFileChooser.CANCEL_OPTION) {
 				filename.setText("You pressed cancel");
