@@ -1,17 +1,19 @@
 package entities;
 
-import utils.RegExp;
 import utils.CommonUtils;
+import utils.RegExp;
 
 public class Direction extends AbstractEntity implements Cloneable {
 
 	public static final String _DIRECTION = "DIRECTION";
 	private float x, y, z;
+	private IGeometry geometry;
 
 	// DIRECTION ( 'NONE', ( 0.0000000000000000000, 1.000000000000000000,
 	// 0.0000000000000000000
-	public Direction(String lineId) {
+	public Direction(String lineId, IGeometry geometry) {
 		super(lineId);
+		this.geometry = geometry;
 		String dirVal = linesMap.get(lineId);
 		String dir[] = RegExp.getValueBetweenDoubleParentheses(dirVal).split(",");
 		String x = dir[0].trim();
@@ -63,15 +65,21 @@ public class Direction extends AbstractEntity implements Cloneable {
 	}
 
 	public boolean isYOriented() {
-		return (x == 0) && (Math.abs(y) == 1) && (z == 0);
+		if (geometry != null && geometry instanceof CylindricalSurface) {
+			return Math.abs(y) == 0 && (x != 0 || z != 0);
+		} else if (geometry != null && geometry instanceof Plane) {
+			return (x == 0) && (Math.abs(y) == 1) && (z == 0);
+		} 			
+		return false;
 	}
 
 	public boolean isZXOriented() {
-		return y == 0;
-	}
-	
-	public boolean isZXOrientedForCylindricalSurface() {
-		return x == 0 && Math.abs(y) == 1 && z == 0;
+		if (geometry != null && geometry instanceof CylindricalSurface) {
+			return x == 0 && Math.abs(y) == 1 && z == 0;
+		} else if (geometry != null && geometry instanceof Plane) {
+			return y == 0;
+		} 
+		return false;
 	}
 	
 	public float getDotProduct(Direction d) {
@@ -81,5 +89,9 @@ public class Direction extends AbstractEntity implements Cloneable {
 	public float getDotProduct(float x, float y, float z) {
 		return CommonUtils.toFloat(this.x * x + this.y * y + this.z * z);
 	}
-	
+
+	public IGeometry getGeometry() {
+		return geometry;
+	}
+
 }

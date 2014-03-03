@@ -32,12 +32,12 @@ public class Main extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
 	private static List<String> trace = new ArrayList<String>();
-	private static boolean showGUI = true;
+	private static boolean showGUI = false;
 
 	private static void mainProcedure(String filePath) {
 		print("-----start ");
 		int firstDigit = -1, secondDigit = -1, thirdDigit = -1, fourthDigit = -1;
-		StepFileReader sfr = new StepFileReader(filePath == null ? CommonUtils._PATH + "holes4-chamfers.STEP" : filePath);
+		StepFileReader sfr = new StepFileReader(filePath == null ? CommonUtils._PATH + "curved top surface.STEP" : filePath);
 		ClosedShell cs = new ClosedShell(sfr.getClosedShellLineId());
 		ClosedShellKeeper.set(cs);
 		AdvancedFace bottom = cs.getBottomPlane();
@@ -54,8 +54,8 @@ public class Main extends JFrame {
 					if (bottom.getFaceOuterBound().areAdjacentsXZOriented()) {
 						secondDigit = 0;
 					}
-				} else if (bottom.getFaceOuterBound().isRightAngledTriangle()) {
-					print("bottom: rightAngledTriangle");
+				} else if (bottom.getFaceOuterBound().isTriangle()) {
+					print("bottom: triangle");
 					if (bottom.getFaceOuterBound().areAdjacentsXZOriented()) {
 						secondDigit = 1;
 					}
@@ -75,7 +75,7 @@ public class Main extends JFrame {
 					secondDigit = 9;
 				}
 				if (0 <= secondDigit && secondDigit <= 9) {
-					int k = cs.getYOrientedFacesCount(); 
+					int k = cs.getYOrientedPlaneFacesCount(); 
 					if (k == 2) {
 						if (cs.getTopPlane().getFaceOuterBound().hasTopChamfers()) {
 							fourthDigit = 1;
@@ -134,6 +134,35 @@ public class Main extends JFrame {
 			} else if (m.maxLength / m.maxWidth <= 3 && m.maxLength / m.maxHeight < 4) {
 				// cubic
 				print("cubic");
+				firstDigit = 8;
+				if (bottom.getFaceOuterBound().isRectangle()) {
+					print("bottom: rectangle");
+					if (bottom.getFaceOuterBound().areAdjacentsXZOriented()) {
+						secondDigit = 0;
+					}
+				}
+				if (0 <= secondDigit && secondDigit <= 9) {
+					int k = cs.getYOrientedPlaneFacesCount();
+					if (cs.hasYOrientedCylindricalSurface()) {
+						fourthDigit = 7;
+						print("machining: curved surface");						
+					} else if (k == 2) {
+						if (cs.getTopPlane().getFaceOuterBound().hasTopChamfers()) {
+							fourthDigit = 1;
+							print("machining: has chambers");
+						} else {
+							fourthDigit = 0;
+							print("machining: no machining");
+						}
+					} else if (k == 3) {
+						fourthDigit = 2;
+						print("machining: stepped 2");
+					} else if (k > 3) {
+						fourthDigit = 3;
+						print("machining: stepped > 2");
+					}
+					thirdDigit = 0;
+				}
 			}
 		}
 		print("-----done: " + firstDigit + secondDigit + thirdDigit + fourthDigit + "x");

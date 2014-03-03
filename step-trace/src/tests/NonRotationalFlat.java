@@ -18,9 +18,10 @@ import entities.FaceBoundAbstract;
 public class NonRotationalFlat {
 	
 	private ClosedShell cs;
+	private final String _PATH = "c:/1/nonrot_flat/";
 	
 	private AdvancedFace getBottom(String fileName) {
-		StepFileReader sfr = new StepFileReader(CommonUtils._PATH + fileName);
+		StepFileReader sfr = new StepFileReader(_PATH + fileName);
 		cs = new ClosedShell(sfr.getClosedShellLineId());
 		ClosedShellKeeper.set(cs);
 		AdvancedFace bottom = cs.getBottomPlane();
@@ -47,13 +48,14 @@ public class NonRotationalFlat {
 	@Test	
 	public void rightAngledTriangle() {
 		AdvancedFace b = getBottom("right_triangle.STEP");
-		assertTrue("Not a rightangled triangle", b.getFaceOuterBound().isRightAngledTriangle());
+		assertTrue("Not a rightangled triangle", b.getFaceOuterBound().isTriangle());
 		assertTrue(b.getFaceOuterBound().areAdjacentsXZOriented());
 	}
 	
 	@Test	
 	public void circularAndOrtogonal() {
 		AdvancedFace b = getBottom("circular_and_ortogonal.STEP");
+		assertTrue("Can not be curved machining", !cs.hasYOrientedCylindricalSurface());
 		assertTrue("Not a CircularAndOrtogonal", b.getFaceOuterBound().isCircularAndOrtogonal());
 		assertTrue(b.getFaceOuterBound().areAdjacentsXZOriented());
 	}
@@ -75,21 +77,21 @@ public class NonRotationalFlat {
 	@Test
 	public void twoStepped() {
 		AdvancedFace b = getBottom("two-stepped.STEP");
-		assertTrue("Not two-stepped", cs.getYOrientedFacesCount() == 3);
+		assertTrue("Not two-stepped", cs.getYOrientedPlaneFacesCount() == 3);
 		assertTrue(b.getFaceOuterBound().areAdjacentsXZOriented());
 	}
 	
 	@Test
 	public void threeStepped() {
 		AdvancedFace b = getBottom("three-stepped.STEP");
-		assertTrue("Not three-stepped", cs.getYOrientedFacesCount() == 4);
+		assertTrue("Not three-stepped", cs.getYOrientedPlaneFacesCount() == 4);
 		assertTrue(b.getFaceOuterBound().areAdjacentsXZOriented());
 	}
 	
 	@Test
 	public void chamfers() {
 		AdvancedFace b = getBottom("chamfers.STEP");
-		assertTrue("Top should not be stepped", cs.getYOrientedFacesCount() == 2);
+		assertTrue("Top should not be stepped", cs.getYOrientedPlaneFacesCount() == 2);
 		assertTrue(b.getFaceOuterBound().areAdjacentsXZOriented());
 		assertTrue(cs.getTopPlane().getFaceOuterBound().hasTopChamfers());
 	}
@@ -97,7 +99,7 @@ public class NonRotationalFlat {
 	@Test
 	public void chamfersCircularAndOrto() {
 		AdvancedFace b = getBottom("chamfers_circular_orto.STEP");
-		assertTrue("Top should not be stepped", cs.getYOrientedFacesCount() == 2);
+		assertTrue("Top should not be stepped", cs.getYOrientedPlaneFacesCount() == 2);
 		assertTrue(b.getFaceOuterBound().areAdjacentsXZOriented());
 		assertTrue(cs.getTopPlane().getFaceOuterBound().hasTopChamfers());
 	}

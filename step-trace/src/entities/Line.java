@@ -17,7 +17,7 @@ public class Line extends AbstractEntity implements EdgeGeometry {
 		String pointId = RegExp.getParameter(lineVal, 2, 3);
 		cp = new CartesianPoint(pointId);
 		// VECTOR ( 'NONE', #172, 1000.000000000000000 ) ;
-		dir = new Direction(CommonUtils.getDirectionIdByVectorId(RegExp.getParameter(lineVal, 3, 3), linesMap));
+		dir = new Direction(CommonUtils.getDirectionIdByVectorId(RegExp.getParameter(lineVal, 3, 3), linesMap), this);
 	}
 
 	public Direction getDirection() {

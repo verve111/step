@@ -15,7 +15,7 @@ public class ConicalSurface extends AbstractEntity implements SurfaceGeometry {
 	public ConicalSurface(String lineId) {
 		super(lineId);
 		String surfVal = linesMap.get(lineId);
-		axis2Placement3D = new Axis2Placement3D(RegExp.getParameter(surfVal, 2, 4));
+		axis2Placement3D = new Axis2Placement3D(RegExp.getParameter(surfVal, 2, 4), this);
 		radius = CommonUtils.toFloat(RegExp.getParameter(surfVal, 3, 4));
 		semiAngle = CommonUtils.toFloat(RegExp.getParameter(surfVal, 4, 4));
 	}
@@ -35,5 +35,10 @@ public class ConicalSurface extends AbstractEntity implements SurfaceGeometry {
 	
 	public float getSemiAngle() {
 		return semiAngle;
+	}
+	
+	@Override
+	public Direction getDirection() {
+		return axis2Placement3D.getAxis();
 	}
 }

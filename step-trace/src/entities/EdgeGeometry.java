@@ -1,7 +1,5 @@
 package entities;
 
-public interface EdgeGeometry {
-	
-	public Direction getDirection();
-	
+public interface EdgeGeometry extends IGeometry {
+
 }

@@ -67,14 +67,23 @@ public class ClosedShell extends AbstractEntity {
 		return toppest;
 	}
 	
-	public int getYOrientedFacesCount() {
+	public int getYOrientedPlaneFacesCount() {
 		int res = 0;
 		for (AdvancedFace af : list) {
-			if (af.getSurfGeometry().getAxis2Placement3D().getAxis().isYOriented() && af.getSurfGeometry() instanceof Plane) {
+			if (af.getSurfGeometry().getDirection().isYOriented() && af.getSurfGeometry() instanceof Plane) {
 				res++;
 			}
 		}		
 		return res;
+	}
+	
+	public boolean hasYOrientedCylindricalSurface() {
+		for (AdvancedFace af : list) {
+			if (af.getSurfGeometry().getDirection().isYOriented() && af.getSurfGeometry() instanceof CylindricalSurface) {
+				return true;
+			}
+		}		
+		return false;
 	}
 	
 	public AdvancedFace getAdvancedFaceByFaceBoundId(String id) {

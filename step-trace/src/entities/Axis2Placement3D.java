@@ -12,12 +12,12 @@ public class Axis2Placement3D extends AbstractEntity {
 	
 	// AXIS2_PLACEMENT_3D ( 'NONE', #135, #136, #137 ) ;
 	// name, point, axis, ref_direction
-	public Axis2Placement3D(String lineId) {
+	public Axis2Placement3D(String lineId, IGeometry surfGeom) {
 		super(lineId);
 		String axis2Val = linesMap.get(lineId);
 		cp = new CartesianPoint(RegExp.getParameter(axis2Val, 2, 4));
-		axis = new Direction(RegExp.getParameter(axis2Val, 3, 4));
-		ref_direction = new Direction(RegExp.getParameter(axis2Val, 4, 4));
+		axis = new Direction(RegExp.getParameter(axis2Val, 3, 4), surfGeom);
+		ref_direction = new Direction(RegExp.getParameter(axis2Val, 4, 4), surfGeom);		
 	}
 	
 	@Override

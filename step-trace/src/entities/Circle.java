@@ -16,7 +16,7 @@ public class Circle extends AbstractEntity implements EdgeGeometry {
 		super(lineId);
 		String lineVal = linesMap.get(lineId);
 		String asix2Id = RegExp.getParameter(lineVal, 2, 3);
-		axis2 = new Axis2Placement3D(asix2Id);
+		axis2 = new Axis2Placement3D(asix2Id, this);
 		radius = CommonUtils.toFloat(RegExp.getParameter(lineVal, 3, 3));
 	}
 

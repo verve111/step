@@ -75,14 +75,7 @@ public abstract class FaceBoundAbstract extends AbstractEntity {
 	public boolean areAdjacentsXZOriented() {
 		boolean res = true;
 		for (AdvancedFace af : getAdjacents()) {
-			if (af.getSurfGeometry() instanceof CylindricalSurface) {
-				if (af.getSurfGeometry().getAxis2Placement3D().getAxis().isZXOrientedForCylindricalSurface()) {
-					continue;
-				} else {
-					System.out.println("WARN: areAdjacentsXZOriented for cylindrical surface");
-				}
-			}
-			res &= af.getSurfGeometry().getAxis2Placement3D().getAxis().isZXOriented();
+			res &= af.getSurfGeometry().getDirection().isZXOriented();
 		}
 		return res;
 	}
@@ -101,14 +94,15 @@ public abstract class FaceBoundAbstract extends AbstractEntity {
 		return res;
 	}
 	
-	public boolean isRightAngledTriangle() {
+	public boolean isTriangle() {
 		CircularList<EdgeCurve> li = getSortedEdgeCurves();
 		if (li.isAllLines() && li.size() == 3) {
-			for (int i = 0; i < li.size(); i++) {
+			/*for (int i = 0; i < li.size(); i++) {
 				if (li.get(i).getEdgeGeometry().getDirection().isPerpendicular(li.getNext(i).getEdgeGeometry().getDirection())) {
 					return true;
 				}
-			}
+			}*/
+			return true;
 		}
 		return false;
 	}
@@ -159,7 +153,7 @@ public abstract class FaceBoundAbstract extends AbstractEntity {
 				continue;
 			}
 			// positive dot product for acute (sharp angle), positive for obtuse
-			float currAngle = af.getSurfGeometry().getAxis2Placement3D().getAxis().getDotProduct(0, 1, 0);
+			float currAngle = af.getSurfGeometry().getDirection().getDotProduct(0, 1, 0);
 			if (i++ == 0) {
 				angle = currAngle;
 			} else {
