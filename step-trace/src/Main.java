@@ -33,18 +33,19 @@ public class Main extends JFrame {
 	
 	private static List<String> trace = new ArrayList<String>();
 	private static boolean showGUI = false;
+	private static ClosedShell cs;
 
 	private static void mainProcedure(String filePath) {
 		print("-----start ");
 		int firstDigit = -1, secondDigit = -1, thirdDigit = -1, fourthDigit = -1;
-		StepFileReader sfr = new StepFileReader(filePath == null ? CommonUtils._PATH + "curved top surface.STEP" : filePath);
-		ClosedShell cs = new ClosedShell(sfr.getClosedShellLineId());
+		StepFileReader sfr = new StepFileReader(filePath == null ? CommonUtils._PATH_CUB + "three-bores.STEP" : filePath);
+		cs = new ClosedShell(sfr.getClosedShellLineId());
 		ClosedShellKeeper.set(cs);
+		MaxMeasures m = CartesianPointKeeper.getMaxShapeMeasures();
 		AdvancedFace bottom = cs.getBottomPlane();
 		if (bottom != null) {
 			// non rotational
 			print("non rotational");
-			MaxMeasures m = CartesianPointKeeper.getMaxShapeMeasures();
 			if (m.maxLength / m.maxWidth <= 3 && m.maxLength / m.maxHeight >= 4) {
 				// flat
 				firstDigit = 6;
@@ -75,58 +76,8 @@ public class Main extends JFrame {
 					secondDigit = 9;
 				}
 				if (0 <= secondDigit && secondDigit <= 9) {
-					int k = cs.getYOrientedPlaneFacesCount(); 
-					if (k == 2) {
-						if (cs.getTopPlane().getFaceOuterBound().hasTopChamfers()) {
-							fourthDigit = 1;
-							print("machining: has chambers");
-						} else {
-							fourthDigit = 0;
-							print("machining: no machining");
-						}
-					} else if (k == 3) {
-						fourthDigit = 2;
-						print("machining: stepped 2");
-					} else if (k > 3) {
-						fourthDigit = 3;
-						print("machining: stepped > 2");
-					}
-				}
-				if (0 <= secondDigit && secondDigit <= 9) {
-					int innerBounds = bottom.getFaceInnerBound().size();
-					if (innerBounds == 0) {
-						thirdDigit = 0;
-					} else if (innerBounds == 1) {
-						for (FaceBoundAbstract faceBound : bottom.getFaceInnerBound()) {
-							if (faceBound.areAdjacentsXZOriented()) {
-								thirdDigit = 1;
-								print("one principal bore");
-							}
-						}
-					} else if (innerBounds == 2) {
-						boolean res = true;
-						for (FaceBoundAbstract faceBound : bottom.getFaceInnerBound()) {
-							res &= faceBound.areAdjacentsXZOriented();
-						}
-						if (res) {
-							thirdDigit = 4;
-							print("two principal bores, parallel");							
-						}
-					} else if (innerBounds > 2) {
-						boolean res = true;
-						for (FaceBoundAbstract faceBound : bottom.getFaceInnerBound()) {
-							res &= faceBound.areAdjacentsXZOriented();
-						}
-						if (res) {
-							thirdDigit = 5;
-							print("several principal bores, parallel");							
-						} else {
-							thirdDigit = 6;
-							print("several principal bores, non parallel");
-						}
-					} else {
-						thirdDigit = 9;
-					}
+					fourthDigit = getFourthDigit();
+					thirdDigit = getThirdDigit(bottom);
 				}
 			} else if (m.maxLength / m.maxWidth > 3) {
 				// long
@@ -140,34 +91,90 @@ public class Main extends JFrame {
 					if (bottom.getFaceOuterBound().areAdjacentsXZOriented()) {
 						secondDigit = 0;
 					}
+				} else if (bottom.getFaceOuterBound().isTriangle()) {
+					print("bottom: triangle");
+					if (bottom.getFaceOuterBound().areAdjacentsXZOriented()) {
+						secondDigit = 1;
+					}					
+				} else if (bottom.getFaceOuterBound().isRecangPrismatic()) {
+					print("bottom: rectangular prisms");
+					if (bottom.getFaceOuterBound().areAdjacentsXZOriented()) {
+						secondDigit = 2;
+					}					
+				} else if (bottom.getFaceOuterBound().areAdjacentsXZOriented()) {
+					print("bottom: other shape");
+					secondDigit = 5;
 				}
 				if (0 <= secondDigit && secondDigit <= 9) {
-					int k = cs.getYOrientedPlaneFacesCount();
-					if (cs.hasYOrientedCylindricalSurface()) {
-						fourthDigit = 7;
-						print("machining: curved surface");						
-					} else if (k == 2) {
-						if (cs.getTopPlane().getFaceOuterBound().hasTopChamfers()) {
-							fourthDigit = 1;
-							print("machining: has chambers");
-						} else {
-							fourthDigit = 0;
-							print("machining: no machining");
-						}
-					} else if (k == 3) {
-						fourthDigit = 2;
-						print("machining: stepped 2");
-					} else if (k > 3) {
-						fourthDigit = 3;
-						print("machining: stepped > 2");
-					}
-					thirdDigit = 0;
+					fourthDigit = getFourthDigit();
+					thirdDigit = getThirdDigit(bottom);
 				}
 			}
 		}
 		print("-----done: " + firstDigit + secondDigit + thirdDigit + fourthDigit + "x");
 	}
 	
+	private static int getFourthDigit() {
+		int fourthDigit = -1;
+		int k = cs.getYOrientedPlaneFacesCount();
+		if (cs.hasYOrientedCylindricalSurface()) {
+			fourthDigit = 7;
+			print("machining: curved surface");						
+		} else if (k == 2) {
+			if (cs.getTopPlane().getFaceOuterBound().hasTopChamfers()) {
+				fourthDigit = 1;
+				print("machining: has chambers");
+			} else {
+				fourthDigit = 0;
+				print("machining: no machining");
+			}
+		} else if (k == 3) {
+			fourthDigit = 2;
+			print("machining: stepped 2");
+		} else if (k > 3) {
+			fourthDigit = 3;
+			print("machining: stepped > 2");
+		}	
+		return fourthDigit;
+	}
+	
+	private static int getThirdDigit(AdvancedFace bottom) {
+		int thirdDigit = -1;
+		int innerBounds = bottom.getFaceInnerBound().size();
+		if (innerBounds == 0) {
+			thirdDigit = 0;
+		} else if (innerBounds == 1) {
+			if (bottom.getFaceInnerBound().get(0).areAdjacentsXZOriented()) {
+				thirdDigit = 1;
+				print("one principal bore");
+			}
+		} else if (innerBounds == 2) {
+			boolean res = true;
+			for (FaceBoundAbstract faceBound : bottom.getFaceInnerBound()) {
+				res &= faceBound.areAdjacentsXZOriented();
+			}
+			if (res) {
+				thirdDigit = 4;
+				print("two principal bores, parallel");							
+			}
+		} else if (innerBounds > 2) {
+			boolean res = true;
+			for (FaceBoundAbstract faceBound : bottom.getFaceInnerBound()) {
+				res &= faceBound.areAdjacentsXZOriented();
+			}
+			if (res) {
+				thirdDigit = 5;
+				print("several principal bores, parallel");							
+			} else {
+				thirdDigit = 6;
+				print("several principal bores, non parallel");
+			}
+		} else {
+			thirdDigit = 9;
+		}
+		return thirdDigit;
+	}
+ 	
 	private static void print(String s) {
 		System.out.println(s);
 		trace.add(s);

@@ -15,61 +15,41 @@ import entities.AdvancedFace;
 import entities.ClosedShell;
 import entities.FaceBoundAbstract;
 
-public class NonRotationalFlat {
+public class NonRotationalCubic {
 	
 	private ClosedShell cs;
 	
 	private AdvancedFace getBottom(String fileName) {
-		StepFileReader sfr = new StepFileReader(CommonUtils._PATH_FLAT + fileName);
+		StepFileReader sfr = new StepFileReader(CommonUtils._PATH_CUB + fileName);
 		cs = new ClosedShell(sfr.getClosedShellLineId());
 		ClosedShellKeeper.set(cs);
 		AdvancedFace bottom = cs.getBottomPlane();
 		assertNotNull("Bottom plane is not found", bottom);
 		MaxMeasures m = CartesianPointKeeper.getMaxShapeMeasures();
-		assertTrue("Not a flat shape", (m.maxLength / m.maxWidth <= 3 && m.maxLength / m.maxHeight >= 4));
+		assertTrue("Not a flat shape", (m.maxLength / m.maxWidth <= 3 && m.maxLength / m.maxHeight < 4));
 		return bottom;
 	}
 	
 	@Test	
-	public void ortoParallelepiped() {
-		getBottom("orto_parallelepiped.STEP");
+	public void basic() {
+		getBottom("cubic_basic.STEP");
 		assertTrue("Amount of faces != 6", cs.getAdvancedFaces().size() == 6);
 		assertTrue("Not an ortoParallelepiped", CommonUtils.isOrtoParallelep(cs));
-	}
-
-	@Test	
-	public void ortoParallelepipedRotatedBottom() {
-		AdvancedFace b = getBottom("orto_parallelepiped_rotated_bottom.STEP");
-		assertTrue("Not an ortoParallelepiped", b.getFaceOuterBound().isRectangle());
-		assertTrue("Not XZ oriented", b.getFaceOuterBound().areAdjacentsXZOriented());
+		assertTrue("Can not be stepped", cs.getYOrientedPlaneFacesCount() == 2);
+		assertTrue("Can not have chamfers", !cs.getTopPlane().getFaceOuterBound().hasTopChamfers());		
 	}
 	
 	@Test	
-	public void rightAngledTriangle() {
-		AdvancedFace b = getBottom("right_triangle.STEP");
-		assertTrue("Not a rightangled triangle", b.getFaceOuterBound().isTriangle());
+	public void triangle() {
+		AdvancedFace b = getBottom("triangle.STEP");
+		assertTrue("Not a triangle", b.getFaceOuterBound().isTriangle());
 		assertTrue(b.getFaceOuterBound().areAdjacentsXZOriented());
 	}
 	
 	@Test	
-	public void circularAndOrtogonal() {
-		AdvancedFace b = getBottom("circular_and_ortogonal.STEP");
-		assertTrue("Can not be curved machining", !cs.hasYOrientedCylindricalSurface());
-		assertTrue("Not a CircularAndOrtogonal", b.getFaceOuterBound().isCircularAndOrtogonal());
-		assertTrue(b.getFaceOuterBound().areAdjacentsXZOriented());
-	}
-	
-	@Test	
-	public void circularAndOrtogonalRotatedBottom() {
-		AdvancedFace b = getBottom("circular_and_ortogonal_rotated_bottom.STEP");
-		assertTrue("Not a CircularAndOrtogonal", b.getFaceOuterBound().isCircularAndOrtogonal());
-		assertTrue(b.getFaceOuterBound().areAdjacentsXZOriented());
-	}
-	
-	@Test	/* shestiugolnik*/
-	public void hexahedron() {
-		AdvancedFace b = getBottom("hexahedron.STEP");
-		assertTrue("Not a hexahedron", b.getFaceOuterBound().isAllAnglesTheSame());
+	public void rectPrisms() {
+		AdvancedFace b = getBottom("rect prisms.STEP");
+		assertTrue("Not a rect prisms", b.getFaceOuterBound().isRecangPrismatic());
 		assertTrue(b.getFaceOuterBound().areAdjacentsXZOriented());
 	}
 	
@@ -82,7 +62,7 @@ public class NonRotationalFlat {
 	
 	@Test
 	public void threeStepped() {
-		AdvancedFace b = getBottom("three-stepped.STEP");
+		AdvancedFace b = getBottom("3-stepped.STEP");
 		assertTrue("Not three-stepped", cs.getYOrientedPlaneFacesCount() == 4);
 		assertTrue(b.getFaceOuterBound().areAdjacentsXZOriented());
 	}
@@ -95,17 +75,18 @@ public class NonRotationalFlat {
 		assertTrue(cs.getTopPlane().getFaceOuterBound().hasTopChamfers());
 	}
 	
-	@Test
-	public void chamfersCircularAndOrto() {
-		AdvancedFace b = getBottom("chamfers_circular_orto.STEP");
-		assertTrue("Top should not be stepped", cs.getYOrientedPlaneFacesCount() == 2);
+	@Test	
+	public void curvedTop() {
+		AdvancedFace b = getBottom("curved top surface.STEP");
+		assertTrue("Is not curved machining", cs.hasYOrientedCylindricalSurface());
+		assertTrue("Not a rectangle", b.getFaceOuterBound().isRectangle());
 		assertTrue(b.getFaceOuterBound().areAdjacentsXZOriented());
-		assertTrue(cs.getTopPlane().getFaceOuterBound().hasTopChamfers());
 	}
+	
 	
 	@Test	
 	public void oneHole() {
-		AdvancedFace b = getBottom("main-hole.STEP");
+		AdvancedFace b = getBottom("one-bore.STEP");
 		assertTrue(b.getFaceInnerBound().size() == 1);
 		for (FaceBoundAbstract faceBound : b.getFaceInnerBound()) {
 			assertTrue(faceBound.areAdjacentsXZOriented());
@@ -114,7 +95,7 @@ public class NonRotationalFlat {
 	
 	@Test	
 	public void twoHoles() {
-		AdvancedFace b = getBottom("holes2.STEP");
+		AdvancedFace b = getBottom("two-bores.STEP");
 		assertTrue(b.getFaceInnerBound().size() == 2);
 		for (FaceBoundAbstract faceBound : b.getFaceInnerBound()) {
 			assertTrue(faceBound.areAdjacentsXZOriented());
@@ -122,26 +103,17 @@ public class NonRotationalFlat {
 	}
 	
 	@Test	
-	public void fourHoles() {
-		AdvancedFace b = getBottom("holes4.STEP");
-		assertTrue(b.getFaceInnerBound().size() == 4);
+	public void threeHoles() {
+		AdvancedFace b = getBottom("three-bores.STEP");
+		assertTrue(b.getFaceInnerBound().size() == 3);
 		for (FaceBoundAbstract faceBound : b.getFaceInnerBound()) {
 			assertTrue(faceBound.areAdjacentsXZOriented());
 		}
-	}
-	
-	@Test	
-	public void fourHolesChamfers() {
-		AdvancedFace b = getBottom("holes4-chamfers.STEP");
-		assertTrue(b.getFaceInnerBound().size() == 4);
-		for (FaceBoundAbstract faceBound : b.getFaceInnerBound()) {
-			assertTrue(faceBound.areAdjacentsXZOriented());
-		}
-		assertTrue(cs.getTopPlane().getFaceOuterBound().hasTopChamfers());
 	}
 	
 	@After
 	public void clearStatics() {
 		CommonUtils.clearMaps();
 	}
+
 }

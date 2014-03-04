@@ -12,7 +12,8 @@ import entities.ClosedShell;
 
 public class CommonUtils {
 	
-	public static final String _PATH = "c:/1/nonrot_cubic/"; 
+	public static final String _PATH_CUB = "c:/1/nonrot_cubic/";
+	public static final String _PATH_FLAT = "c:/1/nonrot_flat/";
 
 	public static String join(List<String> list, String delim) {
 		StringBuilder sb = new StringBuilder();

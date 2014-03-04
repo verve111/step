@@ -2,8 +2,11 @@ package entities;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import keepers.CartesianPointKeeper;
 import utils.RegExp;
 
 public class ClosedShell extends AbstractEntity {
@@ -47,7 +50,7 @@ public class ClosedShell extends AbstractEntity {
 	public AdvancedFace getBottomPlane() {
 		for (AdvancedFace af : list) {
 			Axis2Placement3D a2p3D = af.getSurfGeometry().getAxis2Placement3D();
-			if (a2p3D.getCartesianPoint().getY() == 0 && a2p3D.getAxis().isYOriented()) {
+			if (a2p3D.getCartesianPoint().getY() == CartesianPointKeeper.getMinY() && a2p3D.getAxis().isYOriented()) {
 				return af;
 			}
 		}
@@ -69,9 +72,14 @@ public class ClosedShell extends AbstractEntity {
 	
 	public int getYOrientedPlaneFacesCount() {
 		int res = 0;
+		Set<Float> set = new HashSet<Float>();
 		for (AdvancedFace af : list) {
 			if (af.getSurfGeometry().getDirection().isYOriented() && af.getSurfGeometry() instanceof Plane) {
-				res++;
+				float yValue = af.getSurfGeometry().getAxis2Placement3D().getCartesianPoint().getY();
+				if (!set.contains(yValue)) {
+					res++;
+				}
+				set.add(yValue);
 			}
 		}		
 		return res;

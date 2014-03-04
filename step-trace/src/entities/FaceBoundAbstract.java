@@ -107,6 +107,19 @@ public abstract class FaceBoundAbstract extends AbstractEntity {
 		return false;
 	}
 	
+	public boolean isRecangPrismatic() {
+		boolean res = true;
+		CircularList<EdgeCurve> li = getSortedEdgeCurves();
+		if (li.isAllLines() && li.size() >= 6) {
+			for (int i = 0; i < li.size(); i++) {
+				res &= li.get(i).getEdgeGeometry().getDirection().isPerpendicular(li.getNext(i).getEdgeGeometry().getDirection()); 
+			}
+		} else {
+			res = false;
+		}
+		return res;
+	}
+	
 	public boolean isCircularAndOrtogonal() {
 		boolean res = true;
 		CircularList<EdgeCurve> li = getSortedEdgeCurves();

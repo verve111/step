@@ -8,6 +8,7 @@ import entities.CartesianPoint;
 public class CartesianPointKeeper {
 	
 	private static Map<String, CartesianPoint> map = new HashMap<String, CartesianPoint>();
+	private static float minY;
 	
 	public static CartesianPoint getCartesianPoint(String lineNum) {
 		CartesianPoint res = map.get(lineNum);
@@ -24,7 +25,8 @@ public class CartesianPointKeeper {
 	
 	public static MaxMeasures getMaxShapeMeasures() {
 		CartesianPoint p = map.values().iterator().next();
-		float minX = p.getX(), maxX = p.getX(), minY = p.getY(), maxY = p.getY(), minZ = p.getZ(), maxZ = p.getZ();
+		float minX = p.getX(), maxX = p.getX(), maxY = p.getY(), minZ = p.getZ(), maxZ = p.getZ();
+		minY = p.getY();
 		for (CartesianPoint cp : map.values()) {
 			if (cp.getX() < minX) {
 				minX = cp.getX();
@@ -49,5 +51,8 @@ public class CartesianPointKeeper {
 		map.clear();
 	}
 
+	public static float getMinY() {
+		return minY;
+	}
 }
 
