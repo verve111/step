@@ -55,13 +55,13 @@ public class AdvancedFace extends AbstractEntity {
 		return getSurfGeometry() instanceof Plane;
 	}
 	
-	public FaceBoundAbstract getFaceOuterBound() {
+	public FaceOuterBound getFaceOuterBound() {
 		int i = 0;
-		FaceBoundAbstract res = null;
+		FaceOuterBound res = null;
 		for (FaceBoundAbstract fba : list) {
 			if (fba instanceof FaceOuterBound) {
 				i++;
-				res = fba;
+				res = (FaceOuterBound) fba;
 			}
 		}
 		if (i > 1) {

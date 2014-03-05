@@ -72,12 +72,30 @@ public class Direction extends AbstractEntity implements Cloneable {
 		} 			
 		return false;
 	}
+	
+	public boolean isZOriented() {
+		if (geometry != null && geometry instanceof Plane) {
+			return (x == 0) && (Math.abs(z) == 1) && (y == 0);
+		} else {
+			System.out.println("isZOriented :: not a plane");
+		}
+		return false;
+	}
 
 	public boolean isZXOriented() {
 		if (geometry != null && geometry instanceof CylindricalSurface) {
 			return x == 0 && Math.abs(y) == 1 && z == 0;
 		} else if (geometry != null && geometry instanceof Plane) {
 			return y == 0;
+		} 
+		return false;
+	}
+	
+	public boolean isXYOriented() {
+		if (geometry != null && geometry instanceof CylindricalSurface) {
+			return x == 0 && y == 0 && Math.abs(z) == 1;
+		} else if (geometry != null && geometry instanceof Plane) {
+			return z == 0;
 		} 
 		return false;
 	}

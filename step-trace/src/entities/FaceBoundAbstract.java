@@ -1,10 +1,11 @@
 package entities;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import utils.RegExp;
-
 import keepers.CircularList;
 import keepers.ClosedShellKeeper;
 
@@ -80,6 +81,13 @@ public abstract class FaceBoundAbstract extends AbstractEntity {
 		return res;
 	}
 	
+	public boolean areAdjacentsXYOriented() {
+		boolean res = true;
+		for (AdvancedFace af : getAdjacents()) {
+			res &= af.getSurfGeometry().getDirection().isXYOriented();
+		}
+		return res;
+	}
 	
 	public boolean isRectangle() {
 		boolean res = true;
@@ -118,6 +126,13 @@ public abstract class FaceBoundAbstract extends AbstractEntity {
 			res = false;
 		}
 		return res;
+	}
+	
+	public boolean isCircle() {
+		if (getEdgeCurves().size() == 1 && getEdgeCurves().get(0).getEdgeGeometry() instanceof Circle) {
+			return true;
+		} 
+		return false;
 	}
 	
 	public boolean isCircularAndOrtogonal() {
@@ -174,6 +189,15 @@ public abstract class FaceBoundAbstract extends AbstractEntity {
 			}
 		}
 		return res;
+	}
+	
+	public Set<CartesianPoint> getAllPoints() {
+		Set<CartesianPoint> set = new HashSet<CartesianPoint>();
+		for (EdgeCurve ec : getEdgeCurves()) {
+			set.add(ec.getEndPoint());
+			set.add(ec.getStartPoint());
+		}
+		return set;
 	}
 	
 }

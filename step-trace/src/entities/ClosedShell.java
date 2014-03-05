@@ -50,7 +50,27 @@ public class ClosedShell extends AbstractEntity {
 	public AdvancedFace getBottomPlane() {
 		for (AdvancedFace af : list) {
 			Axis2Placement3D a2p3D = af.getSurfGeometry().getAxis2Placement3D();
-			if (a2p3D.getCartesianPoint().getY() == CartesianPointKeeper.getMinY() && a2p3D.getAxis().isYOriented()) {
+			if (a2p3D.getCartesianPoint().getY() == CartesianPointKeeper.getMaxShapeMeasures().minY && a2p3D.getAxis().isYOriented()) {
+				return af;
+			}
+		}
+		return null;
+	}
+	
+	public AdvancedFace getFrontPlane() {
+		for (AdvancedFace af : list) {
+			Axis2Placement3D a2p3D = af.getSurfGeometry().getAxis2Placement3D();
+			if (a2p3D.getCartesianPoint().getZ() == CartesianPointKeeper.getMaxShapeMeasures().maxZ && a2p3D.getAxis().isZOriented()) {
+				return af;
+			}
+		}
+		return null;
+	}
+	
+	public AdvancedFace getBackPlane() {
+		for (AdvancedFace af : list) {
+			Axis2Placement3D a2p3D = af.getSurfGeometry().getAxis2Placement3D();
+			if (a2p3D.getCartesianPoint().getZ() == CartesianPointKeeper.getMaxShapeMeasures().minZ && a2p3D.getAxis().isZOriented()) {
 				return af;
 			}
 		}

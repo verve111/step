@@ -8,8 +8,8 @@ import entities.CartesianPoint;
 public class CartesianPointKeeper {
 	
 	private static Map<String, CartesianPoint> map = new HashMap<String, CartesianPoint>();
-	private static float minY;
-	
+	private static MaxMeasures maxMeasures;
+
 	public static CartesianPoint getCartesianPoint(String lineNum) {
 		CartesianPoint res = map.get(lineNum);
 		if (res == null) {
@@ -19,14 +19,16 @@ public class CartesianPointKeeper {
 		return res;
 	}
 	
-	/*public static Map<String, CartesianPoint> getMap() {
+	public static Map<String, CartesianPoint> getMap() {
 		return map;
-	}*/
+	}
 	
 	public static MaxMeasures getMaxShapeMeasures() {
+		if (maxMeasures != null) {
+			return maxMeasures;
+		}
 		CartesianPoint p = map.values().iterator().next();
-		float minX = p.getX(), maxX = p.getX(), maxY = p.getY(), minZ = p.getZ(), maxZ = p.getZ();
-		minY = p.getY();
+		float minX = p.getX(), maxX = p.getX(), minY = p.getY(), maxY = p.getY(), minZ = p.getZ(), maxZ = p.getZ();
 		for (CartesianPoint cp : map.values()) {
 			if (cp.getX() < minX) {
 				minX = cp.getX();
@@ -44,15 +46,13 @@ public class CartesianPointKeeper {
 				maxZ = cp.getZ();
 			}
 		}
-		return new MaxMeasures(maxX - minX, maxY - minY, maxZ - minZ);
+		maxMeasures = new MaxMeasures(maxZ - minZ, maxY - minY, maxX - minX, minY, minZ, maxZ);
+		return maxMeasures;
 	}
 	
 	public static void clearAll() {
+		maxMeasures = null;
 		map.clear();
-	}
-
-	public static float getMinY() {
-		return minY;
 	}
 }
 

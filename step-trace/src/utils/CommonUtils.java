@@ -6,14 +6,16 @@ import java.util.Map;
 
 import keepers.CartesianPointKeeper;
 import keepers.EdgeCurveKeeper;
-
 import entities.AdvancedFace;
+import entities.CartesianPoint;
 import entities.ClosedShell;
+import entities.FaceOuterBound;
 
 public class CommonUtils {
 	
-	public static final String _PATH_CUB = "c:/1/nonrot_cubic/";
 	public static final String _PATH_FLAT = "c:/1/nonrot_flat/";
+	public static final String _PATH_CUB = "c:/1/nonrot_cubic/";
+	public static final String _PATH_LONG = "c:/1/nonrot_long/";
 
 	public static String join(List<String> list, String delim) {
 		StringBuilder sb = new StringBuilder();
@@ -50,6 +52,20 @@ public class CommonUtils {
 			res &= af.getFaceOuterBound().isRectangle();
 		}
 		return res;
+	}
+	
+	public static boolean arePlanesEqualAlongZ(FaceOuterBound fob, FaceOuterBound fob2) {
+		int vertexAmount = fob.getAllPoints().size();
+		int i = 0;
+		for (CartesianPoint p : fob.getAllPoints()) {
+			for (CartesianPoint pInner : fob2.getAllPoints()) {
+				if (p.getX() == pInner.getX() && p.getY() == pInner.getY()) {
+					i++;
+					continue;
+				}
+			}
+		}
+		return vertexAmount == i;
 	}
 	
 	public static void clearMaps() {
