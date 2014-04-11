@@ -35,4 +35,14 @@ public class CylindricalSurface extends AbstractEntity implements SurfaceGeometr
 	public Direction getDirection() {
 		return axis2Placement3D.getAxis();
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		CylindricalSurface c = (CylindricalSurface) o;
+		if (this.radius == c.radius && this.axis2Placement3D.equals(c.getAxis2Placement3D())) {
+			return true;
+		}
+		return false;
+	}
+	
 }

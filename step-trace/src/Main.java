@@ -39,12 +39,57 @@ public class Main extends JFrame {
 	private static void mainProcedure(String filePath) {
 		print("-----start ");
 		int firstDigit = -1, secondDigit = -1, thirdDigit = -1, fourthDigit = -1;
-		StepFileReader sfr = new StepFileReader(filePath == null ? CommonUtils._PATH_LONG + "chamfers.STEP" : filePath);
+		StepFileReader sfr = new StepFileReader(filePath == null ? CommonUtils._PATH_ROTAT + "rotat smooth inner.STEP" : filePath);
 		cs = new ClosedShell(sfr.getClosedShellLineId());
 		ClosedShellKeeper.set(cs);
 		MaxMeasures m = CartesianPointKeeper.getMaxShapeMeasures();
 		AdvancedFace bottom = cs.getBottomPlane();
-		if (bottom != null) {
+		AdvancedFace front = cs.getFrontPlane();
+		AdvancedFace back = cs.getBackPlane();
+		if (front != null && back != null) {
+			if (cs.countCylindricalSurfacesOrtoToZPlaneWithoutInner() > 0) {
+				// rotational
+				print("rotational");
+				//System.out.println(cs.getCylindricalSurfacesOrtoToZPlaneWithoutInner().get(0).getFaceInnerBound());
+				firstDigit = 1;	
+			} else if (m.maxLength / m.maxWidth > 3) {
+				FaceOuterBound frontFob = front.getFaceOuterBound();
+				FaceOuterBound backFob = back.getFaceOuterBound();
+				if (!frontFob.isCircle() && !backFob.isCircle()) {
+					// long
+					print("long");
+					firstDigit = 7;
+					thirdDigit = 0;
+					fourthDigit = 0;
+					if (CommonUtils.arePlanesEqualAlongZ(frontFob, backFob)) {
+						if (frontFob.isRectangle() && backFob.isRectangle() && bottom.getFaceOuterBound().isRectangle()) {
+							print("front plane, back plane: uniform (equal) cross section (rectangular)");
+							secondDigit = 0;
+							fourthDigit = getFourthDigit();
+							thirdDigit = getThirdDigit(bottom);
+						} else if (frontFob.isTriangle() && backFob.isTriangle() && frontFob.areAdjacentsXYOriented()
+								&& backFob.areAdjacentsXYOriented()) {
+							print("front plane, back plane: uniform (equal) cross section (triangular)");
+							secondDigit = 1;
+						} else if (frontFob.areAdjacentsXYOriented() && backFob.areAdjacentsXYOriented()) {
+							print("front plane, back plane: uniform (equal) cross section");
+							secondDigit = 2;							
+						}
+					} else {
+						if (frontFob.isRectangle() && backFob.isRectangle()) {
+							print("front plane, back plane: varying cross section (rectangular)");
+							secondDigit = 3;
+						} else if (frontFob.isTriangle() && backFob.isTriangle()) {
+							print("front plane, back plane: varying cross section (triangular)");
+							secondDigit = 4;
+						} else {
+							print("front plane, back plane: varying cross sections");
+							secondDigit = 5;
+						}
+					}
+				}
+			}
+		} else if (bottom != null) {
 			// non rotational
 			print("non rotational");
 			if (m.maxLength / m.maxWidth <= 3 && m.maxLength / m.maxHeight >= 4) {
@@ -106,51 +151,6 @@ public class Main extends JFrame {
 				if (0 <= secondDigit && secondDigit <= 9) {
 					fourthDigit = getFourthDigit();
 					thirdDigit = getThirdDigit(bottom);
-				}
-			}
-		}
-		AdvancedFace front = cs.getFrontPlane();
-		AdvancedFace back = cs.getBackPlane();
-		if (front != null && back != null) {
-			if (m.maxLength / m.maxWidth > 3) {
-				FaceOuterBound frontFob = front.getFaceOuterBound();
-				FaceOuterBound backFob = back.getFaceOuterBound();
-				if (!frontFob.isCircle() && !backFob.isCircle()) {
-					// long
-					print("long");
-					firstDigit = 7;
-					thirdDigit = 0;
-					fourthDigit = 0;
-					if (CommonUtils.arePlanesEqualAlongZ(frontFob, backFob)) {
-						if (frontFob.isRectangle() && backFob.isRectangle() && bottom.getFaceOuterBound().isRectangle()) {
-							print("front plane, back plane: uniform (equal) cross section (rectangular)");
-							secondDigit = 0;
-							fourthDigit = getFourthDigit();
-							thirdDigit = getThirdDigit(bottom);
-						} else if (frontFob.isTriangle() && backFob.isTriangle() && frontFob.areAdjacentsXYOriented()
-								&& backFob.areAdjacentsXYOriented()) {
-							print("front plane, back plane: uniform (equal) cross section (triangular)");
-							secondDigit = 1;
-						} else if (frontFob.areAdjacentsXYOriented() && backFob.areAdjacentsXYOriented()) {
-							print("front plane, back plane: uniform (equal) cross section");
-							secondDigit = 2;							
-						}
-					} else {
-						if (frontFob.isRectangle() && backFob.isRectangle()) {
-							print("front plane, back plane: varying cross section (rectangular)");
-							secondDigit = 3;
-						} else if (frontFob.isTriangle() && backFob.isTriangle()) {
-							print("front plane, back plane: varying cross section (triangular)");
-							secondDigit = 4;
-						} else {
-							print("front plane, back plane: varying cross sections");
-							secondDigit = 5;
-						}
-					}
-				} else {
-					// rotational
-					print("rotational");
-					firstDigit = 1;					
 				}
 			}
 		}

@@ -42,5 +42,11 @@ public class CartesianPoint extends AbstractEntity {
 	public float getZ() {
 		return z;
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		CartesianPoint cp = (CartesianPoint) o;
+		return this.x == cp.x && this.y == cp.y && this.z == cp.z;
+	}
 
 }

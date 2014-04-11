@@ -66,7 +66,11 @@ public abstract class FaceBoundAbstract extends AbstractEntity {
 		for (EdgeCurve ec : li) {
 			for (String ref : ec.getOuterRefs()) {
 				if (!ref.equals(this.getLineId())) {
-					res.add(ClosedShellKeeper.get().getAdvancedFaceByFaceBoundId(ref));
+					AdvancedFace af = ClosedShellKeeper.get().getAdvancedFaceByFaceBoundId(ref);
+					//af is null when cylinders duplicated
+					if (af != null) {
+						res.add(af);
+					}
 				}
 			}
 		}
@@ -129,10 +133,20 @@ public abstract class FaceBoundAbstract extends AbstractEntity {
 	}
 	
 	public boolean isCircle() {
-		if (getEdgeCurves().size() == 1 && getEdgeCurves().get(0).getEdgeGeometry() instanceof Circle) {
+		if ((getEdgeCurves().size() == 1 || getEdgeCurves().size() == 2 /*for cylinder - duplicated*/) && getEdgeCurves().get(0).getEdgeGeometry() instanceof Circle) {
 			return true;
 		} 
 		return false;
+	}
+	
+	public List<EdgeCurve> getAllCircleEdgeCurves() {
+		List<EdgeCurve> list = new ArrayList<EdgeCurve>();
+		for (EdgeCurve ec : getEdgeCurves()) {
+			if (ec.getEdgeGeometry() instanceof Circle) {
+				list.add(ec);
+			}
+		}
+		return list;
 	}
 	
 	public boolean isCircularAndOrtogonal() {

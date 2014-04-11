@@ -51,10 +51,10 @@ public class NonRotationalLong {
 		FaceOuterBound frontFob = getFront().getFaceOuterBound();
 		FaceOuterBound backFob = getBack().getFaceOuterBound();
 		FaceOuterBound bottomFob = getBottom().getFaceOuterBound();
-		assertNotNull("Front plane can not be circle", !frontFob.isCircle());
-		assertNotNull("Back plane can not be circle", !backFob.isCircle());
-		assertNotNull("Not equal planes", CommonUtils.arePlanesEqualAlongZ(frontFob, backFob));
-		assertNotNull("Not a rectangular", frontFob.isRectangle() && backFob.isRectangle() && bottomFob.isRectangle());
+		assertTrue("Front plane can not be circle", !frontFob.isCircle());
+		assertTrue("Back plane can not be circle", !backFob.isCircle());
+		assertTrue("Not equal planes", CommonUtils.arePlanesEqualAlongZ(frontFob, backFob));
+		assertTrue("Not a rectangular", frontFob.isRectangle() && backFob.isRectangle() && bottomFob.isRectangle());
 	}
 
 	@Test
@@ -62,10 +62,10 @@ public class NonRotationalLong {
 		initClosedShell("triangle.STEP");
 		FaceOuterBound frontFob = getFront().getFaceOuterBound();
 		FaceOuterBound backFob = getBack().getFaceOuterBound();
-		assertNotNull("Front plane can not be circle", !frontFob.isCircle());
-		assertNotNull("Back plane can not be circle", !backFob.isCircle());
-		assertNotNull("Not equal planes", CommonUtils.arePlanesEqualAlongZ(frontFob, backFob));
-		assertNotNull(
+		assertTrue("Front plane can not be circle", !frontFob.isCircle());
+		assertTrue("Back plane can not be circle", !backFob.isCircle());
+		assertTrue("Not equal planes", CommonUtils.arePlanesEqualAlongZ(frontFob, backFob));
+		assertTrue(
 				"Not a triangle",
 				frontFob.isTriangle() && backFob.isTriangle() && frontFob.areAdjacentsXYOriented()
 						&& backFob.areAdjacentsXYOriented());
@@ -77,10 +77,10 @@ public class NonRotationalLong {
 		initClosedShell("rectang varying cross section.STEP");
 		FaceOuterBound frontFob = getFront().getFaceOuterBound();
 		FaceOuterBound backFob = getBack().getFaceOuterBound();
-		assertNotNull("Front plane can not be circle", !frontFob.isCircle());
-		assertNotNull("Back plane can not be circle", !backFob.isCircle());
-		assertNotNull("Not equal planes", !CommonUtils.arePlanesEqualAlongZ(frontFob, backFob));
-		assertNotNull("Not a rectangle", frontFob.isRectangle() && backFob.isRectangle());
+		assertTrue("Front plane can not be circle", !frontFob.isCircle());
+		assertTrue("Back plane can not be circle", !backFob.isCircle());
+		assertTrue("Not equal planes", !CommonUtils.arePlanesEqualAlongZ(frontFob, backFob));
+		assertTrue("Not a rectangle", frontFob.isRectangle() && backFob.isRectangle());
 	}
 	
 	@Test
@@ -88,10 +88,10 @@ public class NonRotationalLong {
 		initClosedShell("triangle varying cross section.STEP");
 		FaceOuterBound frontFob = getFront().getFaceOuterBound();
 		FaceOuterBound backFob = getBack().getFaceOuterBound();
-		assertNotNull("Front plane can not be circle", !frontFob.isCircle());
-		assertNotNull("Back plane can not be circle", !backFob.isCircle());
-		assertNotNull("Not equal planes", !CommonUtils.arePlanesEqualAlongZ(frontFob, backFob));
-		assertNotNull("Not a triangle", frontFob.isTriangle() && backFob.isTriangle());
+		assertTrue("Front plane can not be circle", !frontFob.isCircle());
+		assertTrue("Back plane can not be circle", !backFob.isCircle());
+		assertTrue("Not equal planes", !CommonUtils.arePlanesEqualAlongZ(frontFob, backFob));
+		assertTrue("Not a triangle", frontFob.isTriangle() && backFob.isTriangle());
 	}
 	
 	@Test
@@ -99,9 +99,9 @@ public class NonRotationalLong {
 		initClosedShell("hexa varying cross section.STEP");
 		FaceOuterBound frontFob = getFront().getFaceOuterBound();
 		FaceOuterBound backFob = getBack().getFaceOuterBound();
-		assertNotNull("Front plane can not be circle", !frontFob.isCircle());
-		assertNotNull("Back plane can not be circle", !backFob.isCircle());
-		assertNotNull("Not equal planes", !CommonUtils.arePlanesEqualAlongZ(frontFob, backFob));
+		assertTrue("Front plane can not be circle", !frontFob.isCircle());
+		assertTrue("Back plane can not be circle", !backFob.isCircle());
+		assertTrue("Not equal planes", !CommonUtils.arePlanesEqualAlongZ(frontFob, backFob));
 	}
 	
 	@Test
@@ -110,10 +110,10 @@ public class NonRotationalLong {
 		FaceOuterBound frontFob = getFront().getFaceOuterBound();
 		FaceOuterBound backFob = getBack().getFaceOuterBound();
 		FaceOuterBound bottomFob = getBottom().getFaceOuterBound();
-		assertNotNull("Front plane can not be circle", !frontFob.isCircle());
-		assertNotNull("Back plane can not be circle", !backFob.isCircle());
-		assertNotNull("Not equal planes", CommonUtils.arePlanesEqualAlongZ(frontFob, backFob));
-		assertNotNull("Not a rectangular", frontFob.isRectangle() && backFob.isRectangle() && bottomFob.isRectangle());
+		assertTrue("Front plane can not be circle", !frontFob.isCircle());
+		assertTrue("Back plane can not be circle", !backFob.isCircle());
+		assertTrue("Not equal planes", CommonUtils.arePlanesEqualAlongZ(frontFob, backFob));
+		assertTrue("Not a rectangular", frontFob.isRectangle() && backFob.isRectangle() && bottomFob.isRectangle());
 		AdvancedFace b = getBottom();
 		assertTrue("Not two-stepped", cs.getYOrientedPlaneFacesCount() == 3);
 		assertTrue(b.getFaceOuterBound().areAdjacentsXZOriented());
@@ -125,10 +125,10 @@ public class NonRotationalLong {
 		FaceOuterBound frontFob = getFront().getFaceOuterBound();
 		FaceOuterBound backFob = getBack().getFaceOuterBound();
 		FaceOuterBound bottomFob = getBottom().getFaceOuterBound();
-		assertNotNull("Front plane can not be circle", !frontFob.isCircle());
-		assertNotNull("Back plane can not be circle", !backFob.isCircle());
-		assertNotNull("Not equal planes", CommonUtils.arePlanesEqualAlongZ(frontFob, backFob));
-		assertNotNull("Not a rectangular", frontFob.isRectangle() && backFob.isRectangle() && bottomFob.isRectangle());
+		assertTrue("Front plane can not be circle", !frontFob.isCircle());
+		assertTrue("Back plane can not be circle", !backFob.isCircle());
+		assertTrue("Not equal planes", CommonUtils.arePlanesEqualAlongZ(frontFob, backFob));
+		assertTrue("Not a rectangular", frontFob.isRectangle() && backFob.isRectangle() && bottomFob.isRectangle());
 		AdvancedFace b = getBottom();
 		assertTrue(b.getFaceInnerBound().size() == 1);
 		for (FaceBoundAbstract faceBound : b.getFaceInnerBound()) {
@@ -143,10 +143,10 @@ public class NonRotationalLong {
 		FaceOuterBound frontFob = getFront().getFaceOuterBound();
 		FaceOuterBound backFob = getBack().getFaceOuterBound();
 		FaceOuterBound bottomFob = getBottom().getFaceOuterBound();
-		assertNotNull("Front plane can not be circle", !frontFob.isCircle());
-		assertNotNull("Back plane can not be circle", !backFob.isCircle());
-		assertNotNull("Not equal planes", CommonUtils.arePlanesEqualAlongZ(frontFob, backFob));
-		assertNotNull("Not a rectangular", frontFob.isRectangle() && backFob.isRectangle() && bottomFob.isRectangle());
+		assertTrue("Front plane can not be circle", !frontFob.isCircle());
+		assertTrue("Back plane can not be circle", !backFob.isCircle());
+		assertTrue("Not equal planes", CommonUtils.arePlanesEqualAlongZ(frontFob, backFob));
+		assertTrue("Not a rectangular", frontFob.isRectangle() && backFob.isRectangle() && bottomFob.isRectangle());
 		AdvancedFace b = getBottom();
 		assertTrue(b.getFaceInnerBound().size() == 2);
 		for (FaceBoundAbstract faceBound : b.getFaceInnerBound()) {
@@ -161,10 +161,10 @@ public class NonRotationalLong {
 		FaceOuterBound frontFob = getFront().getFaceOuterBound();
 		FaceOuterBound backFob = getBack().getFaceOuterBound();
 		FaceOuterBound bottomFob = getBottom().getFaceOuterBound();
-		assertNotNull("Front plane can not be circle", !frontFob.isCircle());
-		assertNotNull("Back plane can not be circle", !backFob.isCircle());
-		assertNotNull("Not equal planes", CommonUtils.arePlanesEqualAlongZ(frontFob, backFob));
-		assertNotNull("Not a rectangular", frontFob.isRectangle() && backFob.isRectangle() && bottomFob.isRectangle());
+		assertTrue("Front plane can not be circle", !frontFob.isCircle());
+		assertTrue("Back plane can not be circle", !backFob.isCircle());
+		assertTrue("Not equal planes", CommonUtils.arePlanesEqualAlongZ(frontFob, backFob));
+		assertTrue("Not a rectangular", frontFob.isRectangle() && backFob.isRectangle() && bottomFob.isRectangle());
 		AdvancedFace b = getBottom();
 		assertTrue(b.getFaceInnerBound().size() == 3);
 		for (FaceBoundAbstract faceBound : b.getFaceInnerBound()) {
@@ -179,10 +179,10 @@ public class NonRotationalLong {
 		FaceOuterBound frontFob = getFront().getFaceOuterBound();
 		FaceOuterBound backFob = getBack().getFaceOuterBound();
 		FaceOuterBound bottomFob = getBottom().getFaceOuterBound();
-		assertNotNull("Front plane can not be circle", !frontFob.isCircle());
-		assertNotNull("Back plane can not be circle", !backFob.isCircle());
-		assertNotNull("Not equal planes", CommonUtils.arePlanesEqualAlongZ(frontFob, backFob));
-		assertNotNull("Not a rectangular", frontFob.isRectangle() && backFob.isRectangle() && bottomFob.isRectangle());
+		assertTrue("Front plane can not be circle", !frontFob.isCircle());
+		assertTrue("Back plane can not be circle", !backFob.isCircle());
+		assertTrue("Not equal planes", CommonUtils.arePlanesEqualAlongZ(frontFob, backFob));
+		assertTrue("Not a rectangular", frontFob.isRectangle() && backFob.isRectangle() && bottomFob.isRectangle());
 		assertTrue(cs.getTopPlane().getFaceOuterBound().hasTopChamfers());
 	}
 	

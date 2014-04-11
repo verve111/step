@@ -73,12 +73,11 @@ public class Direction extends AbstractEntity implements Cloneable {
 		return false;
 	}
 	
+	// for front plane back plane only
 	public boolean isZOriented() {
-		if (geometry != null && geometry instanceof Plane) {
+		if (geometry != null && (geometry instanceof Plane || geometry instanceof CylindricalSurface)) {
 			return (x == 0) && (Math.abs(z) == 1) && (y == 0);
-		} else {
-			System.out.println("isZOriented :: not a plane");
-		}
+		} 
 		return false;
 	}
 

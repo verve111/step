@@ -48,7 +48,7 @@ public class NonRotationalCubic {
 	
 	@Test	
 	public void rectPrisms() {
-		AdvancedFace b = getBottom("rect prisms.STEP");
+		AdvancedFace b = getBottom("orto prisms.STEP");
 		assertTrue("Not a rect prisms", b.getFaceOuterBound().isRecangPrismatic());
 		assertTrue(b.getFaceOuterBound().areAdjacentsXZOriented());
 	}
@@ -62,7 +62,7 @@ public class NonRotationalCubic {
 	
 	@Test
 	public void threeStepped() {
-		AdvancedFace b = getBottom("3-stepped.STEP");
+		AdvancedFace b = getBottom("stepped.STEP");
 		assertTrue("Not three-stepped", cs.getYOrientedPlaneFacesCount() == 4);
 		assertTrue(b.getFaceOuterBound().areAdjacentsXZOriented());
 	}

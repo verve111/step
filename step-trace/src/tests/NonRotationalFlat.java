@@ -140,6 +140,12 @@ public class NonRotationalFlat {
 		assertTrue(cs.getTopPlane().getFaceOuterBound().hasTopChamfers());
 	}
 	
+	@Test
+	public void groove() {
+		getBottom("groove flat non rot.STEP");
+		assertTrue("grooves not found", cs.getTopPlane().getFaceInnerBound().size() == 1);
+	}
+	
 	@After
 	public void clearStatics() {
 		CommonUtils.clearMaps();

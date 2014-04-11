@@ -36,4 +36,14 @@ public class Axis2Placement3D extends AbstractEntity {
 	public Direction getRef_direction() {
 		return ref_direction;
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		Axis2Placement3D a = (Axis2Placement3D) o;
+		boolean res = this.axis.equals(a.axis) && this.ref_direction.equals(a.ref_direction) && this.cp.equals(a.cp);
+		if (res) {
+			//System.out.println(a.cp);
+		}
+		return res;
+	}
 }
