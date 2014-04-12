@@ -170,7 +170,7 @@ public class ClosedShell extends AbstractEntity {
 	}
 	
 	// without holes that orto to Z-Plane
-	public List<AdvancedFace> getCylindricalSurfacesOrtoToZPlane() {
+	public List<AdvancedFace> getCylindricalSurfacesOrtoToZXPlanes() {
 		List<AdvancedFace> res = new ArrayList<AdvancedFace>();
 		for (AdvancedFace af : list) {
 			if (af.getSurfGeometry() instanceof CylindricalSurface) {
@@ -182,12 +182,12 @@ public class ClosedShell extends AbstractEntity {
 		return res;
 	}
 	
-	public int countCylindricalSurfacesOrtoToZPlaneWithoutInner() {
-		int i = getCylindricalSurfacesOrtoToZPlane().size();
-		return hasHoleOrtoToZPlane() ? i - 1 : i;
+	public int countCylindricalSurfacesOrtoToZXPlanesWithoutInner() {
+		int i = getCylindricalSurfacesOrtoToZXPlanes().size();
+		return hasHoleOrtoToZXPlanes() ? i - 1 : i;
 	}
 	
-	public boolean hasHoleOrtoToZPlane() {
+	public boolean hasHoleOrtoToZXPlanes() {
 		if (getBackPlane() != null) {
 			return getBackPlane().getFaceInnerBound().size() > 0 && getBackPlane().getFaceInnerBound().get(0).isCircle();
 		} else if (getFrontPlane() != null) {

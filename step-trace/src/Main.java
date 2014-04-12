@@ -46,7 +46,7 @@ public class Main extends JFrame {
 		AdvancedFace bottom = cs.getBottomPlane();
 		AdvancedFace front = cs.getFrontPlane();
 		AdvancedFace back = cs.getBackPlane();
-		int cylinders = cs.countCylindricalSurfacesOrtoToZPlaneWithoutInner();
+		int cylinders = cs.countCylindricalSurfacesOrtoToZXPlanesWithoutInner();
 		if (cylinders > 0 && bottom == null) {
 			// rotational
 			print("rotational shape");
@@ -174,12 +174,12 @@ public class Main extends JFrame {
 	
 	private static int getThirdDigitRotational(int cylinderCount) {
 		if (cylinderCount == 1 || cylinderCount == 2) {
-			if (cs.hasHoleOrtoToZPlane()) {
+			if (cs.hasHoleOrtoToZXPlanes()) {
 				print("inner bore is found");
 				return 1;
 			} 
 		} else if (cylinderCount == 3) {
-			if (cs.hasHoleOrtoToZPlane()) {
+			if (cs.hasHoleOrtoToZXPlanes()) {
 				print("inner bore is found");
 				return 4;
 			}  
@@ -190,7 +190,7 @@ public class Main extends JFrame {
 	
 	private static int getExternMachinigRotational(int cylinderCount) {
 		boolean isGroove = false;
-		for (AdvancedFace af : cs.getCylindricalSurfacesOrtoToZPlane()) {
+		for (AdvancedFace af : cs.getCylindricalSurfacesOrtoToZXPlanes()) {
 			if (af.getFaceInnerBound().size() > 0) {
 				print("external groove is found");
 				isGroove = true;
