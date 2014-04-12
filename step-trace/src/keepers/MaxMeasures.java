@@ -12,4 +12,9 @@ public class MaxMeasures {
 		this.minZ = minZ;
 		this.maxZ = maxZ;
 	}
+	
+	@Override
+	public String toString() {
+		return "maxLength " + maxLength + ", maxWidth " + maxWidth + ", maxHeight " + maxHeight;
+	}
 }

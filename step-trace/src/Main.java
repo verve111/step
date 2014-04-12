@@ -39,7 +39,7 @@ public class Main extends JFrame {
 	private static void mainProcedure(String filePath) {
 		print("-----start ");
 		int firstDigit = -1, secondDigit = -1, thirdDigit = -1, fourthDigit = -1;
-		StepFileReader sfr = new StepFileReader(filePath == null ? CommonUtils._PATH_ROTAT + "rotat smooth inner.STEP" : filePath);
+		StepFileReader sfr = new StepFileReader(filePath == null ? CommonUtils._PATH_ROTAT + "groove rot both sides.STEP" : filePath);
 		cs = new ClosedShell(sfr.getClosedShellLineId());
 		ClosedShellKeeper.set(cs);
 		MaxMeasures m = CartesianPointKeeper.getMaxShapeMeasures();
@@ -47,11 +47,22 @@ public class Main extends JFrame {
 		AdvancedFace front = cs.getFrontPlane();
 		AdvancedFace back = cs.getBackPlane();
 		if (front != null && back != null) {
-			if (cs.countCylindricalSurfacesOrtoToZPlaneWithoutInner() > 0) {
+			int cylinders = cs.countCylindricalSurfacesOrtoToZPlaneWithoutInner();
+			if (cylinders > 0) {
 				// rotational
-				print("rotational");
-				//System.out.println(cs.getCylindricalSurfacesOrtoToZPlaneWithoutInner().get(0).getFaceInnerBound());
-				firstDigit = 1;	
+				print("rotational shape");
+				double rat = m.maxLength / m.maxWidth;
+				firstDigit = rat <= 0.5 ? 0 : (rat >= 0.5 && rat < 3) ? 1 : rat >= 3 ? 2 : -1;
+				if (cylinders == 1) {
+					print("one external cylinder");
+				} else if (cylinders == 2) {
+					print("two external cylinders");					
+				} else if (cylinders == 3) {
+					print("three external cylinders");					
+				}
+				secondDigit = getExternMachinigRotational(cylinders);
+				thirdDigit = getThirdDigitRotational(cylinders);
+				fourthDigit = 0;
 			} else if (m.maxLength / m.maxWidth > 3) {
 				FaceOuterBound frontFob = front.getFaceOuterBound();
 				FaceOuterBound backFob = back.getFaceOuterBound();
@@ -156,6 +167,52 @@ public class Main extends JFrame {
 		}
 		print("-----done: " + firstDigit + secondDigit + thirdDigit + fourthDigit + "x");
 	}
+	
+	private static int getThirdDigitRotational(int cylinderCount) {
+		if (cylinderCount == 1 || cylinderCount == 2) {
+			if (cs.hasHoleOrtoToZPlane()) {
+				print("inner bore is found");
+				return 1;
+			} 
+		} else if (cylinderCount == 3) {
+			if (cs.hasHoleOrtoToZPlane()) {
+				print("inner bore is found");
+				return 4;
+			}  
+		}
+		print("no inner shape is found");
+		return 0;
+	}
+	
+	private static int getExternMachinigRotational(int cylinderCount) {
+		boolean isGroove = false;
+		for (AdvancedFace af : cs.getCylindricalSurfacesOrtoToZPlane()) {
+			if (af.getFaceInnerBound().size() > 0) {
+				print("external groove is found");
+				isGroove = true;
+				break;
+			}
+		}
+		if (isGroove) {
+			if (cylinderCount == 1 || cylinderCount == 2) {
+				return 3;
+			} else if (cylinderCount == 3) {
+				return 6;
+			} 
+		} else {
+			if (cylinderCount == 2) {
+				print("no external machining");
+				return 1;
+			} else if (cylinderCount == 3) {
+				print("no external machining");
+				return 4;
+			}
+		}
+		print("no external machining");
+		return 0;
+	}
+	
+
 	
 	private static int getFourthDigit() {
 		int fourthDigit = -1;
