@@ -39,7 +39,7 @@ public class Main extends JFrame {
 	private static void mainProcedure(String filePath) {
 		print("-----start ");
 		int firstDigit = -1, secondDigit = -1, thirdDigit = -1, fourthDigit = -1;
-		StepFileReader sfr = new StepFileReader(filePath == null ? ("c:/2/pin_08940-03x20/" + "pin_08940-03x20.stp") : filePath);
+		StepFileReader sfr = new StepFileReader(filePath == null ? ("c:/1/rotat/" + "x oriented with inner.STEP") : filePath);
 		cs = new ClosedShell(sfr.getClosedShellLineId());
 		ClosedShellKeeper.set(cs);
 		MaxMeasures m = CartesianPointKeeper.getMaxShapeMeasures();
@@ -221,7 +221,7 @@ public class Main extends JFrame {
 	private static int getFourthDigit() {
 		int fourthDigit = -1;
 		int k = cs.getYOrientedPlaneFacesCount();
-		if (cs.hasYOrientedCylindricalSurface()) {
+		if (cs.hasZXOrientedCylindricalSurface()) {
 			fourthDigit = 7;
 			print("machining: curved surface");						
 		} else if (k == 2) {

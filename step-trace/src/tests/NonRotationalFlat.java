@@ -54,7 +54,7 @@ public class NonRotationalFlat {
 	@Test	
 	public void circularAndOrtogonal() {
 		AdvancedFace b = getBottom("circular_and_ortogonal.STEP");
-		assertTrue("Can not be curved machining", !cs.hasYOrientedCylindricalSurface());
+		assertTrue("Can not be curved machining", !cs.hasZXOrientedCylindricalSurface());
 		assertTrue("Not a CircularAndOrtogonal", b.getFaceOuterBound().isCircularAndOrtogonal());
 		assertTrue(b.getFaceOuterBound().areAdjacentsXZOriented());
 	}

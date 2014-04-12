@@ -80,7 +80,8 @@ public abstract class FaceBoundAbstract extends AbstractEntity {
 	public boolean areAdjacentsXZOriented() {
 		boolean res = true;
 		for (AdvancedFace af : getAdjacents()) {
-			res &= af.getSurfGeometry().getDirection().isZXOriented();
+			res &= af.getSurfGeometry() instanceof Plane ? af.getSurfGeometry().getDirection().isZXOriented()
+					: af.getSurfGeometry() instanceof CylindricalSurface ? af.getSurfGeometry().getDirection().isYOriented() : false;
 		}
 		return res;
 	}

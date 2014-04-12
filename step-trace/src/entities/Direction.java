@@ -65,10 +65,15 @@ public class Direction extends AbstractEntity implements Cloneable {
 	}
 
 	public boolean isYOriented() {
-		if (geometry != null && geometry instanceof CylindricalSurface) {
-			return Math.abs(y) == 0 && (x != 0 || z != 0);
-		} else if (geometry != null && geometry instanceof Plane) {
+		if (geometry != null && geometry instanceof Plane || geometry instanceof CylindricalSurface) {
 			return (x == 0) && (Math.abs(y) == 1) && (z == 0);
+		} 			
+		return false;
+	}
+	
+	public boolean isXOriented() {
+		if (geometry != null && geometry instanceof Plane || geometry instanceof CylindricalSurface) {
+			return (Math.abs(x) == 1) && (y == 0) && (z == 0);
 		} 			
 		return false;
 	}
@@ -82,9 +87,7 @@ public class Direction extends AbstractEntity implements Cloneable {
 	}
 
 	public boolean isZXOriented() {
-		if (geometry != null && geometry instanceof CylindricalSurface) {
-			return x == 0 && Math.abs(y) == 1 && z == 0;
-		} else if (geometry != null && geometry instanceof Plane) {
+		if (geometry != null && (geometry instanceof Plane || geometry instanceof CylindricalSurface)) {
 			return y == 0;
 		} 
 		return false;

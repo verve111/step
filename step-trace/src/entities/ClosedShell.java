@@ -114,6 +114,17 @@ public class ClosedShell extends AbstractEntity {
 		return toppest;
 	}
 	
+	public AdvancedFace getLeftPlane() {
+		for (AdvancedFace af : list) {
+			Axis2Placement3D a2p3D = af.getSurfGeometry().getAxis2Placement3D();
+			if (af.getSurfGeometry() instanceof Plane
+					&& a2p3D.getCartesianPoint().getX() == CartesianPointKeeper.getMaxShapeMeasures().minX && a2p3D.getAxis().isXOriented()) {
+				return af;
+			}
+		}
+		return null;
+	}
+	
 	public int getYOrientedPlaneFacesCount() {
 		int res = 0;
 		Set<Float> set = new HashSet<Float>();
@@ -129,9 +140,9 @@ public class ClosedShell extends AbstractEntity {
 		return res;
 	}
 	
-	public boolean hasYOrientedCylindricalSurface() {
+	public boolean hasZXOrientedCylindricalSurface() {
 		for (AdvancedFace af : list) {
-			if (af.getSurfGeometry().getDirection().isYOriented() && af.getSurfGeometry() instanceof CylindricalSurface) {
+			if (af.getSurfGeometry() instanceof CylindricalSurface && af.getSurfGeometry().getDirection().isZXOriented()) {
 				return true;
 			}
 		}		
@@ -162,8 +173,10 @@ public class ClosedShell extends AbstractEntity {
 	public List<AdvancedFace> getCylindricalSurfacesOrtoToZPlane() {
 		List<AdvancedFace> res = new ArrayList<AdvancedFace>();
 		for (AdvancedFace af : list) {
-			if (af.getSurfGeometry() instanceof CylindricalSurface && af.getSurfGeometry().getDirection().isZOriented()) {
-				res.add(af);
+			if (af.getSurfGeometry() instanceof CylindricalSurface) {
+				if (af.getSurfGeometry().getDirection().isZXOriented()) {
+					res.add(af);
+				}
 			}
 		}
 		return res;
@@ -179,6 +192,8 @@ public class ClosedShell extends AbstractEntity {
 			return getBackPlane().getFaceInnerBound().size() > 0 && getBackPlane().getFaceInnerBound().get(0).isCircle();
 		} else if (getFrontPlane() != null) {
 			return getFrontPlane().getFaceInnerBound().size() > 0 && getFrontPlane().getFaceInnerBound().get(0).isCircle();
+		} else if (getLeftPlane() != null) {
+			return getLeftPlane().getFaceInnerBound().size() > 0 && getLeftPlane().getFaceInnerBound().get(0).isCircle();
 		}
 		return false; 
 	}

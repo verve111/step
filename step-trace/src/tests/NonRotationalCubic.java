@@ -78,7 +78,7 @@ public class NonRotationalCubic {
 	@Test	
 	public void curvedTop() {
 		AdvancedFace b = getBottom("curved top surface.STEP");
-		assertTrue("Is not curved machining", cs.hasYOrientedCylindricalSurface());
+		assertTrue("Is not curved machining", cs.hasZXOrientedCylindricalSurface());
 		assertTrue("Not a rectangle", b.getFaceOuterBound().isRectangle());
 		assertTrue(b.getFaceOuterBound().areAdjacentsXZOriented());
 	}
