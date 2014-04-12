@@ -175,8 +175,12 @@ public class ClosedShell extends AbstractEntity {
 	}
 	
 	public boolean hasHoleOrtoToZPlane() {
-		return getBackPlane().getFaceInnerBound().size() > 0 && getBackPlane().getFaceInnerBound().get(0).isCircle()
-				&& getFrontPlane().getFaceInnerBound().size() > 0 && getFrontPlane().getFaceInnerBound().get(0).isCircle();
+		if (getBackPlane() != null) {
+			return getBackPlane().getFaceInnerBound().size() > 0 && getBackPlane().getFaceInnerBound().get(0).isCircle();
+		} else if (getFrontPlane() != null) {
+			return getFrontPlane().getFaceInnerBound().size() > 0 && getFrontPlane().getFaceInnerBound().get(0).isCircle();
+		}
+		return false; 
 	}
 
 }

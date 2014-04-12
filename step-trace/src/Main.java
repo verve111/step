@@ -39,67 +39,29 @@ public class Main extends JFrame {
 	private static void mainProcedure(String filePath) {
 		print("-----start ");
 		int firstDigit = -1, secondDigit = -1, thirdDigit = -1, fourthDigit = -1;
-		StepFileReader sfr = new StepFileReader(filePath == null ? CommonUtils._PATH_ROTAT + "groove rot both sides.STEP" : filePath);
+		StepFileReader sfr = new StepFileReader(filePath == null ? ("c:/2/pin_08940-03x20/" + "pin_08940-03x20.stp") : filePath);
 		cs = new ClosedShell(sfr.getClosedShellLineId());
 		ClosedShellKeeper.set(cs);
 		MaxMeasures m = CartesianPointKeeper.getMaxShapeMeasures();
 		AdvancedFace bottom = cs.getBottomPlane();
 		AdvancedFace front = cs.getFrontPlane();
 		AdvancedFace back = cs.getBackPlane();
-		if (front != null && back != null) {
-			int cylinders = cs.countCylindricalSurfacesOrtoToZPlaneWithoutInner();
-			if (cylinders > 0) {
-				// rotational
-				print("rotational shape");
-				double rat = m.maxLength / m.maxWidth;
-				firstDigit = rat <= 0.5 ? 0 : (rat >= 0.5 && rat < 3) ? 1 : rat >= 3 ? 2 : -1;
-				if (cylinders == 1) {
-					print("one external cylinder");
-				} else if (cylinders == 2) {
-					print("two external cylinders");					
-				} else if (cylinders == 3) {
-					print("three external cylinders");					
-				}
-				secondDigit = getExternMachinigRotational(cylinders);
-				thirdDigit = getThirdDigitRotational(cylinders);
-				fourthDigit = 0;
-			} else if (m.maxLength / m.maxWidth > 3) {
-				FaceOuterBound frontFob = front.getFaceOuterBound();
-				FaceOuterBound backFob = back.getFaceOuterBound();
-				if (!frontFob.isCircle() && !backFob.isCircle()) {
-					// long 
-					print("long");
-					firstDigit = 7;
-					thirdDigit = 0;
-					fourthDigit = 0;
-					if (CommonUtils.arePlanesEqualAlongZ(frontFob, backFob)) {
-						if (frontFob.isRectangle() && backFob.isRectangle() && bottom.getFaceOuterBound().isRectangle()) {
-							print("front plane, back plane: uniform (equal) cross section (rectangular)");
-							secondDigit = 0;
-							fourthDigit = getFourthDigit();
-							thirdDigit = getThirdDigit(bottom);
-						} else if (frontFob.isTriangle() && backFob.isTriangle() && frontFob.areAdjacentsXYOriented()
-								&& backFob.areAdjacentsXYOriented()) {
-							print("front plane, back plane: uniform (equal) cross section (triangular)");
-							secondDigit = 1;
-						} else if (frontFob.areAdjacentsXYOriented() && backFob.areAdjacentsXYOriented()) {
-							print("front plane, back plane: uniform (equal) cross section");
-							secondDigit = 2;							
-						}
-					} else {
-						if (frontFob.isRectangle() && backFob.isRectangle()) {
-							print("front plane, back plane: varying cross section (rectangular)");
-							secondDigit = 3;
-						} else if (frontFob.isTriangle() && backFob.isTriangle()) {
-							print("front plane, back plane: varying cross section (triangular)");
-							secondDigit = 4;
-						} else {
-							print("front plane, back plane: varying cross sections");
-							secondDigit = 5;
-						}
-					}
-				}
+		int cylinders = cs.countCylindricalSurfacesOrtoToZPlaneWithoutInner();
+		if (cylinders > 0 && bottom == null) {
+			// rotational
+			print("rotational shape");
+			double rat = m.maxLength / m.maxWidth;
+			firstDigit = rat <= 0.5 ? 0 : (rat >= 0.5 && rat < 3) ? 1 : rat >= 3 ? 2 : -1;
+			if (cylinders == 1) {
+				print("one external cylinder");
+			} else if (cylinders == 2) {
+				print("two external cylinders");					
+			} else if (cylinders == 3) {
+				print("three external cylinders");					
 			}
+			secondDigit = getExternMachinigRotational(cylinders);
+			thirdDigit = getThirdDigitRotational(cylinders);
+			fourthDigit = 0;
 		} else if (bottom != null) {
 			// non rotational
 			print("non rotational");
@@ -162,6 +124,48 @@ public class Main extends JFrame {
 				if (0 <= secondDigit && secondDigit <= 9) {
 					fourthDigit = getFourthDigit();
 					thirdDigit = getThirdDigit(bottom);
+				}
+			} else if (m.maxLength / m.maxWidth > 3) {
+				// long 
+				print("long");
+				firstDigit = 7;
+				thirdDigit = 0;
+				fourthDigit = 0;
+				if (front != null && back != null) {
+					FaceOuterBound frontFob = front.getFaceOuterBound();
+					FaceOuterBound backFob = back.getFaceOuterBound();
+					if (!frontFob.isCircle() && !backFob.isCircle()) {
+						if (CommonUtils.arePlanesEqualAlongZ(frontFob, backFob)) {
+							if (frontFob.isRectangle() && backFob.isRectangle() && bottom.getFaceOuterBound().isRectangle()) {
+								print("front plane, back plane: uniform (equal) cross section (rectangular)");
+								secondDigit = 0;
+								fourthDigit = getFourthDigit();
+								thirdDigit = getThirdDigit(bottom);
+							} else if (frontFob.isTriangle() && backFob.isTriangle() && frontFob.areAdjacentsXYOriented()
+									&& backFob.areAdjacentsXYOriented()) {
+								print("front plane, back plane: uniform (equal) cross section (triangular)");
+								secondDigit = 1;
+							} else if (frontFob.areAdjacentsXYOriented() && backFob.areAdjacentsXYOriented()) {
+								print("front plane, back plane: uniform (equal) cross section");
+								secondDigit = 2;							
+							}
+						} else {
+							if (frontFob.isRectangle() && backFob.isRectangle()) {
+								print("front plane, back plane: varying cross section (rectangular)");
+								secondDigit = 3;
+							} else if (frontFob.isTriangle() && backFob.isTriangle()) {
+								print("front plane, back plane: varying cross section (triangular)");
+								secondDigit = 4;
+							} else {
+								print("front plane, back plane: varying cross sections");
+								secondDigit = 5;
+							}
+						}
+						if (0 <= secondDigit && secondDigit <= 9) {
+							fourthDigit = getFourthDigit();
+							thirdDigit = getThirdDigit(bottom);
+						}
+					}
 				}
 			}
 		}

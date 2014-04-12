@@ -36,7 +36,11 @@ public class AdvancedFace extends AbstractEntity {
 		} else if (surfGeometryLineVal.startsWith(CylindricalSurface._CYLINDRICAL_SURFACE)) {
 			surfGeometry = new CylindricalSurface(surfGeometryLineNum);
 		} else if (surfGeometryLineVal.startsWith(ConicalSurface._CONICAL_SURFACE)) {
-			surfGeometry = new ConicalSurface(surfGeometryLineNum);			
+			surfGeometry = new ConicalSurface(surfGeometryLineNum);
+		} else if (surfGeometryLineVal.startsWith(SphericalSurface._SPHERICAL_SURFACE)) {
+			surfGeometry = new SphericalSurface(surfGeometryLineNum);
+		} else if (surfGeometryLineVal.startsWith(ToroidalSurface._TOROIDAL_SURFACE)) {
+			surfGeometry = new ToroidalSurface(surfGeometryLineNum);				
 		} else {
 			System.out.println("___not found surface geometry " + surfGeometryLineNum);
 		}
