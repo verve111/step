@@ -67,7 +67,7 @@ public class Main extends JFrame {
 				FaceOuterBound frontFob = front.getFaceOuterBound();
 				FaceOuterBound backFob = back.getFaceOuterBound();
 				if (!frontFob.isCircle() && !backFob.isCircle()) {
-					// long
+					// long 
 					print("long");
 					firstDigit = 7;
 					thirdDigit = 0;
