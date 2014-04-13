@@ -174,12 +174,12 @@ public class Main extends JFrame {
 	
 	private static int getThirdDigitRotational(int cylinderCount) {
 		if (cylinderCount == 1 || cylinderCount == 2) {
-			if (cs.hasHoleOrtoToZXPlanes()) {
+			if (cs.hasThroughHoles() != 0) {
 				print("inner bore is found");
 				return 1;
 			} 
 		} else if (cylinderCount == 3) {
-			if (cs.hasHoleOrtoToZXPlanes()) {
+			if (cs.hasThroughHoles() != 0) {
 				print("inner bore is found");
 				return 4;
 			}  

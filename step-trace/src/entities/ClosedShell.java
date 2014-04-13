@@ -102,16 +102,14 @@ public class ClosedShell extends AbstractEntity {
 	}
 	
 	public AdvancedFace getTopPlane() {
-		AdvancedFace toppest = null;
 		for (AdvancedFace af : list) {
 			Axis2Placement3D a2p3D = af.getSurfGeometry().getAxis2Placement3D();
-			if (a2p3D.getAxis().isYOriented() && af.getSurfGeometry() instanceof Plane) {
-				if (toppest == null || toppest.getSurfGeometry().getAxis2Placement3D().getCartesianPoint().getY() < a2p3D.getCartesianPoint().getY()) {
-					toppest = af;
-				}
+			if (af.getSurfGeometry() instanceof Plane
+					&& a2p3D.getCartesianPoint().getY() == CartesianPointKeeper.getMaxShapeMeasures().maxY && a2p3D.getAxis().isYOriented()) {
+				return af;
 			}
 		}
-		return toppest;
+		return null;
 	}
 	
 	public AdvancedFace getLeftPlane() {
@@ -119,6 +117,17 @@ public class ClosedShell extends AbstractEntity {
 			Axis2Placement3D a2p3D = af.getSurfGeometry().getAxis2Placement3D();
 			if (af.getSurfGeometry() instanceof Plane
 					&& a2p3D.getCartesianPoint().getX() == CartesianPointKeeper.getMaxShapeMeasures().minX && a2p3D.getAxis().isXOriented()) {
+				return af;
+			}
+		}
+		return null;
+	}
+	
+	public AdvancedFace getRightPlane() {
+		for (AdvancedFace af : list) {
+			Axis2Placement3D a2p3D = af.getSurfGeometry().getAxis2Placement3D();
+			if (af.getSurfGeometry() instanceof Plane
+					&& a2p3D.getCartesianPoint().getX() == CartesianPointKeeper.getMaxShapeMeasures().maxX && a2p3D.getAxis().isXOriented()) {
 				return af;
 			}
 		}
@@ -184,18 +193,43 @@ public class ClosedShell extends AbstractEntity {
 	
 	public int countCylindricalSurfacesOrtoToZXPlanesWithoutInner() {
 		int i = getCylindricalSurfacesOrtoToZXPlanes().size();
-		return hasHoleOrtoToZXPlanes() ? i - 1 : i;
+		int throughHoles = hasThroughHoles();
+		return throughHoles == 0 ? i : i - throughHoles;
 	}
 	
-	public boolean hasHoleOrtoToZXPlanes() {
-		if (getBackPlane() != null) {
-			return getBackPlane().getFaceInnerBound().size() > 0 && getBackPlane().getFaceInnerBound().get(0).isCircle();
-		} else if (getFrontPlane() != null) {
-			return getFrontPlane().getFaceInnerBound().size() > 0 && getFrontPlane().getFaceInnerBound().get(0).isCircle();
-		} else if (getLeftPlane() != null) {
-			return getLeftPlane().getFaceInnerBound().size() > 0 && getLeftPlane().getFaceInnerBound().get(0).isCircle();
-		}
-		return false; 
+	public int hasThroughHoles() {
+		int holesFound = 0;
+		if (getBackPlane() != null && getFrontPlane() != null) {
+			int i = 0; 
+			for (FaceBoundAbstract f : getBackPlane().getFaceInnerBound()) {
+				if (f.isCircle()) {
+					i++;
+				}
+			}
+			int j = 0;
+			for (FaceBoundAbstract f : getFrontPlane().getFaceInnerBound()) {
+				if (f.isCircle()) {
+					j++;
+				}
+			}
+			holesFound += i > j ? j : i;
+		} 
+		if (getLeftPlane() != null && getRightPlane() != null) {
+			int i = 0; 
+			for (FaceBoundAbstract f : getLeftPlane().getFaceInnerBound()) {
+				if (f.isCircle()) {
+					i++;
+				}
+			}
+			int j = 0;
+			for (FaceBoundAbstract f : getRightPlane().getFaceInnerBound()) {
+				if (f.isCircle()) {
+					j++;
+				}
+			}
+			holesFound += i > j ? j : i;
+		} 
+		return holesFound; 
 	}
 
 }

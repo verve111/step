@@ -46,7 +46,7 @@ public class CartesianPointKeeper {
 				maxZ = cp.getZ();
 			}
 		}
-		maxMeasures = new MaxMeasures(maxZ - minZ, maxY - minY, maxX - minX, minY, minZ, maxZ, minX);
+		maxMeasures = new MaxMeasures(maxZ - minZ, maxY - minY, maxX - minX, minY, minZ, maxZ, minX, maxX, maxY);
 		return maxMeasures;
 	}
 	

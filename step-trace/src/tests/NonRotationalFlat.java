@@ -146,6 +146,14 @@ public class NonRotationalFlat {
 		assertTrue("grooves not found", cs.getTopPlane().getFaceInnerBound().size() == 1);
 	}
 	
+	@Test	
+	public void curvedTop() {
+		AdvancedFace b = getBottom("curved top.STEP");
+		assertTrue("Is not curved machining", cs.hasZXOrientedCylindricalSurface());
+		assertTrue("Not a rectangle", b.getFaceOuterBound().isRectangle());
+		assertTrue(b.getFaceOuterBound().areAdjacentsXZOriented());
+	}
+	
 	@After
 	public void clearStatics() {
 		CommonUtils.clearMaps();
