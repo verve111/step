@@ -140,6 +140,21 @@ public abstract class FaceBoundAbstract extends AbstractEntity {
 		return false;
 	}
 	
+	public boolean hasOppositeCircle(AdvancedFace oppositeAf) {
+		if (this.isCircle() && oppositeAf != null) {
+			Circle c = (Circle) getEdgeCurves().get(0).getEdgeGeometry();
+			for (FaceBoundAbstract fInner : oppositeAf.getFaceInnerBound()) {
+				if (fInner.isCircle()) {
+					Circle c2 = (Circle) fInner.getEdgeCurves().get(0).getEdgeGeometry();
+					if (c.getRadius() == c2.getRadius()) {
+						return true;
+					}
+				}
+			}
+		} 
+		return false;
+	}
+	
 	public List<EdgeCurve> getAllCircleEdgeCurves() {
 		List<EdgeCurve> list = new ArrayList<EdgeCurve>();
 		for (EdgeCurve ec : getEdgeCurves()) {

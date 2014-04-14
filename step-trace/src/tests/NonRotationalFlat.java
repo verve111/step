@@ -106,16 +106,22 @@ public class NonRotationalFlat {
 	@Test	
 	public void oneHole() {
 		AdvancedFace b = getBottom("main-hole.STEP");
-		assertTrue(b.getFaceInnerBound().size() == 1);
+		assertTrue(cs.getThroughHolesCount() == 1);
 		for (FaceBoundAbstract faceBound : b.getFaceInnerBound()) {
 			assertTrue(faceBound.areAdjacentsXZOriented());
 		}
 	}
 	
 	@Test	
+	public void oneHoleThroughXNormal() {
+		getBottom("basic with through hole z.STEP");
+		assertTrue(cs.getThroughHolesCount() == 1);
+	}
+	
+	@Test	
 	public void twoHoles() {
 		AdvancedFace b = getBottom("holes2.STEP");
-		assertTrue(b.getFaceInnerBound().size() == 2);
+		assertTrue(cs.getThroughHolesCount() == 2);
 		for (FaceBoundAbstract faceBound : b.getFaceInnerBound()) {
 			assertTrue(faceBound.areAdjacentsXZOriented());
 		}
@@ -124,20 +130,10 @@ public class NonRotationalFlat {
 	@Test	
 	public void fourHoles() {
 		AdvancedFace b = getBottom("holes4.STEP");
-		assertTrue(b.getFaceInnerBound().size() == 4);
+		assertTrue(cs.getThroughHolesCount() == 4);
 		for (FaceBoundAbstract faceBound : b.getFaceInnerBound()) {
 			assertTrue(faceBound.areAdjacentsXZOriented());
 		}
-	}
-	
-	@Test	
-	public void fourHolesChamfers() {
-		AdvancedFace b = getBottom("holes4-chamfers.STEP");
-		assertTrue(b.getFaceInnerBound().size() == 4);
-		for (FaceBoundAbstract faceBound : b.getFaceInnerBound()) {
-			assertTrue(faceBound.areAdjacentsXZOriented());
-		}
-		assertTrue(cs.getTopPlane().getFaceOuterBound().hasTopChamfers());
 	}
 	
 	@Test

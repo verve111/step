@@ -45,7 +45,7 @@ public class Rotational {
 		initClosedShell("basic.STEP");
 		assertNotNull("Front plane must exist", getFront());
 		assertNotNull("Back plane must exist", getBack());
-		assertTrue("CylindricalSurfaces count != 1", cs.countCylindricalSurfacesOrtoToZXPlanesWithoutInner() == 1);
+		assertTrue("CylindricalSurfaces count != 1", cs.getCylindricalSurfacesWithoutThroughHoles().size() == 1);
 	}
 
 	@Test
@@ -53,9 +53,9 @@ public class Rotational {
 		initClosedShell("groove rotational.STEP");
 		assertNotNull("Front plane must exist", getFront());
 		assertNotNull("Back plane must exist", getBack());		
-		assertTrue("CylindricalSurfaces count != 1", cs.countCylindricalSurfacesOrtoToZXPlanesWithoutInner() == 1);
+		assertTrue("CylindricalSurfaces count != 1", cs.getCylindricalSurfacesWithoutThroughHoles().size() == 1);
 		int i = 0;
-		for (AdvancedFace af : cs.getCylindricalSurfacesOrtoToZXPlanes()) {
+		for (AdvancedFace af : cs.getCylindricalSurfacesWithoutThroughHoles()) {
 			if (af.getFaceInnerBound().size() > 0) {
 				i++;
 			}
@@ -68,9 +68,9 @@ public class Rotational {
 		initClosedShell("groove rot both sides.STEP");
 		assertNotNull("Front plane must exist", getFront());
 		assertNotNull("Back plane must exist", getBack());
-		assertTrue("CylindricalSurfaces count != 3", cs.countCylindricalSurfacesOrtoToZXPlanesWithoutInner() == 3);
+		assertTrue("CylindricalSurfaces count != 3", cs.getCylindricalSurfacesWithoutThroughHoles().size() == 3);
 		int i = 0;
-		for (AdvancedFace af : cs.getCylindricalSurfacesOrtoToZXPlanes()) {
+		for (AdvancedFace af : cs.getCylindricalSurfacesWithoutThroughHoles()) {
 			if (af.getFaceInnerBound().size() > 0) {
 				i++;
 			}
@@ -85,11 +85,12 @@ public class Rotational {
 		AdvancedFace backFob = getBack();
 		assertNotNull("Front plane must exist", frontFob);
 		assertNotNull("Back plane must exist", backFob);
-		assertTrue("CylindricalSurfaces count != 1", cs.countCylindricalSurfacesOrtoToZXPlanesWithoutInner() == 1);
+		assertTrue("CylindricalSurfaces count != 1", cs.getCylindricalSurfacesWithoutThroughHoles().size() == 1);
 		assertTrue("Front bores != 1", frontFob.getFaceInnerBound().size() == 1);
 		assertTrue("Front bores != circle", frontFob.getFaceInnerBound().get(0).isCircle());
 		assertTrue("Back bores != 1", backFob.getFaceInnerBound().size() == 1);
 		assertTrue("Back bores != circle", backFob.getFaceInnerBound().get(0).isCircle());
+		assertTrue("No inner hole found", cs.getThroughHolesCount() == 1);
 	}
 	
 	@Test
@@ -97,7 +98,7 @@ public class Rotational {
 		initClosedShell("x oriented with inner.STEP");
 		AdvancedFace left = getLeft();
 		assertNotNull("Left plane must exist", left);
-		assertTrue("CylindricalSurfaces count != 1", cs.countCylindricalSurfacesOrtoToZXPlanesWithoutInner() == 1);
+		assertTrue("CylindricalSurfaces count != 1", cs.getCylindricalSurfacesWithoutThroughHoles().size() == 1);
 		assertTrue("Left bores != 1", left.getFaceInnerBound().size() == 1);
 		assertTrue("Left bores != circle", left.getFaceInnerBound().get(0).isCircle());
 	}
@@ -109,11 +110,12 @@ public class Rotational {
 		AdvancedFace backFob = getBack();
 		assertNotNull("Front plane must exist", frontFob);
 		assertNotNull("Back plane must exist", backFob);
-		assertTrue("CylindricalSurfaces count > 0", cs.getCylindricalSurfacesOrtoToZXPlanes().size() > 0);
+		assertTrue("CylindricalSurfaces count != 3", cs.getCylindricalSurfacesWithoutThroughHoles().size() == 3);
 		assertTrue("Front bores != 1", frontFob.getFaceInnerBound().size() == 1);
 		assertTrue("Front bores != circle", frontFob.getFaceInnerBound().get(0).isCircle());
 		assertTrue("Back bores != 1", backFob.getFaceInnerBound().size() == 1);
 		assertTrue("Back bores != circle", backFob.getFaceInnerBound().get(0).isCircle());
+		assertTrue("No inner hole found", cs.getThroughHolesCount() == 1);
 	}
 	
 	@After

@@ -25,7 +25,6 @@ import utils.CommonUtils;
 import utils.StepFileReader;
 import entities.AdvancedFace;
 import entities.ClosedShell;
-import entities.FaceBoundAbstract;
 import entities.FaceOuterBound;
 
 public class Main extends JFrame {
@@ -46,7 +45,7 @@ public class Main extends JFrame {
 		AdvancedFace bottom = cs.getBottomPlane();
 		AdvancedFace front = cs.getFrontPlane();
 		AdvancedFace back = cs.getBackPlane();
-		int cylinders = cs.countCylindricalSurfacesOrtoToZXPlanesWithoutInner();
+		int cylinders = cs.getCylindricalSurfacesWithoutThroughHoles().size();
 		if (cylinders > 0 && bottom == null) {
 			// rotational
 			print("rotational shape");
@@ -174,12 +173,12 @@ public class Main extends JFrame {
 	
 	private static int getThirdDigitRotational(int cylinderCount) {
 		if (cylinderCount == 1 || cylinderCount == 2) {
-			if (cs.hasThroughHoles() != 0) {
+			if (cs.getThroughHolesCount() != 0) {
 				print("inner bore is found");
 				return 1;
 			} 
 		} else if (cylinderCount == 3) {
-			if (cs.hasThroughHoles() != 0) {
+			if (cs.getThroughHolesCount() != 0) {
 				print("inner bore is found");
 				return 4;
 			}  
@@ -190,7 +189,7 @@ public class Main extends JFrame {
 	
 	private static int getExternMachinigRotational(int cylinderCount) {
 		boolean isGroove = false;
-		for (AdvancedFace af : cs.getCylindricalSurfacesOrtoToZXPlanes()) {
+		for (AdvancedFace af : cs.getCylindricalSurfacesWithoutThroughHoles()) {
 			if (af.getFaceInnerBound().size() > 0) {
 				print("external groove is found");
 				isGroove = true;
@@ -244,37 +243,18 @@ public class Main extends JFrame {
 	
 	private static int getThirdDigit(AdvancedFace bottom) {
 		int thirdDigit = -1;
-		int innerBounds = bottom.getFaceInnerBound().size();
-		if (innerBounds == 0) {
+		int innerHoles = cs.getThroughHolesCount();
+		if (innerHoles == 0) {
 			thirdDigit = 0;
-		} else if (innerBounds == 1) {
-			if (bottom.getFaceInnerBound().get(0).areAdjacentsXZOriented()) {
-				thirdDigit = 1;
-				print("one principal bore");
-			}
-		} else if (innerBounds == 2) {
-			boolean res = true;
-			for (FaceBoundAbstract faceBound : bottom.getFaceInnerBound()) {
-				res &= faceBound.areAdjacentsXZOriented();
-			}
-			if (res) {
-				thirdDigit = 4;
-				print("two principal bores, parallel");							
-			}
-		} else if (innerBounds > 2) {
-			boolean res = true;
-			for (FaceBoundAbstract faceBound : bottom.getFaceInnerBound()) {
-				res &= faceBound.areAdjacentsXZOriented();
-			}
-			if (res) {
-				thirdDigit = 5;
-				print("several principal bores, parallel");							
-			} else {
-				thirdDigit = 6;
-				print("several principal bores, non parallel");
-			}
-		} else {
-			thirdDigit = 9;
+		} else if (innerHoles == 1) {
+			thirdDigit = 1;
+			print("one principal bore");
+		} else if (innerHoles == 2) {
+			thirdDigit = 4;
+			print("two principal bores, parallel");
+		} else if (innerHoles > 2) {
+			thirdDigit = 5;
+			print("several principal bores, parallel");	
 		}
 		return thirdDigit;
 	}

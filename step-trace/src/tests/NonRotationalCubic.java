@@ -87,7 +87,7 @@ public class NonRotationalCubic {
 	@Test	
 	public void oneHole() {
 		AdvancedFace b = getBottom("one-bore.STEP");
-		assertTrue(b.getFaceInnerBound().size() == 1);
+		assertTrue(cs.getThroughHolesCount() == 1);
 		for (FaceBoundAbstract faceBound : b.getFaceInnerBound()) {
 			assertTrue(faceBound.areAdjacentsXZOriented());
 		}
@@ -96,7 +96,7 @@ public class NonRotationalCubic {
 	@Test	
 	public void twoHoles() {
 		AdvancedFace b = getBottom("two-bores.STEP");
-		assertTrue(b.getFaceInnerBound().size() == 2);
+		assertTrue(cs.getThroughHolesCount() == 2);
 		for (FaceBoundAbstract faceBound : b.getFaceInnerBound()) {
 			assertTrue(faceBound.areAdjacentsXZOriented());
 		}
@@ -105,7 +105,7 @@ public class NonRotationalCubic {
 	@Test	
 	public void threeHoles() {
 		AdvancedFace b = getBottom("three-bores.STEP");
-		assertTrue(b.getFaceInnerBound().size() == 3);
+		assertTrue(cs.getThroughHolesCount() == 3);
 		for (FaceBoundAbstract faceBound : b.getFaceInnerBound()) {
 			assertTrue(faceBound.areAdjacentsXZOriented());
 		}

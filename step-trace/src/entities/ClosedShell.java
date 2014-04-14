@@ -13,6 +13,7 @@ public class ClosedShell extends AbstractEntity {
 
 	public final static String _CLOSED_SHELL = "CLOSED_SHELL";
 	private List<AdvancedFace> list = new ArrayList<AdvancedFace>();
+	private int throughHolesCount;
 	
 	public List<AdvancedFace> getAdvancedFaces() {
 		return list;
@@ -178,58 +179,48 @@ public class ClosedShell extends AbstractEntity {
 		return res;
 	}
 	
-	// without holes that orto to Z-Plane
-	public List<AdvancedFace> getCylindricalSurfacesOrtoToZXPlanes() {
+	// without through holes
+	public List<AdvancedFace> getCylindricalSurfacesWithoutThroughHoles() {
+		markThroughHoles();
 		List<AdvancedFace> res = new ArrayList<AdvancedFace>();
 		for (AdvancedFace af : list) {
-			if (af.getSurfGeometry() instanceof CylindricalSurface) {
-				if (af.getSurfGeometry().getDirection().isZXOriented()) {
-					res.add(af);
-				}
+			if (af.getSurfGeometry() instanceof CylindricalSurface && !af.isThroughHole) {
+				res.add(af);
 			}
 		}
 		return res;
 	}
 	
-	public int countCylindricalSurfacesOrtoToZXPlanesWithoutInner() {
-		int i = getCylindricalSurfacesOrtoToZXPlanes().size();
-		int throughHoles = hasThroughHoles();
-		return throughHoles == 0 ? i : i - throughHoles;
+	public int getThroughHolesCount() {
+		markThroughHoles();
+		return throughHolesCount;
 	}
 	
-	public int hasThroughHoles() {
-		int holesFound = 0;
+	private void markThroughHoles() {
 		if (getBackPlane() != null && getFrontPlane() != null) {
-			int i = 0; 
-			for (FaceBoundAbstract f : getBackPlane().getFaceInnerBound()) {
-				if (f.isCircle()) {
-					i++;
+			for (FaceBound f : getBackPlane().getFaceInnerBound()) {
+				if (f.isCircle() && !f.isAdjacentMarkedAsThroughHole() && f.hasOppositeCircle(getFrontPlane())) {
+					f.markAdjacentAsThroughHole();
+					throughHolesCount++;
 				}
 			}
-			int j = 0;
-			for (FaceBoundAbstract f : getFrontPlane().getFaceInnerBound()) {
-				if (f.isCircle()) {
-					j++;
-				}
-			}
-			holesFound += i > j ? j : i;
-		} 
+		}
 		if (getLeftPlane() != null && getRightPlane() != null) {
-			int i = 0; 
-			for (FaceBoundAbstract f : getLeftPlane().getFaceInnerBound()) {
-				if (f.isCircle()) {
-					i++;
+			for (FaceBound f : getLeftPlane().getFaceInnerBound()) {
+				if (f.isCircle() && !f.isAdjacentMarkedAsThroughHole() && f.hasOppositeCircle(getRightPlane())) {
+					f.markAdjacentAsThroughHole();
+					throughHolesCount++;
 				}
 			}
-			int j = 0;
-			for (FaceBoundAbstract f : getRightPlane().getFaceInnerBound()) {
-				if (f.isCircle()) {
-					j++;
+		}
+		if (getTopPlane() != null && getBottomPlane() != null) {
+			for (FaceBound f : getTopPlane().getFaceInnerBound()) {
+				if (f.isCircle() && !f.isAdjacentMarkedAsThroughHole() && f.hasOppositeCircle(getBottomPlane())) {
+					f.markAdjacentAsThroughHole();
+					throughHolesCount++;
 				}
 			}
-			holesFound += i > j ? j : i;
 		} 
-		return holesFound; 
 	}
 
 }

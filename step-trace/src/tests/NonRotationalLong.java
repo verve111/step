@@ -130,7 +130,7 @@ public class NonRotationalLong {
 		assertTrue("Not equal planes", CommonUtils.arePlanesEqualAlongZ(frontFob, backFob));
 		assertTrue("Not a rectangular", frontFob.isRectangle() && backFob.isRectangle() && bottomFob.isRectangle());
 		AdvancedFace b = getBottom();
-		assertTrue(b.getFaceInnerBound().size() == 1);
+		assertTrue(cs.getThroughHolesCount() == 1);
 		for (FaceBoundAbstract faceBound : b.getFaceInnerBound()) {
 			assertTrue(faceBound.areAdjacentsXZOriented());
 		}
@@ -148,7 +148,7 @@ public class NonRotationalLong {
 		assertTrue("Not equal planes", CommonUtils.arePlanesEqualAlongZ(frontFob, backFob));
 		assertTrue("Not a rectangular", frontFob.isRectangle() && backFob.isRectangle() && bottomFob.isRectangle());
 		AdvancedFace b = getBottom();
-		assertTrue(b.getFaceInnerBound().size() == 2);
+		assertTrue(cs.getThroughHolesCount() == 2);
 		for (FaceBoundAbstract faceBound : b.getFaceInnerBound()) {
 			assertTrue(faceBound.areAdjacentsXZOriented());
 		}
@@ -166,7 +166,7 @@ public class NonRotationalLong {
 		assertTrue("Not equal planes", CommonUtils.arePlanesEqualAlongZ(frontFob, backFob));
 		assertTrue("Not a rectangular", frontFob.isRectangle() && backFob.isRectangle() && bottomFob.isRectangle());
 		AdvancedFace b = getBottom();
-		assertTrue(b.getFaceInnerBound().size() == 3);
+		assertTrue(cs.getThroughHolesCount() == 3);
 		for (FaceBoundAbstract faceBound : b.getFaceInnerBound()) {
 			assertTrue(faceBound.areAdjacentsXZOriented());
 		}
