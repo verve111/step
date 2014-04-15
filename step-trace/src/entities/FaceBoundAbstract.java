@@ -134,7 +134,9 @@ public abstract class FaceBoundAbstract extends AbstractEntity {
 	}
 	
 	public boolean isCircle() {
-		if ((getEdgeCurves().size() == 1 || getEdgeCurves().size() == 2 /*for cylinder - duplicated*/) && getEdgeCurves().get(0).getEdgeGeometry() instanceof Circle) {
+		if ((getEdgeCurves().size() == 1 && getEdgeCurves().get(0).getEdgeGeometry() instanceof Circle)
+				|| (getEdgeCurves().size() == 2 /* for cylinder - duplicated */
+						&& getEdgeCurves().get(0).getEdgeGeometry() instanceof Circle && getEdgeCurves().get(1).getEdgeGeometry() instanceof Circle)) {
 			return true;
 		} 
 		return false;

@@ -1,3 +1,4 @@
+package main;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -24,7 +25,9 @@ import keepers.MaxMeasures;
 import utils.CommonUtils;
 import utils.StepFileReader;
 import entities.AdvancedFace;
+import entities.CartesianPoint;
 import entities.ClosedShell;
+import entities.CylindricalSurface;
 import entities.FaceOuterBound;
 
 public class Main extends JFrame {
@@ -34,11 +37,13 @@ public class Main extends JFrame {
 	private static List<String> trace = new ArrayList<String>();
 	private static boolean showGUI = false;
 	private static ClosedShell cs;
-
-	private static void mainProcedure(String filePath) {
+	private static boolean isTest;
+	
+	public static String mainProcedure(String filePath, boolean isTest) {
+		Main.isTest = isTest;
 		print("-----start ");
 		int firstDigit = -1, secondDigit = -1, thirdDigit = -1, fourthDigit = -1;
-		StepFileReader sfr = new StepFileReader(filePath == null ? ("c:/1/rotat/" + "x oriented with inner.STEP") : filePath);
+		StepFileReader sfr = new StepFileReader(filePath == null ? (CommonUtils._PATH_PRODUCTION + "32-351-7/32-351-7.STEP") : filePath);
 		cs = new ClosedShell(sfr.getClosedShellLineId());
 		ClosedShellKeeper.set(cs);
 		MaxMeasures m = CartesianPointKeeper.getMaxShapeMeasures();
@@ -46,7 +51,8 @@ public class Main extends JFrame {
 		AdvancedFace front = cs.getFrontPlane();
 		AdvancedFace back = cs.getBackPlane();
 		int cylinders = cs.getCylindricalSurfacesWithoutThroughHoles().size();
-		if (cylinders > 0 && bottom == null) {
+		if (cylinders > 0
+				&& (bottom == null || (bottom != null && isBottomLessThanCircleOfCylinder(cs.getCylindricalSurfacesWithoutThroughHoles(), bottom)))) {
 			// rotational
 			print("rotational shape");
 			double rat = m.maxLength / m.maxWidth;
@@ -57,6 +63,8 @@ public class Main extends JFrame {
 				print("two external cylinders");					
 			} else if (cylinders == 3) {
 				print("three external cylinders");					
+			} else {
+				print("more than 3 external cylinders");
 			}
 			secondDigit = getExternMachinigRotational(cylinders);
 			thirdDigit = getThirdDigitRotational(cylinders);
@@ -168,7 +176,45 @@ public class Main extends JFrame {
 				}
 			}
 		}
-		print("-----done: " + firstDigit + secondDigit + thirdDigit + fourthDigit + "x");
+		String res = "" + firstDigit + secondDigit + thirdDigit + fourthDigit + "0";
+		print("-----done: " + res);
+		return res;
+	}
+	
+	private static boolean isBottomLessThanCircleOfCylinder(List<AdvancedFace> cylinders, AdvancedFace bottom) {
+		float biggestRadius = 0;
+		for (AdvancedFace af : cylinders) {
+			if (af.getSurfGeometry() instanceof CylindricalSurface && af.getSurfGeometry().getDirection().isYOriented()) {
+				float r = ((CylindricalSurface)af.getSurfGeometry()).getRadius();
+				if (r > biggestRadius) {
+					biggestRadius = r;
+				}
+			}
+		}
+		float maxWidth, maxLength, minX = 0, maxX = 0, minZ = 0, maxZ = 0;
+		int i = 0;
+		for (CartesianPoint p : bottom.getFaceOuterBound().getAllPoints()) {
+			if (i++ == 0) {
+				minX = p.getX();
+				maxX = p.getX();
+				minZ = p.getZ(); 
+				maxZ = p.getZ();
+			}
+			if (p.getX() < minX) {
+				minX = p.getX();
+			} else if (p.getX() > maxX) {
+				maxX = p.getX();
+			}
+			if (p.getZ() < minZ) {
+				minZ = p.getZ();
+			} else if (p.getZ() > maxZ) {
+				maxZ = p.getZ();
+			}
+		}
+		maxWidth = maxZ - minZ;
+		maxLength = maxZ - minZ;
+		biggestRadius *= 2;
+		return maxWidth < biggestRadius && maxLength < biggestRadius;
 	}
 	
 	private static int getThirdDigitRotational(int cylinderCount) {
@@ -220,7 +266,7 @@ public class Main extends JFrame {
 	private static int getFourthDigit() {
 		int fourthDigit = -1;
 		int k = cs.getYOrientedPlaneFacesCount();
-		if (cs.hasZXOrientedCylindricalSurface()) {
+		if (cs.hasUpperMachining()) {
 			fourthDigit = 7;
 			print("machining: curved surface");						
 		} else if (k == 2) {
@@ -260,6 +306,9 @@ public class Main extends JFrame {
 	}
  	
 	private static void print(String s) {
+		if (isTest) {
+			return;
+		}
 		System.out.println(s);
 		trace.add(s);
 	}
@@ -291,7 +340,7 @@ public class Main extends JFrame {
 			if (rVal == JFileChooser.APPROVE_OPTION) {
 				String path = c.getSelectedFile().getAbsolutePath();
 				filename.setText(path);
-				mainProcedure(path);
+				mainProcedure(path, false);
 				textArea.setText("");
 				for (String s : trace) {
 					textArea.append(s);
@@ -310,7 +359,7 @@ public class Main extends JFrame {
 		if (showGUI) {
 			run(new Main(), 450, 250);
 		} else {
-			mainProcedure(null);
+			mainProcedure(null, false);
 		}
 	}
 

@@ -150,12 +150,14 @@ public class ClosedShell extends AbstractEntity {
 		return res;
 	}
 	
-	public boolean hasZXOrientedCylindricalSurface() {
-		for (AdvancedFace af : list) {
-			if (af.getSurfGeometry() instanceof CylindricalSurface && af.getSurfGeometry().getDirection().isZXOriented()) {
-				return true;
-			}
-		}		
+	public boolean hasUpperMachining() {
+		if (getTopPlane() != null) {
+			for (AdvancedFace af : list) {
+				if (af.getSurfGeometry() instanceof CylindricalSurface && af.getSurfGeometry().getDirection().isZXOriented()) {
+					return true;
+				}
+			}		
+		}
 		return false;
 	}
 	
@@ -179,7 +181,10 @@ public class ClosedShell extends AbstractEntity {
 		return res;
 	}
 	
-	// without through holes
+	// Gets all cylindrical surfaces even in groove (there are 2 cylinr), even
+	// in flat rectangle with circular deviation, even with upper machining.
+	// For non-rotational we don't care about amount of these cylinrSurfaces,
+	// but for rotational - care
 	public List<AdvancedFace> getCylindricalSurfacesWithoutThroughHoles() {
 		markThroughHoles();
 		List<AdvancedFace> res = new ArrayList<AdvancedFace>();

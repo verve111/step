@@ -54,7 +54,7 @@ public class NonRotationalFlat {
 	@Test	
 	public void circularAndOrtogonal() {
 		AdvancedFace b = getBottom("circular_and_ortogonal.STEP");
-		assertTrue("Can not be curved machining", !cs.hasZXOrientedCylindricalSurface());
+		assertTrue("Can not be curved machining", !cs.hasUpperMachining());
 		assertTrue("Not a CircularAndOrtogonal", b.getFaceOuterBound().isCircularAndOrtogonal());
 		assertTrue(b.getFaceOuterBound().areAdjacentsXZOriented());
 	}
@@ -142,10 +142,16 @@ public class NonRotationalFlat {
 		assertTrue("grooves not found", cs.getTopPlane().getFaceInnerBound().size() == 1);
 	}
 	
+	@Test
+	public void grooveSimple() {
+		getBottom("simple groove.STEP");
+		assertTrue("grooves not found", cs.getTopPlane().getFaceInnerBound().size() == 1);
+	}
+	
 	@Test	
 	public void curvedTop() {
 		AdvancedFace b = getBottom("curved top.STEP");
-		assertTrue("Is not curved machining", cs.hasZXOrientedCylindricalSurface());
+		assertTrue("Is not curved machining", cs.hasUpperMachining());
 		assertTrue("Not a rectangle", b.getFaceOuterBound().isRectangle());
 		assertTrue(b.getFaceOuterBound().areAdjacentsXZOriented());
 	}
