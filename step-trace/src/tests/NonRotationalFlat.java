@@ -3,8 +3,8 @@ package tests;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import keepers.CartesianPointKeeper;
-import keepers.ClosedShellKeeper;
 import keepers.MaxMeasures;
+import main.Main;
 
 import org.junit.After;
 import org.junit.Test;
@@ -22,7 +22,6 @@ public class NonRotationalFlat {
 	private AdvancedFace getBottom(String fileName) {
 		StepFileReader sfr = new StepFileReader(CommonUtils._PATH_FLAT + fileName);
 		cs = new ClosedShell(sfr.getClosedShellLineId());
-		ClosedShellKeeper.set(cs);
 		AdvancedFace bottom = cs.getBottomPlane();
 		assertNotNull("Bottom plane is not found", bottom);
 		MaxMeasures m = CartesianPointKeeper.getMaxShapeMeasures();
@@ -139,13 +138,13 @@ public class NonRotationalFlat {
 	@Test
 	public void groove() {
 		getBottom("groove flat non rot.STEP");
-		assertTrue("grooves not found", cs.getTopPlane().getFaceInnerBound().size() == 1);
+		assertTrue("grooves not found", Main.hasGroove(false, cs));
 	}
 	
 	@Test
 	public void grooveSimple() {
 		getBottom("simple groove.STEP");
-		assertTrue("grooves not found", cs.getTopPlane().getFaceInnerBound().size() == 1);
+		assertTrue("grooves not found", Main.hasGroove(false, cs));
 	}
 	
 	@Test	

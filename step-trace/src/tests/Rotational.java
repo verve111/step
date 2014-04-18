@@ -2,7 +2,7 @@ package tests;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import keepers.ClosedShellKeeper;
+import main.Main;
 
 import org.junit.After;
 import org.junit.Test;
@@ -19,7 +19,6 @@ public class Rotational {
 	private void initClosedShell(String fileName) {
 		StepFileReader sfr = new StepFileReader(CommonUtils._PATH_ROTAT + fileName);
 		cs = new ClosedShell(sfr.getClosedShellLineId());
-		ClosedShellKeeper.set(cs);
 	}
 
 	private AdvancedFace getFront() {
@@ -54,13 +53,7 @@ public class Rotational {
 		assertNotNull("Front plane must exist", getFront());
 		assertNotNull("Back plane must exist", getBack());		
 		assertTrue("CylindricalSurfaces count != 1", cs.getCylindricalSurfacesWithoutThroughHoles().size() == 1);
-		int i = 0;
-		for (AdvancedFace af : cs.getCylindricalSurfacesWithoutThroughHoles()) {
-			if (af.getFaceInnerBound().size() > 0) {
-				i++;
-			}
-		}
-		assertTrue("CylindricalSurfaces grooves != 1", i == 1);
+		assertTrue("grooves not found", Main.hasGroove(true, cs));
 	}
 	
 	@Test
@@ -69,13 +62,7 @@ public class Rotational {
 		assertNotNull("Front plane must exist", getFront());
 		assertNotNull("Back plane must exist", getBack());
 		assertTrue("CylindricalSurfaces count != 3", cs.getCylindricalSurfacesWithoutThroughHoles().size() == 3);
-		int i = 0;
-		for (AdvancedFace af : cs.getCylindricalSurfacesWithoutThroughHoles()) {
-			if (af.getFaceInnerBound().size() > 0) {
-				i++;
-			}
-		}
-		assertTrue("CylindricalSurfaces grooves != 2", i == 2);
+		assertTrue("grooves not found", Main.hasGroove(true, cs));
 	}
 	
 	@Test

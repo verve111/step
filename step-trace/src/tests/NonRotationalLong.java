@@ -3,7 +3,6 @@ package tests;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import keepers.CartesianPointKeeper;
-import keepers.ClosedShellKeeper;
 import keepers.MaxMeasures;
 
 import org.junit.After;
@@ -22,7 +21,6 @@ public class NonRotationalLong {
 	private void initClosedShell(String fileName) {
 		StepFileReader sfr = new StepFileReader(CommonUtils._PATH_LONG + fileName);
 		cs = new ClosedShell(sfr.getClosedShellLineId());
-		ClosedShellKeeper.set(cs);
 		MaxMeasures m = CartesianPointKeeper.getMaxShapeMeasures();
 		assertTrue("Not a long shape", (m.maxLength / m.maxWidth > 3));
 	}

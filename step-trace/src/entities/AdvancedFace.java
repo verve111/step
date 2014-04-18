@@ -11,7 +11,7 @@ public class AdvancedFace extends AbstractEntity {
 	public static final String _ADVANCED_FACE = "ADVANCED_FACE";
 	private List<FaceBoundAbstract> list = new ArrayList<FaceBoundAbstract>();
 	private SurfaceGeometry surfGeometry;
-	public boolean isThroughHole;
+	public boolean isThroughHole, isAuxiliaryHole;
 	
 	// ADVANCED_FACE ( 'NONE', ( #2 ), #130, .F. )
 	// second param almost always only one

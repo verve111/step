@@ -3,7 +3,6 @@ package tests;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import keepers.CartesianPointKeeper;
-import keepers.ClosedShellKeeper;
 import keepers.MaxMeasures;
 
 import org.junit.After;
@@ -22,7 +21,6 @@ public class NonRotationalCubic {
 	private AdvancedFace getBottom(String fileName) {
 		StepFileReader sfr = new StepFileReader(CommonUtils._PATH_CUB + fileName);
 		cs = new ClosedShell(sfr.getClosedShellLineId());
-		ClosedShellKeeper.set(cs);
 		AdvancedFace bottom = cs.getBottomPlane();
 		assertNotNull("Bottom plane is not found", bottom);
 		MaxMeasures m = CartesianPointKeeper.getMaxShapeMeasures();

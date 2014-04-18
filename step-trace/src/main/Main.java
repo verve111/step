@@ -20,7 +20,6 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import keepers.CartesianPointKeeper;
-import keepers.ClosedShellKeeper;
 import keepers.MaxMeasures;
 import utils.CommonUtils;
 import utils.StepFileReader;
@@ -28,6 +27,7 @@ import entities.AdvancedFace;
 import entities.CartesianPoint;
 import entities.ClosedShell;
 import entities.CylindricalSurface;
+import entities.FaceBound;
 import entities.FaceOuterBound;
 
 public class Main extends JFrame {
@@ -35,17 +35,16 @@ public class Main extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
 	private static List<String> trace = new ArrayList<String>();
-	private static boolean showGUI = false;
+	private static boolean showGUI = true;
 	private static ClosedShell cs;
 	private static boolean isTest;
 	
 	public static String mainProcedure(String filePath, boolean isTest) {
 		Main.isTest = isTest;
 		print("-----start ");
-		int firstDigit = -1, secondDigit = -1, thirdDigit = -1, fourthDigit = -1;
-		StepFileReader sfr = new StepFileReader(filePath == null ? (CommonUtils._PATH_PRODUCTION + "32-351-7/32-351-7.STEP") : filePath);
+		int firstDigit = -1, secondDigit = -1, thirdDigit = -1, fourthDigit = -1, fifthDigit = -1;
+		StepFileReader sfr = new StepFileReader(filePath == null ? (CommonUtils._PATH_PRODUCTION + "8.pin_08940-03x20/pin_08940-03x20.stp") : filePath);
 		cs = new ClosedShell(sfr.getClosedShellLineId());
-		ClosedShellKeeper.set(cs);
 		MaxMeasures m = CartesianPointKeeper.getMaxShapeMeasures();
 		AdvancedFace bottom = cs.getBottomPlane();
 		AdvancedFace front = cs.getFrontPlane();
@@ -144,24 +143,24 @@ public class Main extends JFrame {
 					if (!frontFob.isCircle() && !backFob.isCircle()) {
 						if (CommonUtils.arePlanesEqualAlongZ(frontFob, backFob)) {
 							if (frontFob.isRectangle() && backFob.isRectangle() && bottom.getFaceOuterBound().isRectangle()) {
-								print("front plane, back plane: uniform (equal) cross section (rectangular)");
+								print("front plane, back plane: uniform (equal) cross sections (rectangular)");
 								secondDigit = 0;
 								fourthDigit = getFourthDigit();
 								thirdDigit = getThirdDigit(bottom);
 							} else if (frontFob.isTriangle() && backFob.isTriangle() && frontFob.areAdjacentsXYOriented()
 									&& backFob.areAdjacentsXYOriented()) {
-								print("front plane, back plane: uniform (equal) cross section (triangular)");
+								print("front plane, back plane: uniform (equal) cross sections (triangular)");
 								secondDigit = 1;
 							} else if (frontFob.areAdjacentsXYOriented() && backFob.areAdjacentsXYOriented()) {
-								print("front plane, back plane: uniform (equal) cross section");
+								print("front plane, back plane: uniform (equal) cross sections");
 								secondDigit = 2;							
 							}
 						} else {
 							if (frontFob.isRectangle() && backFob.isRectangle()) {
-								print("front plane, back plane: varying cross section (rectangular)");
+								print("front plane, back plane: varying cross sections (rectangular)");
 								secondDigit = 3;
 							} else if (frontFob.isTriangle() && backFob.isTriangle()) {
-								print("front plane, back plane: varying cross section (triangular)");
+								print("front plane, back plane: varying cross sections (triangular)");
 								secondDigit = 4;
 							} else {
 								print("front plane, back plane: varying cross sections");
@@ -176,7 +175,13 @@ public class Main extends JFrame {
 				}
 			}
 		}
-		String res = "" + firstDigit + secondDigit + thirdDigit + fourthDigit + "0";
+		if (cs.getAuxiliaryHolesCount() == 0) {
+			fifthDigit = 0;
+		} else {
+			fifthDigit = 1;
+			print("auxiliary holes found: " + cs.getAuxiliaryHolesCount());
+		}
+		String res = "" + firstDigit + secondDigit + thirdDigit + fourthDigit + fifthDigit;
 		print("-----done: " + res);
 		return res;
 	}
@@ -212,9 +217,13 @@ public class Main extends JFrame {
 			}
 		}
 		maxWidth = maxZ - minZ;
-		maxLength = maxZ - minZ;
+		maxLength = maxX - minX;
 		biggestRadius *= 2;
-		return maxWidth < biggestRadius && maxLength < biggestRadius;
+		/*System.out.println(minX + " " + circleStart.getX() + " " + circleEnd.getX() + " " + maxX);
+		System.out.println(minZ + " " + circleStart.getZ() + " " + circleEnd.getZ() + " " + maxZ);
+		System.out.println(maxLength + " " + biggestRadius);*/
+		return maxWidth < biggestRadius
+				&& maxLength < biggestRadius;
 	}
 	
 	private static int getThirdDigitRotational(int cylinderCount) {
@@ -234,15 +243,8 @@ public class Main extends JFrame {
 	}
 	
 	private static int getExternMachinigRotational(int cylinderCount) {
-		boolean isGroove = false;
-		for (AdvancedFace af : cs.getCylindricalSurfacesWithoutThroughHoles()) {
-			if (af.getFaceInnerBound().size() > 0) {
-				print("external groove is found");
-				isGroove = true;
-				break;
-			}
-		}
-		if (isGroove) {
+		if (hasGroove(true, cs)) {
+			print("machining: external groove is found");
 			if (cylinderCount == 1 || cylinderCount == 2) {
 				return 3;
 			} else if (cylinderCount == 3) {
@@ -261,29 +263,49 @@ public class Main extends JFrame {
 		return 0;
 	}
 	
-
+	public static boolean hasGroove(boolean isRotational, ClosedShell cs) {
+		if (isRotational) { 
+			for (AdvancedFace af : cs.getCylindricalSurfacesWithoutThroughHoles()) {
+				for (FaceBound fb : af.getFaceInnerBound()) {
+					if (!fb.isCircle()) {
+						return true;
+					}
+				}
+			}
+		} else {
+			for (FaceBound fb : cs.getTopPlane().getFaceInnerBound()) {
+				if (!fb.isCircle()) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 	
 	private static int getFourthDigit() {
 		int fourthDigit = -1;
 		int k = cs.getYOrientedPlaneFacesCount();
 		if (cs.hasUpperMachining()) {
 			fourthDigit = 7;
-			print("machining: curved surface");						
+			print("machining: curved surface");	
+		} else if (hasGroove(false, cs)) {
+			fourthDigit = 5;
+			print("machining: external groove is found");
 		} else if (k == 2) {
 			if (cs.getTopPlane().getFaceOuterBound().hasTopChamfers()) {
 				fourthDigit = 1;
 				print("machining: has chambers");
-			} else {
-				fourthDigit = 0;
-				print("machining: no machining");
-			}
+			} 
 		} else if (k == 3) {
 			fourthDigit = 2;
 			print("machining: stepped 2");
 		} else if (k > 3) {
 			fourthDigit = 3;
 			print("machining: stepped > 2");
-		}	
+		} else {
+			fourthDigit = 0;
+			print("machining: no machining");
+		}
 		return fourthDigit;
 	}
 	
@@ -292,6 +314,7 @@ public class Main extends JFrame {
 		int innerHoles = cs.getThroughHolesCount();
 		if (innerHoles == 0) {
 			thirdDigit = 0;
+			print("inner shape: no principal bores");
 		} else if (innerHoles == 1) {
 			thirdDigit = 1;
 			print("one principal bore");

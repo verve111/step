@@ -12,6 +12,7 @@ public class MaxMeasures {
 		this.minZ = minZ;
 		this.maxZ = maxZ;
 		this.minX = minX;
+		this.maxX = maxX;
 		this.maxY = maxY;
 	}
 	

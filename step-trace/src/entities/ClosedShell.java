@@ -7,13 +7,14 @@ import java.util.List;
 import java.util.Set;
 
 import keepers.CartesianPointKeeper;
+import keepers.ClosedShellKeeper;
 import utils.RegExp;
 
 public class ClosedShell extends AbstractEntity {
 
 	public final static String _CLOSED_SHELL = "CLOSED_SHELL";
 	private List<AdvancedFace> list = new ArrayList<AdvancedFace>();
-	private int throughHolesCount;
+	private int throughHolesCount, auxiliaryHolesCount;
 	
 	public List<AdvancedFace> getAdvancedFaces() {
 		return list;
@@ -47,6 +48,9 @@ public class ClosedShell extends AbstractEntity {
 				list.add(af);
 			}
 		}
+		ClosedShellKeeper.set(this);
+		markThroughHoles();
+		markAuxiliaryHoles();
 	}
 
 	@Override
@@ -186,10 +190,9 @@ public class ClosedShell extends AbstractEntity {
 	// For non-rotational we don't care about amount of these cylinrSurfaces,
 	// but for rotational - care
 	public List<AdvancedFace> getCylindricalSurfacesWithoutThroughHoles() {
-		markThroughHoles();
 		List<AdvancedFace> res = new ArrayList<AdvancedFace>();
 		for (AdvancedFace af : list) {
-			if (af.getSurfGeometry() instanceof CylindricalSurface && !af.isThroughHole) {
+			if (af.getSurfGeometry() instanceof CylindricalSurface && !af.isThroughHole && !af.isAuxiliaryHole) {
 				res.add(af);
 			}
 		}
@@ -197,7 +200,6 @@ public class ClosedShell extends AbstractEntity {
 	}
 	
 	public int getThroughHolesCount() {
-		markThroughHoles();
 		return throughHolesCount;
 	}
 	
@@ -226,6 +228,43 @@ public class ClosedShell extends AbstractEntity {
 				}
 			}
 		} 
+	}
+	
+	private int getInnerCirclesCountForOnePlane(AdvancedFace af) {
+		int res = 0;
+		for (FaceBound fb : af.getFaceInnerBound()) {
+			if (fb.isCircle() && fb.getAdjacentCylinder() != null) {
+				fb.getAdjacentCylinder().isAuxiliaryHole = true;
+				res++;
+			}
+		}
+		return res;
+	}
+	
+	private boolean isNotFoundOrHasNoInnerCircles(AdvancedFace plane) {
+		return plane == null || getInnerCirclesCountForOnePlane(plane) == 0;
+	}
+	
+	public int getAuxiliaryHolesCount() {
+		return auxiliaryHolesCount;
+	}
+	
+	private void markAuxiliaryHoles() {
+		int res = 0;
+		if (getFrontPlane() != null && isNotFoundOrHasNoInnerCircles(getBackPlane())) {
+			res += getInnerCirclesCountForOnePlane(getFrontPlane());
+		} else if (getBackPlane() != null && isNotFoundOrHasNoInnerCircles(getFrontPlane())) {
+			res += getInnerCirclesCountForOnePlane(getBackPlane());
+		} else if (getLeftPlane() != null && isNotFoundOrHasNoInnerCircles(getRightPlane())) {
+			res += getInnerCirclesCountForOnePlane(getLeftPlane());
+		} else if (getRightPlane() != null && isNotFoundOrHasNoInnerCircles(getLeftPlane())) {
+			res += getInnerCirclesCountForOnePlane(getRightPlane());
+		} else if (getTopPlane() != null && isNotFoundOrHasNoInnerCircles(getBottomPlane())) {
+			res += getInnerCirclesCountForOnePlane(getTopPlane());
+		} else if (getBottomPlane() != null && isNotFoundOrHasNoInnerCircles(getTopPlane())) {
+			res += getInnerCirclesCountForOnePlane(getBottomPlane());
+		}
+		auxiliaryHolesCount = res;
 	}
 
 }
