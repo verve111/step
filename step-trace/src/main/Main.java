@@ -43,7 +43,7 @@ public class Main extends JFrame {
 		Main.isTest = isTest;
 		print("-----start ");
 		int firstDigit = -1, secondDigit = -1, thirdDigit = -1, fourthDigit = -1, fifthDigit = -1;
-		StepFileReader sfr = new StepFileReader(filePath == null ? (CommonUtils._PATH_PRODUCTION + "8.pin_08940-03x20/pin_08940-03x20.stp") : filePath);
+		StepFileReader sfr = new StepFileReader(filePath == null ? (CommonUtils._PATH_PRODUCTION + "30.26100-00800855/26100-00800855.stp") : filePath);
 		cs = new ClosedShell(sfr.getClosedShellLineId());
 		MaxMeasures m = CartesianPointKeeper.getMaxShapeMeasures();
 		AdvancedFace bottom = cs.getBottomPlane();
@@ -151,7 +151,7 @@ public class Main extends JFrame {
 									&& backFob.areAdjacentsXYOriented()) {
 								print("front plane, back plane: uniform (equal) cross sections (triangular)");
 								secondDigit = 1;
-							} else if (frontFob.areAdjacentsXYOriented() && backFob.areAdjacentsXYOriented()) {
+							} else {
 								print("front plane, back plane: uniform (equal) cross sections");
 								secondDigit = 2;							
 							}
@@ -285,23 +285,37 @@ public class Main extends JFrame {
 	private static int getFourthDigit() {
 		int fourthDigit = -1;
 		int k = cs.getYOrientedPlaneFacesCount();
+		boolean isGroove = false;
+		if (hasGroove(false, cs)) {
+			isGroove = true;
+		}
 		if (cs.hasUpperMachining()) {
 			fourthDigit = 7;
 			print("machining: curved surface");	
-		} else if (hasGroove(false, cs)) {
-			fourthDigit = 5;
-			print("machining: external groove is found");
 		} else if (k == 2) {
 			if (cs.getTopPlane().getFaceOuterBound().hasTopChamfers()) {
 				fourthDigit = 1;
 				print("machining: has chambers");
-			} 
+			} else if (isGroove) {
+				fourthDigit = 5;
+				print("machining: external groove is found");
+			}
 		} else if (k == 3) {
-			fourthDigit = 2;
-			print("machining: stepped 2");
+			if (!isGroove) {
+				fourthDigit = 2;
+				print("machining: stepped 2");
+			} else {
+				fourthDigit = 6;
+				print("machining: stepped 2 + groove");				
+			}
 		} else if (k > 3) {
-			fourthDigit = 3;
-			print("machining: stepped > 2");
+			if (!isGroove) {
+				fourthDigit = 3;
+				print("machining: stepped > 2");
+			} else {
+				fourthDigit = 6;
+				print("machining: stepped 2 + groove");				
+			}
 		} else {
 			fourthDigit = 0;
 			print("machining: no machining");
