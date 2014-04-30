@@ -138,17 +138,57 @@ public class ProductionTests {
 	
 	@Test
 	public void longManyCylinders() {
-		assertTrue(Main.mainProcedure(_PATH + "27.fcs_-_10-6___20-22/fcs_-_10-6___20-22.stp", true).equals("20000"));
+		assertTrue(Main.mainProcedure(_PATH + "27.fcs_-_10-6___20-22/fcs_-_10-6___20-22.stp", true).equals("24000"));
 	}
 	
 	@Test
 	public void longManyCylindersAuxHole() {
-		assertTrue(Main.mainProcedure(_PATH + "28.fcd_-_25-6___31_5-35/fcd_-_25-6___31_5-35.stp", true).equals("10001"));
+		assertTrue(Main.mainProcedure(_PATH + "28.fcd_-_25-6___31_5-35/fcd_-_25-6___31_5-35.stp", true).equals("14001"));
 	}
 	
 	@Test
 	public void long2Cylinders() {
 		assertTrue(Main.mainProcedure(_PATH + "30.26100-00800855/26100-00800855.stp", true).equals("24000"));
+	}
+	
+	@Test
+	public void long2Cylinders2() {
+		assertTrue(Main.mainProcedure(_PATH + "31.26101-01001057/26101-01001057.stp", true).equals("14000"));
+	}
+	
+	@Test
+	public void cupWithLongBottom() {
+		assertTrue(Main.mainProcedure(_PATH + "32.27750-03502040/27750-03502040.stp", true).equals("75070"));
+	}
+	
+	@Test
+	public void longManyCylinders2() {
+		assertTrue(Main.mainProcedure(_PATH + "34.431e10000/431e10000.stp", true).equals("24000"));
+	}
+	
+	@Test
+	public void longManyCylinders3() {
+		assertTrue(Main.mainProcedure(_PATH + "35.431r10000/431r10000.stp", true).equals("14001"));
+	}
+	
+	@Test
+	public void nonrotCircularAndOrtoWithBores() {
+		assertTrue(Main.mainProcedure(_PATH + "36.ag_bc_750/ag_bc_750.stp", true).equals("63420"));
+	}
+	
+	@Test
+	public void nonrotRectWithSteppedBores() {
+		assertTrue(Main.mainProcedure(_PATH + "37.ag_bp_750/ag_bp_750.stp", true).equals("60030"));
+	}
+	
+	@Test
+	public void nonrotRectWithSteppedBores2() {
+		assertTrue(Main.mainProcedure(_PATH + "38.ag_bpr_750/ag_bpr_750.stp", true).equals("60530"));
+	}
+	
+	@Test
+	public void nonrotRectWithSteppedBores3() {
+		assertTrue(Main.mainProcedure(_PATH + "40.ag_mw_750/ag_mw_750.stp", true).equals("80120"));
 	}
 	
 	@After

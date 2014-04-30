@@ -43,7 +43,7 @@ public class Main extends JFrame {
 		Main.isTest = isTest;
 		print("-----start ");
 		int firstDigit = -1, secondDigit = -1, thirdDigit = -1, fourthDigit = -1, fifthDigit = -1;
-		StepFileReader sfr = new StepFileReader(filePath == null ? (CommonUtils._PATH_PRODUCTION + "30.26100-00800855/26100-00800855.stp") : filePath);
+		StepFileReader sfr = new StepFileReader(filePath == null ? (CommonUtils._PATH_PRODUCTION + "50.03220-01/03220-01.stp") : filePath);
 		cs = new ClosedShell(sfr.getClosedShellLineId());
 		MaxMeasures m = CartesianPointKeeper.getMaxShapeMeasures();
 		AdvancedFace bottom = cs.getBottomPlane();
@@ -145,8 +145,8 @@ public class Main extends JFrame {
 							if (frontFob.isRectangle() && backFob.isRectangle() && bottom.getFaceOuterBound().isRectangle()) {
 								print("front plane, back plane: uniform (equal) cross sections (rectangular)");
 								secondDigit = 0;
-								fourthDigit = getFourthDigit();
-								thirdDigit = getThirdDigit(bottom);
+								//fourthDigit = getFourthDigit();
+								//thirdDigit = getThirdDigit(bottom);
 							} else if (frontFob.isTriangle() && backFob.isTriangle() && frontFob.areAdjacentsXYOriented()
 									&& backFob.areAdjacentsXYOriented()) {
 								print("front plane, back plane: uniform (equal) cross sections (triangular)");
@@ -247,14 +247,14 @@ public class Main extends JFrame {
 			print("machining: external groove is found");
 			if (cylinderCount == 1 || cylinderCount == 2) {
 				return 3;
-			} else if (cylinderCount == 3) {
+			} else if (cylinderCount >= 3) {
 				return 6;
 			} 
 		} else {
 			if (cylinderCount == 2) {
 				print("no external machining");
 				return 1;
-			} else if (cylinderCount == 3) {
+			} else if (cylinderCount >= 3) {
 				print("no external machining");
 				return 4;
 			}
@@ -273,9 +273,11 @@ public class Main extends JFrame {
 				}
 			}
 		} else {
-			for (FaceBound fb : cs.getTopPlane().getFaceInnerBound()) {
-				if (!fb.isCircle()) {
-					return true;
+			if (cs.getTopPlane() != null) {
+				for (FaceBound fb : cs.getTopPlane().getFaceInnerBound()) {
+					if (!fb.isCircle()) {
+						return true;
+					}
 				}
 			}
 		}
@@ -284,6 +286,9 @@ public class Main extends JFrame {
 	
 	private static int getFourthDigit() {
 		int fourthDigit = -1;
+		if (cs.getTopPlane() == null) {
+			return 0;
+		}
 		int k = cs.getYOrientedPlaneFacesCount();
 		boolean isGroove = false;
 		if (hasGroove(false, cs)) {
@@ -299,6 +304,9 @@ public class Main extends JFrame {
 			} else if (isGroove) {
 				fourthDigit = 5;
 				print("machining: external groove is found");
+			} else {
+				fourthDigit = 0;
+				print("machining: no machining");
 			}
 		} else if (k == 3) {
 			if (!isGroove) {
