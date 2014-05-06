@@ -1,0 +1,13 @@
+﻿"Symbol";"Value";"Unit";
+"TraceParts.PartNumber";"69-15022006-774497";"";
+"TraceParts.ClassPath";"MAYR:/ROOT/C21/C21.120/C21.120.T02/69-15022006-774497";"";
+"TraceParts.InstanceId";"69-15022006-7744975Y4ZRO6CGXILMO558UGVLDD6X";"";
+"REFERENCE";"0 / 400.401.0 / 8";"";
+"DESIGN";"EAS - torque sensor clutch - Flanged version";"";
+"SUPPLIER";"mayr power transmission";"";
+"SELECTION";"EAS - torque sensor clutch - Flanged version, size 0";"";
+"TraceParts.PartLanguage";"en";"";
+"TraceParts.PartStatus";"Published";"";
+"TRACEPARTS";"TRACEPARTS";"";
+"TraceParts.PartTitle";"Flanged Design";"";
+"TraceParts.PartVersion";"1.1.7";"";

@@ -1,0 +1,11 @@
+﻿"Symbol";"Value";"Unit";
+"TraceParts.PartNumber";"32-15062010-127316";"";
+"TraceParts.ClassPath";"FUJIKURA:/ROOT/C21/C21.T06/C21.T06.T01/32-15062010-127316";"";
+"TraceParts.InstanceId";"32-15062010-127316B4ED1FY3PDXU6YSSOU1IXHD2C";"";
+"TRACEPARTS";"TRACEPARTS";"";
+"SUPPLIER";"Fujikura Composites - Control Equipment";"";
+"DESIGN";"BF Cylinders, FCS - Single Action";"";
+"TraceParts.PartLanguage";"en";"";
+"TraceParts.PartStatus";"Published";"";
+"TraceParts.PartTitle";"BF Cylinders, FCS - Single Action";"";
+"TraceParts.PartVersion";"1.0.4";"";

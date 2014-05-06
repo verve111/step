@@ -1,0 +1,13 @@
+﻿"Symbol";"Value";"Unit";
+"TraceParts.PartNumber";"10-28112006-094299";"";
+"TraceParts.ClassPath";"CCB:/ROOT/C21/C21.060/C21.060.T08/10-28112006-094299";"";
+"TraceParts.PartVersion";"1.1.2";"";
+"TraceParts.InstanceId";"10-28112006-0942997TTWK74I7V5MHH9PJPL8ACF7Q";"";
+"MATERIAL";"Mild steel zinc plated";"";
+"TRACEPARTS";"TRACEPARTS";"";
+"SUPPLIER";"CCB Composants S.A.";"";
+"DESIGN";"Coupling nut hexagonal steel M3 H5.5 LG10";"";
+"TraceParts.PartLanguage";"en";"";
+"TraceParts.PartStatus";"Published";"";
+"TraceParts.PartTitle";"Coupling nut hexagonal female through, mild steel zinc plated";"";
+"REFERENCE";"119030055010";"";

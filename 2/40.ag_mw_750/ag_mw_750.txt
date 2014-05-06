@@ -1,0 +1,12 @@
+﻿"Symbol";"Value";"Unit";
+"TraceParts.PartNumber";"32-07022005-082111";"";
+"TraceParts.ClassPath";"MDL:/ROOT/C21/C21.160/C21.160.T04/32-07022005-082111";"";
+"TraceParts.InstanceId";"32-07022005-082111ABIEICSIRF2SS0HYWHA8UYPLN";"";
+"REFERENCE";"AG.MW.750";"";
+"TRACEPARTS";"TRACEPARTS";"";
+"SUPPLIER";"MDL";"";
+"DESIGN";"Befestigung für Gasdruckfedern, Geschraubter Flansch Typ MW für Gasdruckefedern AG.XC";"";
+"TraceParts.PartLanguage";"de";"";
+"TraceParts.PartStatus";"Published";"";
+"TraceParts.PartTitle";"AG.MW: Befestigung für Gasdruckfedern, Geschraubter Flansch Typ MW für Gasdruckefedern AG.XC ";"";
+"TraceParts.PartVersion";"1.1.2";"";

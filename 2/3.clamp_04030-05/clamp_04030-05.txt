@@ -1,0 +1,14 @@
+﻿"Symbol";"Value";"Unit";
+"TraceParts.PartNumber";"10-27092001-188841";"";
+"TraceParts.ClassPath";"NORELEM:/ROOT/C21/C21.060/C21.060.T01/10-27092001-188841";"";
+"TraceParts.PartVersion";"1.1.3";"";
+"TraceParts.InstanceId";"10-27092001-1888413SFXH2LXMP80S80WUUFRCESBI";"";
+"MATERIAL";"Burnished steel";"";
+"TRACEPARTS";"TRACEPARTS";"";
+"SUPPLIER";"NORELEM";"";
+"MASS";"0.02";"kg";
+"DESIGN";"Pivoting clamp - 32 x 12 x 8 mm";"";
+"TraceParts.PartLanguage";"en";"";
+"TraceParts.PartStatus";"Published";"";
+"TraceParts.PartTitle";"04030 - Pivoting clamp";"";
+"REFERENCE";"04030-05";"";

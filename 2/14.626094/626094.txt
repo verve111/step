@@ -1,0 +1,11 @@
+﻿"Symbol";"Value";"Unit";
+"TraceParts.PartNumber";"10-22122011-067563";"";
+"TraceParts.ClassPath";"EMILE_MAURIN_BV:/ROOT/C21/C21.060/C21.060.020/C21.060.020.T10/10-22122011-067563";"";
+"TraceParts.InstanceId";"10-22122011-067563DNBBJ7EWSXKCR7GMGYTIU1Q2X";"";
+"REFERENCE";"626094";"";
+"TRACEPARTS";"TRACEPARTS";"";
+"SUPPLIER";"Emile Maurin";"";
+"TraceParts.PartLanguage";"en";"";
+"TraceParts.PartStatus";"Published";"";
+"TraceParts.PartTitle";"62609 : HEXAGON SERRATED FLANGE NUT DIN 6923 - STAINLESS STEEL A2";"";
+"TraceParts.PartVersion";"1.0.4";"";

@@ -1,0 +1,15 @@
+﻿"Symbol";"Value";"Unit";
+"TraceParts.PartNumber";"10-27092001-158810";"";
+"TraceParts.ClassPath";"NORELEM:/ROOT/C21/C21.060/C21.060.T01/10-27092001-158810";"";
+"STANDARD";"NF E 21-501, DIN 6314";"";
+"TraceParts.InstanceId";"10-27092001-158810BZ31FKR5RBUZ0Z7J1RLZTRW10";"";
+"MATERIAL";"Painted steel";"";
+"TRACEPARTS";"TRACEPARTS";"";
+"SUPPLIER";"NORELEM";"";
+"MASS";"0.06";"kg";
+"DESIGN";"Steel plain clamp - 50 x 20 x 10 mm";"";
+"TraceParts.PartLanguage";"en";"";
+"REFERENCE";"04080-06";"";
+"TraceParts.PartTitle";"04080 - Plain clamp";"";
+"TraceParts.PartStatus";"Published";"";
+"TraceParts.PartVersion";"1.1.5";"";

@@ -1,0 +1,13 @@
+﻿"Symbol";"Value";"Unit";
+"TraceParts.PartNumber";"10-03082004-069466";"";
+"TraceParts.ClassPath";"ENOMAX:/ROOT/C21/C21.160/C21.160.T04/10-03082004-069466";"";
+"TraceParts.InstanceId";"10-03082004-069466ABPN45XPX5KXHXNH9JTU5TPOC";"";
+"REFERENCE";"H500-010";"";
+"TRACEPARTS";"TRACEPARTS";"";
+"SUPPLIER";"ENOMAX Groupe Supratec";"";
+"MASS";"0.42";"kg";
+"DESIGN";"Ressort à gaz force accrue, cotes au standard ISO H500, course 10 mm";"";
+"TraceParts.PartLanguage";"fr";"";
+"TraceParts.PartStatus";"Published";"";
+"TraceParts.PartTitle";"H500: Ressort à gaz force accrue, cotes au standard ISO";"";
+"TraceParts.PartVersion";"1.1.6";"";

@@ -1,0 +1,15 @@
+﻿"Symbol";"Value";"Unit";
+"TraceParts.PartNumber";"10-27092001-163241";"";
+"TraceParts.ClassPath";"NORELEM:/ROOT/C21/C21.060/C21.060.T01/10-27092001-163241";"";
+"STANDARD";"NF E 21-506";"";
+"TraceParts.InstanceId";"10-27092001-1632415UF29TQRS6B3HH105G816LYED";"";
+"MATERIAL";"Painted steel";"";
+"TRACEPARTS";"TRACEPARTS";"";
+"SUPPLIER";"NORELEM";"";
+"MASS";"55";"g";
+"DESIGN";"Stepped clamp - 50 x 20 x 10 mm";"";
+"TraceParts.PartLanguage";"en";"";
+"REFERENCE";"04070-06";"";
+"TraceParts.PartTitle";"04070 - Stepped clamp";"";
+"TraceParts.PartStatus";"Published";"";
+"TraceParts.PartVersion";"1.1.3";"";

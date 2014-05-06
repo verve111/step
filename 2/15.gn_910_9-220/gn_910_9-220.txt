@@ -1,0 +1,13 @@
+﻿"Symbol";"Value";"Unit";
+"TraceParts.PartNumber";"32-12112009-112212";"";
+"TraceParts.ClassPath";"GANTER:/ROOT/C21/C21.060/C21.060.041/32-12112009-112212";"";
+"TraceParts.InstanceId";"32-12112009-1122123QGCTPUL8UXJNL5NFQ3C2F4H4";"";
+"REFERENCE";"GN 910.9-220";"";
+"TRACEPARTS";"TRACEPARTS";"";
+"SUPPLIER";"GANTER";"";
+"DESIGN";"GN 910.9 Base plate for knee lever modules";"";
+"TraceParts.PartLanguage";"en";"";
+"TraceParts.PartStatus";"Published";"";
+"TraceParts.PartTitle";"GN 910.9 Base plate for knee lever modules";"";
+"NOTE";"el@ss 6.0 21-02-07-01";"";
+"TraceParts.PartVersion";"1.0.9";"";

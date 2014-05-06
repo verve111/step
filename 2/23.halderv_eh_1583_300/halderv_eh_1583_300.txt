@@ -1,0 +1,12 @@
+﻿"Symbol";"Value";"Unit";
+"TraceParts.PartNumber";"68-07122006-626056";"";
+"TraceParts.ClassPath";"HALDERV:/ROOT/C21/C21.060/C21.060.T01/68-07122006-626056";"";
+"TraceParts.InstanceId";"68-07122006-6260565PB2MC00Q3IEA6R8T2NF6JJ4X";"";
+"REFERENCE";"EH 1583.300";"";
+"DESIGN";"EH 1583.300 Jaw, Soft";"";
+"SUPPLIER";"HALDER - Vorrichtungssysteme";"";
+"TraceParts.PartLanguage";"en";"";
+"TraceParts.PartStatus";"Published";"";
+"TRACEPARTS";"TRACEPARTS";"";
+"TraceParts.PartTitle";"EH 1583.300 Jaw, Soft";"";
+"TraceParts.PartVersion";"1.2.3";"";

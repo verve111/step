@@ -1,0 +1,8 @@
+Axis2 placement 3d
+
+Axis2_placement_3d is a geometric_representation_item that specifies the location and orientation in three-dimensional space of two mutually perpendicular axes.
+Attributes
+The name attribute provides a name for the placement.
+The location attribute defines the spatial position of the reference point and origin of the associated placement coordinate system.
+The axis attribute defines the exact direction of the local Z axis.
+The ref_direction attribute can be used to determine the direction of the local X axis.

@@ -1,0 +1,11 @@
+﻿"Symbol";"Value";"Unit";
+"TraceParts.PartNumber";"10-05052009-135112";"";
+"TraceParts.ClassPath";"BENE_INOX:/ROOT/C21/C21.060/C21.060.035/10-05052009-135112";"";
+"TraceParts.InstanceId";"10-05052009-135112DVVWBJE6XQJSO03Q8FP578871";"";
+"REFERENCE";"214654-6";"";
+"TRACEPARTS";"TRACEPARTS";"";
+"SUPPLIER";"BENE INOX";"";
+"TraceParts.PartLanguage";"fr";"";
+"TraceParts.PartStatus";"Published";"";
+"TraceParts.PartTitle";"214654 : PROLONGATEUR CYLINDRIQUE POUR TIGE FILETEE - INOX A1";"";
+"TraceParts.PartVersion";"1.0.7";"";

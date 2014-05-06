@@ -1,0 +1,13 @@
+﻿"Symbol";"Value";"Unit";
+"TraceParts.PartNumber";"10-30082011-103478";"";
+"TraceParts.ClassPath";"NORELEM:/ROOT/C21/C21.T01/C21.T01.T01/10-30082011-103478";"";
+"TraceParts.InstanceId";"10-30082011-1034785CJQ082FPTRABD2QBCO228V91";"";
+"REFERENCE";"03084-08032";"";
+"DESIGN";"03084 STOPS ADJUSTABLE";"";
+"SUPPLIER";"NORELEM";"";
+"TraceParts.PartLanguage";"en";"";
+"TraceParts.PartStatus";"Published";"";
+"TRACEPARTS";"TRACEPARTS";"";
+"TraceParts.PartTitle";"03084 STOPS ADJUSTABLE";"";
+"GEW";"0.32";"";
+"TraceParts.PartVersion";"1.1.0";"";

@@ -1,0 +1,11 @@
+﻿"Symbol";"Value";"Unit";
+"TraceParts.PartNumber";"10-22122011-066442";"";
+"TraceParts.ClassPath";"EMILE_MAURIN_BV:/ROOT/C21/C21.060/C21.060.020/C21.060.020.T05/10-22122011-066442";"";
+"TraceParts.InstanceId";"10-22122011-0664428OTK6NV90OVLY8VIAQ507P4HU";"";
+"REFERENCE";"19772OM4.0,5-3";"";
+"TRACEPARTS";"TRACEPARTS";"";
+"SUPPLIER";"Emile Maurin";"";
+"TraceParts.PartLanguage";"en";"";
+"TraceParts.PartStatus";"Published";"";
+"TraceParts.PartTitle";"19772 : RIVKLE® BLIND NUT WITH CYLINDRICAL SHAFT AND  FLAT HEAD - PASSIVATED ZINC PLATED 400 HSST";"";
+"TraceParts.PartVersion";"1.0.4";"";

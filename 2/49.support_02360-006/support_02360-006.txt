@@ -1,0 +1,14 @@
+﻿"Symbol";"Value";"Unit";
+"TraceParts.PartNumber";"10-31072001-123398";"";
+"TraceParts.ClassPath";"NORELEM:/ROOT/C21/C21.T01/C21.T01.T04/10-31072001-123398";"";
+"TraceParts.PartVersion";"1.1.5";"";
+"TraceParts.InstanceId";"10-31072001-12339845A2P7DZDY83DZJW85LPCBHAY";"";
+"MATERIAL";"Steel";"";
+"TRACEPARTS";"TRACEPARTS";"";
+"SUPPLIER";"NORELEM";"";
+"MASS";"0.2";"kg";
+"DESIGN";"Anti-vibration support Ø10";"";
+"TraceParts.PartLanguage";"en";"";
+"TraceParts.PartStatus";"Published";"";
+"TraceParts.PartTitle";"02360 - Anti-vibration support";"";
+"REFERENCE";"02360-006";"";

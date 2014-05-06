@@ -1,0 +1,12 @@
+﻿"Symbol";"Value";"Unit";
+"TraceParts.PartNumber";"32-07022005-064924";"";
+"TraceParts.ClassPath";"MDL:/ROOT/C21/C21.160/C21.160.T04/32-07022005-064924";"";
+"TraceParts.InstanceId";"32-07022005-06492484V0I64B0SVOB802WF1E6URSZ";"";
+"REFERENCE";"AG.BP.750";"";
+"TRACEPARTS";"TRACEPARTS";"";
+"SUPPLIER";"MDL";"";
+"DESIGN";"Befestigung für Gasdruckfedern - Flanschplatte Typ BP für Gasdruckfedern AG.XC-AG.XCF";"";
+"TraceParts.PartLanguage";"de";"";
+"TraceParts.PartStatus";"Published";"";
+"TraceParts.PartTitle";"AG.BP: Befestigung für Gasdruckfedern - Flanschplatte Typ BP";"";
+"TraceParts.PartVersion";"1.1.2";"";

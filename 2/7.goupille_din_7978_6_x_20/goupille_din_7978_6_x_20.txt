@@ -1,0 +1,13 @@
+﻿"Symbol";"Value";"Unit";
+"TraceParts.PartNumber";"10-13092004-067183";"";
+"TraceParts.ClassPath";"ENOMAX:/ROOT/C21/C21.060/C21.060.050/C21.060.050.T02/10-13092004-067183";"";
+"STANDARD";"DIN 7978";"";
+"TraceParts.InstanceId";"10-13092004-067183BYUBJL433MC6O77ZYZKQRU97N";"";
+"REFERENCE";"DIN 7978 6 x 20";"";
+"TRACEPARTS";"TRACEPARTS";"";
+"SUPPLIER";"ENOMAX Groupe Supratec";"";
+"DESIGN";"Goupille conique taraudée DIN 7978 6 x 20";"";
+"TraceParts.PartLanguage";"fr";"";
+"TraceParts.PartStatus";"Published";"";
+"TraceParts.PartTitle";"Goupille conique taraudée DIN 7978";"";
+"TraceParts.PartVersion";"1.1.6";"";

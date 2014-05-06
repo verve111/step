@@ -1,0 +1,14 @@
+﻿"Symbol";"Value";"Unit";
+"TraceParts.PartNumber";"68-07122006-624743";"";
+"TraceParts.ClassPath";"HALDERV:/ROOT/C21/C21.060/C21.060.T01/68-07122006-624743";"";
+"TraceParts.InstanceId";"68-07122006-6247434AAFNCR245WVO3AHD2KP7C5XU";"";
+"REFERENCE";"EH 1582.800";"";
+"TRACEPARTS";"TRACEPARTS";"";
+"SUPPLIER";"HALDER-Modular Jig and Fixture Systems";"";
+"MASS";"0.21";"kg";
+"DESIGN";"EH 1582.800 Prismatic Jaw";"";
+"TraceParts.PartLanguage";"en";"";
+"TraceParts.PartStatus";"Published";"";
+"TraceParts.PartTitle";"EH 1582.800 - 1583.100 Prismatic Jaws";"";
+"MATERIAL";"Steel, Case Hardened, ground";"";
+"TraceParts.PartVersion";"1.2.4";"";

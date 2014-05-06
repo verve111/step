@@ -1,0 +1,13 @@
+﻿"Symbol";"Value";"Unit";
+"TraceParts.PartNumber";"10-20072004-117535";"";
+"TraceParts.ClassPath";"ENOMAX:/ROOT/C21/C21.060/C21.060.T01/10-20072004-117535";"";
+"TraceParts.InstanceId";"10-20072004-1175359UMCPXJRH73SD4Q50F39EWMHN";"";
+"REFERENCE";"2321.730";"";
+"DESIGN";"Tasseau de retenue pour bride de serrage à excentrique b = 30";"";
+"SUPPLIER";"ENOMAX Groupe Supratec";"";
+"MASS";"245";"g";
+"TraceParts.PartLanguage";"fr";"";
+"TraceParts.PartStatus";"Published";"";
+"TRACEPARTS";"TRACEPARTS";"";
+"TraceParts.PartTitle";"EH 2321 - Tasseau de retenue pour brides de serrage à excentrique ";"";
+"TraceParts.PartVersion";"1.1.0";"";

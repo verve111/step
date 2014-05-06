@@ -1,0 +1,12 @@
+﻿"Symbol";"Value";"Unit";
+"TraceParts.PartNumber";"10-29092011-082481";"";
+"TraceParts.ClassPath";"NORELEM:/ROOT/C21/C21.T01/C21.T01.T03/10-29092011-082481";"";
+"TraceParts.InstanceId";"10-29092011-082481BUU0627OFWKYEE3Z8LB17FYDB";"";
+"REFERENCE";"27705-0406";"";
+"DESIGN";"27705 VERIN DE COMPENSATION A SPHERE";"";
+"SUPPLIER";"NORELEM";"";
+"TraceParts.PartLanguage";"fr";"";
+"TraceParts.PartStatus";"Published";"";
+"TRACEPARTS";"TRACEPARTS";"";
+"TraceParts.PartTitle";"27705 VERIN DE COMPENSATION A SPHERE";"";
+"TraceParts.PartVersion";"1.1.6";"";

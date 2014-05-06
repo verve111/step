@@ -1,0 +1,13 @@
+﻿"Symbol";"Value";"Unit";
+"TraceParts.PartNumber";"10-29092011-082485";"";
+"TraceParts.ClassPath";"NORELEM:/ROOT/C21/C21.T06/C21.T06.T02/10-29092011-082485";"";
+"TraceParts.InstanceId";"10-29092011-0824853AY8ALY39I3UTU924FUKTVHZW";"";
+"REFERENCE";"27750-03502040";"";
+"DESIGN";"27750 HUTELEMENTE TYPE H2";"";
+"SUPPLIER";"NORELEM";"";
+"TraceParts.PartLanguage";"de";"";
+"TraceParts.PartStatus";"Published";"";
+"TRACEPARTS";"TRACEPARTS";"";
+"TraceParts.PartTitle";"27750 HUTELEMENTE TYPE H2";"";
+"GEW";"0,03";"";
+"TraceParts.PartVersion";"1.0.1";"";

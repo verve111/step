@@ -1,0 +1,12 @@
+﻿"Symbol";"Value";"Unit";
+"TraceParts.PartNumber";"10-29092011-082489";"";
+"TraceParts.ClassPath";"NORELEM:/ROOT/C21/C21.T01/C21.T01.T03/10-29092011-082489";"";
+"TraceParts.InstanceId";"10-29092011-0824892QSUKTL2U2HYP2RHCBXWQF9CO";"";
+"REFERENCE";"27760-062060";"";
+"DESIGN";"27760 MACHINE FEET";"";
+"SUPPLIER";"NORELEM";"";
+"TraceParts.PartLanguage";"en";"";
+"TraceParts.PartStatus";"Published";"";
+"TRACEPARTS";"TRACEPARTS";"";
+"TraceParts.PartTitle";"27760 MACHINE FEET";"";
+"TraceParts.PartVersion";"1.0.4";"";

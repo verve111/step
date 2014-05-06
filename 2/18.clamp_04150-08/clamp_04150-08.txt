@@ -1,0 +1,15 @@
+﻿"Symbol";"Value";"Unit";
+"TraceParts.PartNumber";"10-27092001-199021";"";
+"TraceParts.ClassPath";"NORELEM:/ROOT/C21/C21.060/C21.060.T01/10-27092001-199021";"";
+"STANDARD";"DIN 6315 C";"";
+"TraceParts.InstanceId";"10-27092001-1990218IS1MX4WB74Z7WQQEU1ARC4OS";"";
+"MATERIAL";"Painted steel";"";
+"TRACEPARTS";"TRACEPARTS";"";
+"SUPPLIER";"NORELEM";"";
+"MASS";"220";"g";
+"DESIGN";"Round end fork clamp - 100 x 30 x 15 mm";"";
+"TraceParts.PartLanguage";"en";"";
+"REFERENCE";"04150-08";"";
+"TraceParts.PartTitle";"04150 - Round end fork clamp";"";
+"TraceParts.PartStatus";"Published";"";
+"TraceParts.PartVersion";"1.1.3";"";

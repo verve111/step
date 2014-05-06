@@ -1,0 +1,14 @@
+﻿"Symbol";"Value";"Unit";
+"TraceParts.PartNumber";"68-07122006-624652";"";
+"TraceParts.ClassPath";"HALDERV:/ROOT/C21/C21.060/C21.060.T01/68-07122006-624652";"";
+"TraceParts.InstanceId";"68-07122006-6246525C9DGQYZ9BIKCP46HMP21GUAF";"";
+"REFERENCE";"EH 1582.600";"";
+"TRACEPARTS";"TRACEPARTS";"";
+"SUPPLIER";"HALDER-Modular Jig and Fixture Systems";"";
+"MASS";"0.28";"kg";
+"DESIGN";"EH 1582.600 Jaw, flat";"";
+"TraceParts.PartLanguage";"en";"";
+"TraceParts.PartStatus";"Published";"";
+"TraceParts.PartTitle";"EH 1582.600 - 1582.700 Jaws, flat";"";
+"MATERIAL";"Steel, Case Hardened, ground";"";
+"TraceParts.PartVersion";"1.2.4";"";

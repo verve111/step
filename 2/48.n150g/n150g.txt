@@ -1,0 +1,12 @@
+﻿"Symbol";"Value";"Unit";
+"TraceParts.PartNumber";"80-10092008-230513";"";
+"TraceParts.ClassPath";"TEA_AUS:/ROOT/C21/C21.T01/C21.T01.T03/80-10092008-230513";"";
+"TraceParts.InstanceId";"80-10092008-230513ACRYP4VFBAHKC774FYCG96D7P";"";
+"REFERENCE";"N150G";"";
+"DESIGN";"Leveling Element with Vibration Damper";"";
+"SUPPLIER";"T.E.A. Transmissions Pty Ltd - Australia";"";
+"TraceParts.PartLanguage";"en";"";
+"TraceParts.PartStatus";"Published";"";
+"TRACEPARTS";"TRACEPARTS";"";
+"TraceParts.PartTitle";"Leveling Element with Vibration Damper";"";
+"TraceParts.PartVersion";"1.0.5";"";

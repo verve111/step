@@ -1,0 +1,11 @@
+﻿"Symbol";"Value";"Unit";
+"TraceParts.PartNumber";"10-06082008-153411";"";
+"TraceParts.ClassPath";"EMILE_MAURIN:/ROOT/C21/C21.060/C21.060.050/C21.060.050.T01/10-06082008-153411";"";
+"TraceParts.InstanceId";"10-06082008-153411B8DL39FXFISQP2LKOZ9RFPT9";"";
+"REFERENCE";"32-230-10-40";"";
+"TRACEPARTS";"TRACEPARTS";"";
+"SUPPLIER";"Emile Maurin";"";
+"TraceParts.PartLanguage";"fr";"";
+"TraceParts.PartStatus";"Published";"";
+"TraceParts.PartTitle";"32-23 : GOUPILLE CYLINDRIQUE TARAUDÉE, ACIER - DIN 7979";"";
+"TraceParts.PartVersion";"1.2.6";"";

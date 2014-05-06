@@ -1,0 +1,11 @@
+﻿"Symbol";"Value";"Unit";
+"TraceParts.PartNumber";"10-06082008-154193";"";
+"TraceParts.ClassPath";"EMILE_MAURIN:/ROOT/C21/C21.T01/C21.T01.T03/10-06082008-154193";"";
+"TraceParts.InstanceId";"10-06082008-154193EUKO8Y7XQV4WC0RINUJQHA563";"";
+"REFERENCE";"35-422-25-8";"";
+"TRACEPARTS";"TRACEPARTS";"";
+"SUPPLIER";"Emile Maurin";"";
+"TraceParts.PartLanguage";"fr";"";
+"TraceParts.PartStatus";"Published";"";
+"TraceParts.PartTitle";"35-42 : PIED À ROTULE POLYAMIDE, TARAUDÉ - ACIER - AVEC PATIN";"";
+"TraceParts.PartVersion";"1.1.9";"";

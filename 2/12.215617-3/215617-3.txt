@@ -1,0 +1,11 @@
+﻿"Symbol";"Value";"Unit";
+"TraceParts.PartNumber";"10-05052009-135182";"";
+"TraceParts.ClassPath";"BENE_INOX:/ROOT/C21/C21.060/C21.060.020/C21.060.020.T09/10-05052009-135182";"";
+"TraceParts.InstanceId";"10-05052009-135182BV6QL0P1Z59CVQ3CG0N4G91UC";"";
+"REFERENCE";"215617-3";"";
+"TRACEPARTS";"TRACEPARTS";"";
+"SUPPLIER";"BENE INOX";"";
+"TraceParts.PartLanguage";"fr";"";
+"TraceParts.PartStatus";"Published";"";
+"TraceParts.PartTitle";"215617 : ECROU HEXAGONAL AUTOFREINE - TOUT METAL - INOX A2";"";
+"TraceParts.PartVersion";"1.1.7";"";

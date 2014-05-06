@@ -1,0 +1,12 @@
+﻿"Symbol";"Value";"Unit";
+"TraceParts.PartNumber";"10-02012002-082138";"";
+"TraceParts.ClassPath";"NF:/ROOT/C21/C21.060/C21.060.050/C21.060.050.T01/10-02012002-082138";"";
+"STANDARD";"NF E 27-484";"";
+"TraceParts.InstanceId";"10-02012002-0821384K0YEJ16BMR9KQVB1BYZSXU0N";"";
+"TraceParts.PartTitle";"Cylindrical pin - Form A";"";
+"DESIGN";"Cylindrical pin - type A 0.6x2 - NF E 27-484";"";
+"TraceParts.PartLanguage";"en";"";
+"TraceParts.PartStatus";"Published";"";
+"TraceParts.PartStandardAcronym";"NF";"";
+"TRACEPARTS";"TRACEPARTS";"";
+"TraceParts.PartVersion";"1.1.1";"";

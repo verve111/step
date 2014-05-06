@@ -1,0 +1,14 @@
+﻿"Symbol";"Value";"Unit";
+"TraceParts.PartNumber";"10-18122000-087478";"";
+"TraceParts.ClassPath";"RABOURDIN_INDUSTRIE:/F_RAB_INDUS/F_RAB_INDUS.RAB.1_50/F_RAB_INDUS.RAB.1_50.040/10-18122000-087478";"";
+"TraceParts.PartVersion";"1.1.9";"";
+"STANDARD";"NF E 63-517";"";
+"TraceParts.InstanceId";"10-18122000-087478555ITHAFIV7KLU7Z7BP50BQY7";"";
+"MATERIAL";"Legierter Stahl";"";
+"TRACEPARTS";"TRACEPARTS";"";
+"SUPPLIER";"RABOURDIN INDUSTRIE";"";
+"DESIGN";"Anschlag";"";
+"TraceParts.PartLanguage";"de";"";
+"TraceParts.PartStatus";"Published";"";
+"TraceParts.PartTitle";"Anschlag (ref. 608)";"";
+"REFERENCE";"608-16-4";"";

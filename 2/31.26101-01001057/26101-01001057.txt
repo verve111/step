@@ -1,0 +1,12 @@
+﻿"Symbol";"Value";"Unit";
+"TraceParts.PartNumber";"10-31082011-062369";"";
+"TraceParts.ClassPath";"NORELEM:/ROOT/C21/C21.T06/C21.T06.T02/10-31082011-062369";"";
+"TraceParts.InstanceId";"10-31082011-06236942SP4UNO5I37V89S4GE8OMMYQ";"";
+"REFERENCE";"26101-01001057";"";
+"DESIGN";"26101 GUMMI-METALL PUFFER TYP AT TAILLIERT";"";
+"SUPPLIER";"NORELEM";"";
+"TraceParts.PartLanguage";"de";"";
+"TraceParts.PartStatus";"Published";"";
+"TRACEPARTS";"TRACEPARTS";"";
+"TraceParts.PartTitle";"26101 GUMMI-METALL PUFFER TYP AT TAILLIERT";"";
+"TraceParts.PartVersion";"1.0.4";"";

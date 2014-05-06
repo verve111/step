@@ -1,0 +1,11 @@
+﻿"Symbol";"Value";"Unit";
+"TraceParts.PartNumber";"10-17102008-125717";"";
+"TraceParts.ClassPath";"MICHAUD_CHAILLY:/ROOT/C21/C21.060/C21.060.T02/10-17102008-125717";"";
+"TraceParts.InstanceId";"10-17102008-125717A9TX6MDDE54X0O94CMQYO7G3B";"";
+"REFERENCE";"C1-662-04-08-7";"";
+"TRACEPARTS";"TRACEPARTS";"";
+"SUPPLIER";"Michaud Chailly";"";
+"TraceParts.PartLanguage";"fr";"";
+"TraceParts.PartStatus";"Published";"";
+"TraceParts.PartTitle";"C1-662 D : CHAPE DE TRINGLERIE NUE ACIER ZINGUE TARAUDAGE A DROITE";"";
+"TraceParts.PartVersion";"1.0.6";"";

@@ -1,0 +1,12 @@
+﻿"Symbol";"Value";"Unit";
+"TraceParts.PartNumber";"10-31082011-062361";"";
+"TraceParts.ClassPath";"NORELEM:/ROOT/C21/C21.T06/C21.T06.T03/10-31082011-062361";"";
+"TraceParts.InstanceId";"10-31082011-0623616SJF6JBPPGTKLST74JQYU1PGQ";"";
+"REFERENCE";"26300-0807506";"";
+"DESIGN";"26300 INDUSTRIAL SHOCK ABSORBERS";"";
+"SUPPLIER";"NORELEM";"";
+"TraceParts.PartLanguage";"en";"";
+"TraceParts.PartStatus";"Published";"";
+"TRACEPARTS";"TRACEPARTS";"";
+"TraceParts.PartTitle";"26300 INDUSTRIAL SHOCK ABSORBERS";"";
+"TraceParts.PartVersion";"1.0.9";"";

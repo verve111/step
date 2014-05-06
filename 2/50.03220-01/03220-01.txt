@@ -1,0 +1,13 @@
+﻿"Symbol";"Value";"Unit";
+"TraceParts.PartNumber";"10-30082011-103314";"";
+"TraceParts.ClassPath";"NORELEM:/ROOT/C21/C21.T01/C21.T01.T04/10-30082011-103314";"";
+"TraceParts.InstanceId";"10-30082011-1033149G5AZKXME8P7ARFU8PCEVOOKH";"";
+"REFERENCE";"03220-01";"";
+"DESIGN";"03220 POSITIONING BRACKETS";"";
+"SUPPLIER";"NORELEM";"";
+"TraceParts.PartLanguage";"en";"";
+"TraceParts.PartStatus";"Published";"";
+"TRACEPARTS";"TRACEPARTS";"";
+"TraceParts.PartTitle";"03220 POSITIONING BRACKETS";"";
+"GEW";"0,02";"";
+"TraceParts.PartVersion";"1.1.3";"";

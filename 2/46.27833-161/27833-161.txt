@@ -1,0 +1,13 @@
+﻿"Symbol";"Value";"Unit";
+"TraceParts.PartNumber";"10-29092011-082550";"";
+"TraceParts.ClassPath";"NORELEM:/ROOT/C21/C21.T01/C21.T01.T03/10-29092011-082550";"";
+"TraceParts.InstanceId";"10-29092011-082550BH42ENCBFRPWYDZTFFN8UUDU2";"";
+"REFERENCE";"27833-161";"";
+"DESIGN";"27833 DUCK FEET";"";
+"SUPPLIER";"NORELEM";"";
+"TraceParts.PartLanguage";"en";"";
+"TraceParts.PartStatus";"Published";"";
+"TRACEPARTS";"TRACEPARTS";"";
+"TraceParts.PartTitle";"27833 DUCK FEET";"";
+"GEW";"0,244";"";
+"TraceParts.PartVersion";"1.0.4";"";

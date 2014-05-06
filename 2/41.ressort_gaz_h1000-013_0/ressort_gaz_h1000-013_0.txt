@@ -1,0 +1,13 @@
+﻿"Symbol";"Value";"Unit";
+"TraceParts.PartNumber";"10-03082004-070443";"";
+"TraceParts.ClassPath";"ENOMAX:/ROOT/C21/C21.160/C21.160.T04/10-03082004-070443";"";
+"TraceParts.InstanceId";"10-03082004-0704438Y7YNLSJHCZ9ZGQ7EWQ6GILSX";"";
+"REFERENCE";"H1000-013";"";
+"TRACEPARTS";"TRACEPARTS";"";
+"SUPPLIER";"ENOMAX Groupe Supratec";"";
+"MASS";"1.35";"kg";
+"DESIGN";"Ressort à gaz force accrue, cotes au standard ISO H1000, course 13 mm";"";
+"TraceParts.PartLanguage";"fr";"";
+"TraceParts.PartStatus";"Published";"";
+"TraceParts.PartTitle";"H1000: Ressort à gaz force accrue, cotes au standard ISO";"";
+"TraceParts.PartVersion";"1.1.7";"";

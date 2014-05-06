@@ -1,0 +1,12 @@
+﻿"Symbol";"Value";"Unit";
+"TraceParts.PartNumber";"10-31082011-062347";"";
+"TraceParts.ClassPath";"NORELEM:/ROOT/C21/C21.T06/C21.T06.T02/10-31082011-062347";"";
+"TraceParts.InstanceId";"10-31082011-0623479ZJ77H4DXWXQJPMGPLR9TJNO6";"";
+"REFERENCE";"26100-00800855";"";
+"DESIGN";"26100 RUBBER-METAL BUFFER TYPE A";"";
+"SUPPLIER";"NORELEM";"";
+"TraceParts.PartLanguage";"en";"";
+"TraceParts.PartStatus";"Published";"";
+"TRACEPARTS";"TRACEPARTS";"";
+"TraceParts.PartTitle";"26100 RUBBER-METAL BUFFER TYPE A";"";
+"TraceParts.PartVersion";"1.0.7";"";

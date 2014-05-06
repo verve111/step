@@ -1,0 +1,14 @@
+﻿"Symbol";"Value";"Unit";
+"TraceParts.PartNumber";"10-16022006-090816";"";
+"TraceParts.ClassPath";"ENOMAX:/ROOT/C21/C21.060/C21.060.T01/10-16022006-090816";"";
+"TraceParts.PartVersion";"1.0.8";"";
+"TraceParts.InstanceId";"10-16022006-090816CH9WU6JXZXKVV6L73F1AELBW0";"";
+"MATERIAL";"Acier traité, bruni";"";
+"TRACEPARTS";"TRACEPARTS";"";
+"SUPPLIER";"ENOMAX Groupe Supratec";"";
+"MASS";"340";"g";
+"DESIGN";"Bride de serrage, exécution courte, longueur: 110 mm";"";
+"TraceParts.PartLanguage";"fr";"";
+"TraceParts.PartStatus";"Published";"";
+"TraceParts.PartTitle";"EH 2370 - Bride de serrage, exécution courte";"";
+"REFERENCE";"2370.022";"";

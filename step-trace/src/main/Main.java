@@ -35,7 +35,7 @@ public class Main extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
 	private static List<String> trace = new ArrayList<String>();
-	private static boolean showGUI = false;
+	private static boolean showGUI = true;
 	private static ClosedShell cs;
 	private static boolean isTest;
 	
